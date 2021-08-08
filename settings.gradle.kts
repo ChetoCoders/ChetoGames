@@ -6,7 +6,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Cheto Games"
-include ':app'
-include ':data'
-include ':domain'
-include ':usecases'
+include (":app")
+include (":data")
+include (":domain")
+include (":usecases")

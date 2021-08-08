@@ -1,0 +1,17 @@
+object Versions {
+    const val core = "1.6.0"
+    const val appCompat = "1.3.1"
+    const val material = "1.4.0"
+    const val lifeCycle = "2.3.1"
+    const val dagger = "2.38.1"
+    const val recyclerView = "1.2.1"
+    const val room = "2.3.0"
+    const val dexter = "6.2.3"
+    const val kotlin = "1.5.21"
+    const val coroutines = "1.5.1"
+    const val okhttp = "4.9.1"
+    const val retrofit = "2.9.0"
+    const val junit = "4.13.2"
+    const val espresso = "3.4.0"
+    const val junitKtx = "1.1.2"
+}
