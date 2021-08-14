@@ -3,7 +3,7 @@ object Versions {
     const val appCompat = "1.3.1"
     const val material = "1.4.0"
     const val lifeCycle = "2.3.1"
-    const val dagger = "2.38.1"
+    const val hilt = "2.38.1"
     const val recyclerView = "1.2.1"
     const val room = "2.3.0"
     const val dexter = "6.2.3"
