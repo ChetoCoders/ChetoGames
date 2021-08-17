@@ -4,13 +4,13 @@ object Libs {
         "androidx.appcompat:appcompat:${Versions.appCompat}",
         "com.google.android.material:material:${Versions.material}",
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycle}",
-        "com.google.dagger:dagger:${Versions.dagger}",
+        "com.google.dagger:hilt-android:${Versions.hilt}",
         "androidx.recyclerview:recyclerview:${Versions.recyclerView}",
         "androidx.room:room-runtime:${Versions.room}",
     )
 
     val androidKaptLibs = listOf(
-        "com.google.dagger:dagger-compiler:${Versions.dagger}",
+        "com.google.dagger:hilt-compiler:${Versions.hilt}",
         "androidx.room:room-compiler:${Versions.room}"
     )
 
