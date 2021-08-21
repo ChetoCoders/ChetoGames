@@ -14,4 +14,5 @@ object Versions {
     const val junit = "4.13.2"
     const val espresso = "3.4.0"
     const val junitKtx = "1.1.2"
+    const val nav_version = "2.3.5"
 }

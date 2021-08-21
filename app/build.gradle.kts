@@ -1,9 +1,9 @@
 plugins {
-    id ("com.android.application")
-    id ("kotlin-android")
-    id ("kotlin-parcelize")
-    id ("kotlin-kapt")
-    id ("dagger.hilt.android.plugin")
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -14,7 +14,7 @@ android {
         minSdk = 24
         targetSdk = 30
         versionCode = 1
-        versionName  = "1.0.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,7 +22,10 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -58,7 +61,9 @@ dependencies {
     Libs.testLibs.forEach { testLibs ->
         testImplementation(testLibs)
     }
-    Libs.androidTestLibs.forEach {androidTestLibs ->
+    Libs.androidTestLibs.forEach { androidTestLibs ->
         androidTestImplementation(androidTestLibs)
     }
+
+    Libs.navigationLibs.forEach { navigationLibs -> implementation(navigationLibs) }
 }
