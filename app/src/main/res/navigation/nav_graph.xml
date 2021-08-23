@@ -7,7 +7,7 @@
 
     <activity
         android:id="@+id/splashActivity"
-        android:name="com.chetocoders.chetogames.ui.splash.SplashActivity"
+        android:name="com.chetocoders.chetogames.ui.splash.SplashFragment"
         android:label="activity_splash"
         tools:layout="@layout/fragment_splash" />
 </navigation>

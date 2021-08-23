@@ -6,7 +6,7 @@ import com.chetocoders.chetogames.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashActivity : AppCompatActivity() {
+class SplashFragment : AppCompatActivity() {
 
     private lateinit var binding: FragmentSplashBinding
 
