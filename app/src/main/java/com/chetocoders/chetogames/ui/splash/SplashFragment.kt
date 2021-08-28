@@ -1,12 +1,12 @@
 package com.chetocoders.chetogames.ui.splash
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.chetocoders.chetogames.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashFragment : AppCompatActivity() {
+class SplashFragment : FragmentActivity() {
 
     private lateinit var binding: FragmentSplashBinding
 
@@ -15,6 +15,6 @@ class SplashFragment : AppCompatActivity() {
 
         binding = FragmentSplashBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
     }
+    
 }
