@@ -5,9 +5,9 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/splashActivity">
 
-    <activity
+    <fragment
         android:id="@+id/splashActivity"
         android:name="com.chetocoders.chetogames.ui.splash.SplashFragment"
-        android:label="activity_splash"
+        android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" />
 </navigation>
