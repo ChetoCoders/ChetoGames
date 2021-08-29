@@ -34,4 +34,10 @@ object Libs {
         "androidx.test.espresso:espresso-contrib:${Versions.espresso}",
         "androidx.test.ext:junit-ktx:${Versions.junitKtx}",
     )
+
+    val navigationLibs = listOf(
+        "androidx.navigation:navigation-fragment-ktx:${Versions.nav_version}",
+        "androidx.navigation:navigation-ui-ktx:${Versions.nav_version}",
+        "androidx.navigation:navigation-testing:${Versions.nav_version}",
+    )
 }

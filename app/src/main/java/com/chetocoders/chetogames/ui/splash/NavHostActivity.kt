@@ -2,19 +2,14 @@ package com.chetocoders.chetogames.ui.splash
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.chetocoders.chetogames.databinding.ActivitySplashBinding
+import com.chetocoders.chetogames.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivitySplashBinding
+class NavHostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivitySplashBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
+        setContentView(R.layout.activity_nav_host)
     }
 }
