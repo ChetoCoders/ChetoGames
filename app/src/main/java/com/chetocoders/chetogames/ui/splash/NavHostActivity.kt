@@ -3,7 +3,9 @@ package com.chetocoders.chetogames.ui.splash
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.chetocoders.chetogames.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NavHostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

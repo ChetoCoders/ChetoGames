@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
-
-    private lateinit var binding: FragmentSplashBinding
+    private var binding: FragmentSplashBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,5 +20,4 @@ class SplashFragment : Fragment() {
         binding = FragmentSplashBinding.inflate(layoutInflater)
         return binding?.root
     }
-
 }
