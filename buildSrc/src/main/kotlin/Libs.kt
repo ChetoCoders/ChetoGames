@@ -36,13 +36,8 @@ object Libs {
     )
 
     val navigationLibs = listOf(
-        "androidx.navigation:navigation-fragment:${Versions.nav_version}",
-        "androidx.navigation:navigation-ui:${Versions.nav_version}",
         "androidx.navigation:navigation-fragment-ktx:${Versions.nav_version}",
         "androidx.navigation:navigation-ui-ktx:${Versions.nav_version}",
-        "androidx.navigation:navigation-dynamic-features-fragment:${Versions.nav_version}",
         "androidx.navigation:navigation-testing:${Versions.nav_version}",
-        "androidx.navigation:navigation-compose:2.4.0-alpha06"
-
     )
 }
