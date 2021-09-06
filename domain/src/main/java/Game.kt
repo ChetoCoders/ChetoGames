@@ -1,10 +1,18 @@
-import java.util.*
+import java.time.LocalDateTime
 
 data class Game (
     val id: Int,
     val title: String,
+    val platforms: List<Platform>,
+    val cover: Image,
+    val isFavourite: Boolean
+)
+
+data class GameDetail (
+    val id: Int,
+    val title: String,
     val description: String,
-    val released: Date,
+    val released: LocalDateTime,
     val category: String,
     val genres: List<Genre>,
     val platforms: List<Platform>,
