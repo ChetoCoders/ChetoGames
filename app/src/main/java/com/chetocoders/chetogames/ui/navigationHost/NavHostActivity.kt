@@ -1,4 +1,4 @@
-package com.chetocoders.chetogames.ui.splash
+package com.chetocoders.chetogames.ui.navigationHost
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
