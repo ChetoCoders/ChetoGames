@@ -15,4 +15,5 @@ object Versions {
     const val espresso = "3.4.0"
     const val junitKtx = "1.1.2"
     const val nav_version = "2.3.5"
+    const val cardview = "1.0.0"
 }

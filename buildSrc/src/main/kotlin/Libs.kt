@@ -7,6 +7,7 @@ object Libs {
         "com.google.dagger:hilt-android:${Versions.hilt}",
         "androidx.recyclerview:recyclerview:${Versions.recyclerView}",
         "androidx.room:room-runtime:${Versions.room}",
+        "androidx.cardview:cardview:${Versions.cardview}"
     )
 
     val androidKaptLibs = listOf(
