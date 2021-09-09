@@ -11,5 +11,6 @@ data class AgeRatingDTOResult(
 @Parcelize
 data class AgeRatingDTO (
     @SerializedName("id") val id: Int?,
-    @SerializedName("name") val name: String?
+    @SerializedName("category") val category: Int?,
+    @SerializedName("rating") val rating: Int?
 ) : Parcelable
