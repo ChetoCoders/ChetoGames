@@ -1,4 +1,4 @@
-package com.chetocoders.chetogames.ui.splash
+package com.chetocoders.chetogames.ui
 
 import dagger.Module
 import dagger.hilt.InstallIn
