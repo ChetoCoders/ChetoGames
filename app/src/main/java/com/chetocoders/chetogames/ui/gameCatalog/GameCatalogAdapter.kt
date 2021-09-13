@@ -7,18 +7,18 @@ import com.chetocoders.chetogames.databinding.CardViewItemGameBinding
 import com.chetocoders.chetogames.ui.inflate
 import kotlin.properties.Delegates
 
-class GameCatalogAdapter(dataList: List<GameCatalogItem> = emptyList(), private val listener: (GameCatalogItem) -> Unit) :
+class GameCatalogAdapter(dataList: List<GameCatalogDomain> = emptyList(), private val listener: (GameCatalogDomain) -> Unit) :
     RecyclerView.Adapter<GameCatalogAdapter.ViewHolder>() {
 
-    var dataList: List<GameCatalogItem> by Delegates.observable(dataList) { _, _, _ -> notifyDataSetChanged() }
+    var dataList: List<GameCatalogDomain> by Delegates.observable(dataList) { _, _, _ -> notifyDataSetChanged() }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = CardViewItemGameBinding.bind(view)
 
-        fun bind(gameCatalogItem : GameCatalogItem) {
+        fun bind(gameCatalogDomain : GameCatalogDomain) {
             with(binding){
                 //TODO() Crear string xml y remplazarlo
-                gameText.text = gameCatalogItem.title +" "+ gameCatalogItem.platform
+                gameText.text = gameCatalogDomain.title +" "+ gameCatalogDomain.platform
                 //TODO() añiadir imagen del juego
             }
 
