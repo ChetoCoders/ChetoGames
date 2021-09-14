@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk = 30
+    compileSdk = 31
 
     defaultConfig {
         applicationId = "com.chetocoders.chetogames"
         minSdk = 26
-        targetSdk = 30
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0.0"
 
@@ -55,6 +55,9 @@ dependencies {
     Libs.libs.forEach { libs ->
         implementation(libs)
     }
+    Libs.navigationLibs.forEach { navigationLibs ->
+        implementation(navigationLibs)
+    }
     Libs.androidKaptLibs.forEach { androidKaptLibs ->
         kapt(androidKaptLibs)
     }
@@ -64,6 +67,4 @@ dependencies {
     Libs.androidTestLibs.forEach { androidTestLibs ->
         androidTestImplementation(androidTestLibs)
     }
-
-    Libs.navigationLibs.forEach { navigationLibs -> implementation(navigationLibs) }
 }

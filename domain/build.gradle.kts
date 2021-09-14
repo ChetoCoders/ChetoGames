@@ -9,11 +9,6 @@ java {
 }
 
 dependencies {
-
-    Libs.libs.forEach { libs ->
-        implementation(libs)
-    }
-
     Libs.kotlinLibs.forEach { kotlinLibs ->
         implementation(kotlinLibs)
     }
