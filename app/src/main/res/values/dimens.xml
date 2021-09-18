@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add Game Screen -->
+    <dimen name="widthScroll">0dp</dimen>
+    <dimen name="heightScroll">0dp</dimen>
+    <dimen name="marginTopScroll">0dp</dimen>
+    <dimen name="marginBottomScroll">15dp</dimen>
+    <dimen name="marginStart">20dp</dimen>
+    <dimen name="marginEnd">20dp</dimen>
+    <dimen name="marginTop">10dp</dimen>
+</resources>

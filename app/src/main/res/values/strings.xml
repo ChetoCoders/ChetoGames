@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Cheto Games</string>
+    <string name="tittle">Tittle</string>
+    <string name="description">Description</string>
+    <string name="released">Released</string>
+    <string name="category">Category</string>
+    <string name="genres">Genres</string>
+    <string name="platforms">Platforms</string>
+    <string name="gamemodes">Game Modes</string>
+    <string name="cover">Cover</string>
+    <string name="screenshots">Screenshots</string>
+    <string name="ageratings">Age Ratings</string>
+    <string name="save">Save</string>
 </resources>

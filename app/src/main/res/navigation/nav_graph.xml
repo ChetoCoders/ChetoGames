@@ -3,11 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/gameCatalogFragment3">
+    app:startDestination="@id/splashFragment">
 
     <fragment
-        android:id="@+id/gameCatalogFragment3"
+        android:id="@+id/splashFragment"
+        android:name="com.chetocoders.chetogames.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" />
+    <fragment
+        android:id="@+id/gameCatalogFragment"
         android:name="com.chetocoders.chetogames.ui.gameCatalog.GameCatalogFragment"
         android:label="fragment_game_catalog"
         tools:layout="@layout/fragment_game_catalog" />
+    <fragment
+        android:id="@+id/addGameFragment"
+        android:name="com.chetocoders.chetogames.ui.addgame.AddGameFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_addgame"
+        app:navGraph="@navigation/nav_graph">
+    </fragment>
 </navigation>
