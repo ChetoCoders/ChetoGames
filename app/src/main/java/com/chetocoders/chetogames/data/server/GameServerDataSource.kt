@@ -8,8 +8,6 @@ class GameServerDataSource : RemoteDataSource {
 
     override suspend fun getGames(): List<GameDetail> =
         GamesServer.service
-            .getGames(ApiQueryConstants.GAME_DETAILS_QUERY)
-            .result
-            .map { it.toDomain() }
+            .getGames(ApiQueryConstants.GAME_DETAILS_QUERY).map { it.toDomain() }
 
 }

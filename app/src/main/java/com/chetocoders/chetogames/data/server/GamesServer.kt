@@ -1,6 +1,7 @@
 package com.chetocoders.chetogames.data.server
 
 import okhttp3.Headers
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.internal.addHeaderLenient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,10 +13,13 @@ object GamesServer {
     //TODO() refactorizar las claves en un fichero
     private val okHttpClient =
         HttpLoggingInterceptor().run {
-            addHeaderLenient(Headers.Builder(), "Client-ID", "h712tytpk4iihmymcjmg2xcse9kwhn")
-            addHeaderLenient(Headers.Builder(), "Authorization", "Bearer ci7b3bnyn0t79lmr12x98l7yxukfng")
             level = HttpLoggingInterceptor.Level.BODY
-            OkHttpClient.Builder().addInterceptor(this).build()
+            OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
+                val builder = chain.request().newBuilder()
+                builder.header("Client-ID", "h712tytpk4iihmymcjmg2xcse9kwhn")
+                builder.header("Authorization", "Bearer ci7b3bnyn0t79lmr12x98l7yxukfng")
+                return@Interceptor chain.proceed(builder.build())
+            }).build()
         }
 
     val service: GamesServerService = Retrofit.Builder()

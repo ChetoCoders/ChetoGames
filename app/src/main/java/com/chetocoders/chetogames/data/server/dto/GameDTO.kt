@@ -4,10 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class GameDTOResult(
-    val result: List<GameDTO>
-)
-
 @Parcelize
 data class GameDTO(
     @SerializedName("id") val id: Int?,

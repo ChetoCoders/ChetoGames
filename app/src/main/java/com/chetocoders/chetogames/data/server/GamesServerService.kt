@@ -1,12 +1,13 @@
 package com.chetocoders.chetogames.data.server
 
+import com.chetocoders.chetogames.data.server.dto.GameDTO
 import com.chetocoders.chetogames.data.server.dto.GameDTOResult
 import retrofit2.http.Body
-import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface GamesServerService {
 
-    @GET("games")
-    suspend fun getGames(@Body query:String): GameDTOResult
+    @POST("games")
+    suspend fun getGames(@Body query: String): List<GameDTO>
 
 }

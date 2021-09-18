@@ -7,6 +7,6 @@ object ApiQueryConstants {
                 " category, genres.name, platforms.name, game_modes.name,cover.alpha_channel,cover.animated," +
                 "cover.game, cover.height,cover.image_id,cover.url,cover.width,screenshots.alpha_channel," +
                 "screenshots.animated,screenshots.game, screenshots.height,screenshots.image_id," +
-                "screenshots.url,screenshots.width;"
+                "screenshots.url,screenshots.width; limit 500;"
 
 }
