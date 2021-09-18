@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class PlatformDTOOResult(
+data class PlatformDTOResult(
     val result: List<PlatformDTO>
 )
 

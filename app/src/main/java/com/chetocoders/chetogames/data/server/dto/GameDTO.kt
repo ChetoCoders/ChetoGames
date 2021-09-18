@@ -13,12 +13,12 @@ data class GameDTO(
     @SerializedName("id") val id: Int?,
     @SerializedName("name") val name: String?,
     @SerializedName("summary") val summary: String?,
-    @SerializedName("release_dates") val releaseDates: List<Int?>?,
+    @SerializedName("release_dates") val releaseDates: List<ReleaseDateDTO>?,
     @SerializedName("category") val category: Int?,
-    @SerializedName("genres") val genres: List<Int?>?,
-    @SerializedName("platforms") val platforms: List<Int?>?,
-    @SerializedName("game_modes") val gameModes: List<Int?>?,
-    @SerializedName("cover") val cover: Int??,
-    @SerializedName("screenshots") val screenshots: List<Int?>?,
-    @SerializedName("age_ratings") val ageRatings: List<Int?>?
+    @SerializedName("genres") val genres: List<GenreDTO?>?,
+    @SerializedName("platforms") val platforms: List<PlatformDTO>?,
+    @SerializedName("game_modes") val gameModes: List<GamemodeDTO>?,
+    @SerializedName("cover") val cover: CoverDTO?,
+    @SerializedName("screenshots") val screenshots: List<ScreenshotDTO>?,
+    @SerializedName("age_ratings") val ageRatings: List<AgeRatingDTO>?
 ) : Parcelable

@@ -19,3 +19,4 @@ data class CoverDTO (
     @SerializedName("url") val url: String?,
     @SerializedName("width") val width: Int?
 ) : Parcelable
+
