@@ -18,6 +18,8 @@ object GamesServer {
                 val builder = chain.request().newBuilder()
                 builder.header("Client-ID", "h712tytpk4iihmymcjmg2xcse9kwhn")
                 builder.header("Authorization", "Bearer ci7b3bnyn0t79lmr12x98l7yxukfng")
+                val request = chain.request()
+
                 return@Interceptor chain.proceed(builder.build())
             }).build()
         }
