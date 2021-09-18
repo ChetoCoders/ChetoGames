@@ -1,13 +1,20 @@
 package com.chetocoders.chetogames.ui
 
+
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
+import com.chetocoders.repository.GameRepository
+import com.chetocoders.usecases.GetGames
+
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class SplashFragmentModule {}
-
-@Module
-@InstallIn(ViewModelComponent::class)
-class GameCatalogFragment {}
+class GameCatalogFragment {
+    @Provides
+    @ViewModelScoped
+    fun getGamesProvider(gameRepository: GameRepository) =
+        GetGames(gameRepository)
+}
