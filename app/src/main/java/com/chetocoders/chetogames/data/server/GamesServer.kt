@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object GamesServer {
 
+    //TODO() refactorizar las claves en un fichero
     private val okHttpClient =
         HttpLoggingInterceptor().run {
             addHeaderLenient(Headers.Builder(), "Client-ID", "h712tytpk4iihmymcjmg2xcse9kwhn")
