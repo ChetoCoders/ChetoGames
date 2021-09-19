@@ -1,4 +1,4 @@
-package com.chetocoders.chetogames.data.database
+package com.chetocoders.chetogames.data.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

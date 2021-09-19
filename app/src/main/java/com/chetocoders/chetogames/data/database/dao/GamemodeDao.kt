@@ -1,4 +1,4 @@
-package com.chetocoders.chetogames.data.database
+package com.chetocoders.chetogames.data.database.dao
 
 import androidx.room.Dao
 

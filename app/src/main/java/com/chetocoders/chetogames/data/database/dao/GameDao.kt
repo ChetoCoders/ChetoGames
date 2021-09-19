@@ -1,7 +1,8 @@
-package com.chetocoders.chetogames.data.database
+package com.chetocoders.chetogames.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import com.chetocoders.chetogames.data.database.entity.Game
 
 @Dao
 interface GameDao {
