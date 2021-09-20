@@ -5,6 +5,6 @@ enum class Rating {
 
     companion object {
         fun getValue(id: Int = -1) = Rating.values()[id + 1]
-        fun getIndex(rating: Rating) = Rating.values().indexOf(rating) + 1
+        fun getIndex(rating: Rating) = Rating.values().indexOf(rating) - 1
     }
 }

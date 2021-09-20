@@ -16,6 +16,8 @@ object GamesServer {
             level = HttpLoggingInterceptor.Level.BODY
             OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
                 val builder = chain.request().newBuilder()
+
+                // TODO: Pass values to constants
                 builder.header("Client-ID", "h712tytpk4iihmymcjmg2xcse9kwhn")
                 builder.header("Authorization", "Bearer ci7b3bnyn0t79lmr12x98l7yxukfng")
                 val request = chain.request()
@@ -25,7 +27,8 @@ object GamesServer {
         }
 
     val service: GamesServerService = Retrofit.Builder()
-        .baseUrl("https://api.igdb.com/v4/")
+        // TODO: Pass url to constants
+        .baseUrl("https://api.igdb.com/v4")
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
