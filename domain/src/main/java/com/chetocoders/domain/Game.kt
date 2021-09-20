@@ -3,7 +3,7 @@ package com.chetocoders.domain
 import java.time.LocalDateTime
 
 data class Game (
-    val id: Int?,
+    val id: Long?,
     val title: String? = null,
     val platforms: List<Platform>? = null,
     val cover: Image? = null,
@@ -12,14 +12,14 @@ data class Game (
 )
 
 data class GameDetail (
-    val id: Int?,
+    val id: Long?,
     val title: String?,
     val description: String?,
     val released: LocalDateTime?,
     val category: GameCategory?,
     val genres: List<Genre>?,
     val platforms: List<Platform>?,
-    val gameModes: List<Gamemode>?,
+    val gameModes: List<GameMode>?,
     val cover: Image?,
     val screenshots: List<Image>?,
     val ageRatings: List<AgeRating>?,

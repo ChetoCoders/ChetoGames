@@ -1,14 +1,14 @@
 package com.chetocoders.chetogames.data.server.mapper
 
 import com.chetocoders.chetogames.data.server.dto.GamemodeDTO
-import com.chetocoders.domain.Gamemode as GamemodeDomain
+import com.chetocoders.domain.GameMode as GameModeDomain
 
-fun GamemodeDTO.toDomain() = GamemodeDomain(
+fun GamemodeDTO.toDomain() = GameModeDomain(
     this.id,
     this.name
 )
 
-fun GamemodeDomain.toGameModeDTO() = GamemodeDTO(
+fun GameModeDomain.toGameModeDTO() = GamemodeDTO(
     this.id,
     this.name
 )

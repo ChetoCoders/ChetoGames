@@ -7,12 +7,12 @@ import com.chetocoders.domain.AgeRating as AgeRatingDomain
 
 fun AgeRatingDTO.toDomain() = AgeRatingDomain (
     this.id,
-    this.category?.let { AgeRatingCategory.getValue(it) },
-    this.rating?.let { Rating.getValue(it) }
+    this.category?.let { AgeRatingCategory.get(it) },
+    this.rating?.let { Rating.get(it) }
 )
 
 fun AgeRatingDomain.toDTO() = AgeRatingDTO(
     this.id,
-    this.category?.let { AgeRatingCategory.getIndex(it) },
-    this.rating?.let { Rating.getIndex(it) }
+    this.category?.let { it.index.toInt() },
+    this.rating?.let { it.index.toInt() }
 )

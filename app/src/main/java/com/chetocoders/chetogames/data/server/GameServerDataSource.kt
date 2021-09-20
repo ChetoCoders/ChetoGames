@@ -2,7 +2,7 @@ package com.chetocoders.chetogames.data.server
 
 import com.chetocoders.chetogames.data.server.mapper.toDomain
 import com.chetocoders.domain.GameDetail
-import com.chetocoders.source.RemoteDataSource
+import com.chetocoders.data.source.RemoteDataSource
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 

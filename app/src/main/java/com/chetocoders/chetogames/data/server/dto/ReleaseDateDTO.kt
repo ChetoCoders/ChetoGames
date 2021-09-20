@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ReleaseDateDTO (
-    val id: Int,
+    val id: Long,
     val date: Long
 ) : Parcelable

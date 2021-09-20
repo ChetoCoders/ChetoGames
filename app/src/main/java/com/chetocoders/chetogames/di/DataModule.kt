@@ -4,15 +4,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import com.chetocoders.repository.GameRepository
-import com.chetocoders.source.RemoteDataSource
+import com.chetocoders.data.repository.GameRepository
+import com.chetocoders.data.source.RemoteDataSource
 
 @Module
 @InstallIn(SingletonComponent::class)
 class DataModule {
 
     @Provides
-    fun gameRepositoryProvider(
-        remoteDataSource: RemoteDataSource
-    ) = GameRepository(remoteDataSource)
+    fun gameRepositoryProvider( remoteDataSource: RemoteDataSource ) = GameRepository(remoteDataSource)
 }

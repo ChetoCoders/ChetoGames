@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import com.chetocoders.repository.GameRepository
+import com.chetocoders.data.repository.GameRepository
 import com.chetocoders.usecases.GetGames
 
 

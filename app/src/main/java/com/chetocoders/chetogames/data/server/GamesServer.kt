@@ -1,7 +1,5 @@
 package com.chetocoders.chetogames.data.server
 
-import android.provider.Settings.Global.getString
-import com.chetocoders.chetogames.R
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
