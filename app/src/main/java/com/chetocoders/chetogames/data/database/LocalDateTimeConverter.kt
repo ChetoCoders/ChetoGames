@@ -5,7 +5,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-object Converters {
+object LocalDateTimeConverter {
     @TypeConverter
     fun fromTimestamp(value: Long?): LocalDateTime? {
         return value?.let { LocalDateTime.ofInstant(Instant.ofEpochMilli(value), ZoneOffset.UTC) }

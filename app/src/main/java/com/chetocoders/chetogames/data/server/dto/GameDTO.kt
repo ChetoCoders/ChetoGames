@@ -10,7 +10,7 @@ data class GameDTOResult(
 
 @Parcelize
 data class GameDTO(
-    @SerializedName("id") val id: Int?,
+    @SerializedName("id") val id: Long?,
     @SerializedName("name") val name: String?,
     @SerializedName("summary") val summary: String?,
     @SerializedName("release_dates") val releaseDates: List<ReleaseDateDTO>?,

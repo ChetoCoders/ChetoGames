@@ -4,7 +4,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Gamemode (
-    @PrimaryKey(autoGenerate = true) val id: Int,
+data class GameMode (
+    @PrimaryKey(autoGenerate = true) val gameModeId: Long,
     val name: String?
+)
+
+
+@Entity(primaryKeys = ["gameModeId", "gameId"])
+data class GameModeGameRef (
+    val gameModeId: Long,
+    val gameId: Long
 )

@@ -10,10 +10,10 @@ data class CoverDTOResult(
 
 @Parcelize
 data class CoverDTO (
-    @SerializedName("id") val id: Int?,
+    @SerializedName("id") val id: Long?,
     @SerializedName("alpha_channel") val alphaChannel: Boolean?,
     @SerializedName("animated") val animated: Boolean?,
-    @SerializedName("game") val game: Int?,
+    @SerializedName("game") val game: Long?,
     @SerializedName("height") val height: Int?,
     @SerializedName("image_id") val imageId: String?,
     @SerializedName("url") val url: String?,

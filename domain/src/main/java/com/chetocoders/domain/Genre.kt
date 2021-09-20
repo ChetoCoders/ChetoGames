@@ -1,6 +1,6 @@
 package com.chetocoders.domain
 
 data class Genre (
-    val id: Int?,
+    val id: Long?,
     val name: String?
 )

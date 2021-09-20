@@ -9,6 +9,6 @@ data class ReleaseDateDTOResult(
 
 @Parcelize
 data class ReleaseDateDTO (
-    val id: Int,
+    val id: Long,
     val date: Long
 ) : Parcelable

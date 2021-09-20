@@ -1,7 +1,7 @@
 package com.chetocoders.domain
 
 data class Image (
-    val id: Int?,
+    val id: Long?,
     val game: Game?,
     val alphaChannel: Boolean?,
     val animated: Boolean?,

@@ -4,5 +4,10 @@ import androidx.room.Dao
 
 
 @Dao
-interface GamemodeDao {
+interface GameModeDao {
+}
+
+@Dao
+interface GameModeGameRefDao {
+
 }

@@ -6,10 +6,22 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.chetocoders.chetogames.data.database.dao.*
-import com.chetocoders.chetogames.data.database.entity.Game
+import com.chetocoders.chetogames.data.database.entity.*
 
-@Database(entities = [Game::class], version = 1)
-@TypeConverters(Converters::class)
+@Database(
+    entities = [Game::class,
+        AgeRating::class,
+        AgeRatingGameRef::class,
+        GameMode::class,
+        GameModeGameRef::class,
+        Genre::class,
+        GenreGameRef::class,
+        Image::class,
+        Platform::class,
+        PlatformGameRef::class],
+    version = 1
+)
+@TypeConverters(LocalDateTimeConverter::class)
 abstract class GameDatabase : RoomDatabase() {
 
     companion object {
@@ -21,9 +33,13 @@ abstract class GameDatabase : RoomDatabase() {
     }
 
     abstract fun ageRatingDao(): AgeRatingDao
+    abstract fun ageRatingGameRefDao(): AgeRatingGameRefDao
     abstract fun gameDao(): GameDao
-    abstract fun gameModeDao(): GamemodeDao
+    abstract fun gameModeDao(): GameModeDao
+    abstract fun gameModeGameRefDao(): GameModeGameRefDao
     abstract fun genreDao(): GenreDao
+    abstract fun genreGameRefDao(): GenreGameRefDao
     abstract fun imageDao(): ImageDao
     abstract fun platformDao(): PlatformDao
+    abstract fun platformGameRefDao(): PlatformGameRefDao
 }

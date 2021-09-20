@@ -1,23 +1,25 @@
 package com.chetocoders.chetogames.data.database.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.chetocoders.domain.*
+import androidx.room.*
 import java.time.LocalDateTime
 
 @Entity
 data class Game(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val gameId: Long,
     val title: String?,
     val description: String?,
     val released: LocalDateTime?,
-    val category: GameCategory?,
-    val genres: List<Genre>?,
-    val platforms: List<Platform>?,
-    val gameModes: List<Gamemode>?,
-    val cover: Image?,
-    val screenshots: List<Image>?,
-    val ageRatings: List<AgeRating>?,
     val isExternal: Boolean?,
     val isFavourite: Boolean?
+)
+
+data class GameParentEntity (
+    @Embedded val game: Game,
+    @Relation(parentColumn = "gameId", entityColumn = "ageRatingId", associateBy = Junction(AgeRatingGameRef::class)) val ageRatings: List<AgeRating>?,
+    @Relation(parentColumn = "gameId", entityColumn = "gameModeId", associateBy = Junction(GameModeGameRef::class)) val gameModes: List<GameMode>?,
+    @Relation(parentColumn = "gameId", entityColumn = "genreId", associateBy = Junction(GenreGameRef::class)) val genres: List<Genre>?,
+    @Relation(parentColumn = "gameId", entityColumn = "platformId", associateBy = Junction(PlatformGameRef::class)) val platforms: List<Platform>?,
+
+    @Relation(entity = Image::class, parentColumn = "gameId", entityColumn = "gameId") val cover: Image?,
+    @Relation(entity = Image::class, parentColumn = "gameId", entityColumn = "gameId") val screenshots: List<Image>?,
 )

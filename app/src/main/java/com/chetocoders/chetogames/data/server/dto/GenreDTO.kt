@@ -10,6 +10,6 @@ data class GenreDTOResult(
 
 @Parcelize
 data class GenreDTO (
-    @SerializedName("id") val id: Int?,
+    @SerializedName("id") val id: Long?,
     @SerializedName("name") val name: String?
 ) : Parcelable

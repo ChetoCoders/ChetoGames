@@ -10,6 +10,6 @@ data class PlatformDTOResult(
 
 @Parcelize
 data class PlatformDTO (
-    @SerializedName("id") val id: Int?,
+    @SerializedName("id") val id: Long?,
     @SerializedName("name") val name: String?
 ) : Parcelable

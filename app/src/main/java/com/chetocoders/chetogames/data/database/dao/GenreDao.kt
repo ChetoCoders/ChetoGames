@@ -6,3 +6,8 @@ import androidx.room.Dao
 @Dao
 interface GenreDao {
 }
+
+@Dao
+interface GenreGameRefDao {
+
+}

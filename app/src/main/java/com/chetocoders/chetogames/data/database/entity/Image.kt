@@ -6,11 +6,12 @@ import com.chetocoders.domain.Game
 
 @Entity
 data class Image (
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    val game: Game?,
+    @PrimaryKey(autoGenerate = true) val id: Long,
+    val gameId: Long?,
     val alphaChannel: Boolean?,
     val animated: Boolean?,
     val url: String?,
     val height: Int?,
-    val width: Int?
+    val width: Int?,
+    val isCover: Boolean?
 )
