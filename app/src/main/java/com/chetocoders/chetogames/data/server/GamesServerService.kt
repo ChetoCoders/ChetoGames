@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface GamesServerService {
 
-    @POST("/games")
+    @POST("games")
     suspend fun getGames(@Body query: RequestBody): List<GameDTO>
 
 }

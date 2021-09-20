@@ -8,12 +8,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 class GameServerDataSource : RemoteDataSource {
 
-    // TODO: Pass type to constants
+
     override suspend fun getGames(): List<GameDetail> =
         GamesServer.service
             .getGames(
                 Constants.GAME_DETAILS_QUERY
-                    .toRequestBody("text/plain".toMediaTypeOrNull())
+                    .toRequestBody(Constants.TYPE_TEXT_PLAIN.toMediaTypeOrNull())
             )
             .map {
                 it.toDomain() }
