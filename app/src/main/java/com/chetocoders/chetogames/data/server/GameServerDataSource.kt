@@ -6,12 +6,13 @@ import com.chetocoders.data.source.RemoteDataSource
 import com.chetocoders.domain.GameDetail
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
+import javax.inject.Inject
 
-class GameServerDataSource : RemoteDataSource {
+class GameServerDataSource @Inject constructor(private val gameServerService: GameServerService) : RemoteDataSource {
 
     override suspend fun getGames(): Response<List<GameDetail>> {
         return try {
-            val response = GamesServer.service.getGames(
+            val response = gameServerService.getGames(
                 Queries.GET_GAMES.toRequestBody(ServerConstants.TYPE_TEXT_PLAIN.toMediaTypeOrNull())
             )
             Response(value = response.body()?.map { it.toDomain() } ?: emptyList())

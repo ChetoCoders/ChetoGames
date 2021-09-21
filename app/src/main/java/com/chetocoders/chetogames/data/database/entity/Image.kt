@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Image (
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey(autoGenerate = true) val imageId: Long?,
     val gameId: Long?,
     val alphaChannel: Boolean?,
     val animated: Boolean?,

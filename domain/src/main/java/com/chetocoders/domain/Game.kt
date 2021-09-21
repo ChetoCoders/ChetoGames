@@ -3,26 +3,26 @@ package com.chetocoders.domain
 import java.time.LocalDateTime
 
 data class Game (
-    val id: Long?,
-    val title: String? = null,
-    val platforms: List<Platform>? = null,
-    val cover: Image? = null,
-    val isExternal: Boolean = false,
-    val isFavourite: Boolean = false
+    var id: Long?,
+    var title: String? = null,
+    var platforms: List<Platform>? = null,
+    var cover: Image? = null,
+    var isExternal: Boolean = false,
+    var isFavourite: Boolean = false
 )
 
 data class GameDetail (
-    val id: Long?,
-    val title: String?,
-    val description: String?,
-    val released: LocalDateTime?,
-    val category: GameCategory?,
-    val genres: List<Genre>?,
-    val platforms: List<Platform>?,
-    val gameModes: List<GameMode>?,
-    val cover: Image?,
-    val screenshots: List<Image>?,
-    val ageRatings: List<AgeRating>?,
-    val isExternal: Boolean?,
-    val isFavourite: Boolean?
+    var id: Long? = null,
+    var title: String? = null,
+    var description: String? = null,
+    var released: LocalDateTime? = null,
+    var category: GameCategory? = null,
+    var genres: List<Genre>? = null,
+    var platforms: List<Platform>? = null,
+    var gameModes: List<GameMode>? = null,
+    var cover: Image? = null,
+    var screenshots: List<Image>? = null,
+    var ageRatings: List<AgeRating>? = null,
+    var isExternal: Boolean = false,
+    var isFavourite: Boolean = false
 )

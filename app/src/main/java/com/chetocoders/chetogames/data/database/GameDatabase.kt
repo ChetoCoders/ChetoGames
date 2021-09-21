@@ -33,13 +33,9 @@ abstract class GameDatabase : RoomDatabase() {
     }
 
     abstract fun ageRatingDao(): AgeRatingDao
-    abstract fun ageRatingGameRefDao(): AgeRatingGameRefDao
     abstract fun gameDao(): GameDao
     abstract fun gameModeDao(): GameModeDao
-    abstract fun gameModeGameRefDao(): GameModeGameRefDao
     abstract fun genreDao(): GenreDao
-    abstract fun genreGameRefDao(): GenreGameRefDao
     abstract fun imageDao(): ImageDao
     abstract fun platformDao(): PlatformDao
-    abstract fun platformGameRefDao(): PlatformGameRefDao
 }

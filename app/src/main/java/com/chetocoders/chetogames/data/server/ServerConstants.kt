@@ -1,7 +1,7 @@
 package com.chetocoders.chetogames.data.server
 
 object ServerConstants {
-    const val URL: String = "https://api.igdb.com/v4"
+    const val URL: String = "https://api.igdb.com/v4/"
 
     const val HEADER_CLIENT_ID = "Client-ID"
     const val HEADER_AUTHORIZATION = "Authorization"

@@ -11,7 +11,8 @@ fun ScreenshotDTO.toDomain() = Image(
     this.animated,
     this.url,
     this.height,
-    this.width
+    this.width,
+    false
 )
 
 fun Image.toScreenshotDTO() = ScreenshotDTO(

@@ -15,7 +15,7 @@ sealed class Rating(val index: Long) {
     object D: Rating(12)
 
     companion object {
-        fun get(index: Int) = when(index) {
+        fun get(index: Int?) = when(index) {
             1 -> THREE
             2 -> SEVEN
             3 -> TWELVE

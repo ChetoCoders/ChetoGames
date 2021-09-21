@@ -1,11 +1,12 @@
 package com.chetocoders.domain
 
 data class Image (
-    val id: Long?,
-    val game: Game?,
-    val alphaChannel: Boolean?,
-    val animated: Boolean?,
-    val url: String?,
-    val height: Int?,
-    val width: Int?
+    var id: Long?,
+    var game: Game? = null,
+    var alphaChannel: Boolean?,
+    var animated: Boolean?,
+    var url: String?,
+    var height: Int?,
+    var width: Int?,
+    var isCover: Boolean?
 )
