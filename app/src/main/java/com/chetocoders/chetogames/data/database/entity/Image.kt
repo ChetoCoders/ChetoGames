@@ -2,7 +2,6 @@ package com.chetocoders.chetogames.data.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.chetocoders.domain.Game
 
 @Entity
 data class Image (

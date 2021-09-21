@@ -28,7 +28,7 @@ abstract class GameDatabase : RoomDatabase() {
         fun build(context: Context) = Room.databaseBuilder(
             context,
             GameDatabase::class.java,
-            "game-db"
+            RoomConstants.DBNAME
         ).build()
     }
 
