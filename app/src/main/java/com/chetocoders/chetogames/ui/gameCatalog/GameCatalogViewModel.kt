@@ -11,6 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GameCatalogViewModel @Inject constructor(private val getGamesUseCase: GetGamesUseCase) : ViewModel() {
 
+    // TODO: Test fun
     suspend fun loadGames() {
         withContext(Dispatchers.IO) {
             when (val result = getGamesUseCase.invoke()) {

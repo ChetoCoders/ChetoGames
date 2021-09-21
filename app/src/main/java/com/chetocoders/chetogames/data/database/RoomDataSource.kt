@@ -8,7 +8,6 @@ import com.chetocoders.chetogames.data.database.mapper.toDomain
 import com.chetocoders.chetogames.data.database.mapper.toEntity
 import com.chetocoders.data.source.LocalDataSource
 import com.chetocoders.domain.GameDetail
-import javax.inject.Inject
 
 class RoomDataSource (db: GameDatabase) : LocalDataSource {
 

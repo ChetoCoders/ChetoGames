@@ -1,12 +1,12 @@
 package com.chetocoders.chetogames.di
 
+import com.chetocoders.data.repository.GameRepository
+import com.chetocoders.data.source.LocalDataSource
+import com.chetocoders.data.source.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import com.chetocoders.data.repository.GameRepository
-import com.chetocoders.data.source.LocalDataSource
-import com.chetocoders.data.source.RemoteDataSource
 
 @Module
 @InstallIn(SingletonComponent::class)
