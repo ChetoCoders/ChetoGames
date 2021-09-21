@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class AgeRating (
-    @PrimaryKey(autoGenerate = true) val ageRatingId: Long,
+    @PrimaryKey(autoGenerate = true) val ageRatingId: Long?,
     val category: Int?,
     val rating: Int?
 )

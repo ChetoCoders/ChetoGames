@@ -1,7 +1,7 @@
 package com.chetocoders.domain
 
 data class AgeRating (
-    val id: Long?,
-    val category: AgeRatingCategory?,
-    val rating: Rating?
+    var id: Long?,
+    var category: AgeRatingCategory?,
+    var rating: Rating?
 )

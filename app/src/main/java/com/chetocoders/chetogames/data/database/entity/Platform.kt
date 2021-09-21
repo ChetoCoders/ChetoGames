@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Platform (
-    @PrimaryKey(autoGenerate = true) val platformId: Long,
+    @PrimaryKey(autoGenerate = true) val platformId: Long?,
     val name: String?
 )
 

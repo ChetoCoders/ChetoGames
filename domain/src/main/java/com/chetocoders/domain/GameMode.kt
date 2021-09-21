@@ -1,6 +1,6 @@
 package com.chetocoders.domain
 
 data class GameMode (
-    val id: Long?,
-    val name: String?
+    var id: Long?,
+    var name: String?
 )

@@ -1,35 +1,35 @@
 package com.chetocoders.domain
 
 sealed class GameCategory(val index: Long) {
-    object MAIN_GAME: GameCategory(1)
-    object DLC_ADDON: GameCategory(2)
-    object EXPANSION: GameCategory(3)
-    object BUNDLE: GameCategory(4)
-    object STANDALONE_EXPANSION: GameCategory(5)
-    object MOD: GameCategory(6)
-    object EPISODE: GameCategory(7)
-    object SEASON: GameCategory(8)
-    object REMAKE: GameCategory(9)
-    object REMASTER: GameCategory(10)
-    object EXPANDED_GAME: GameCategory(11)
-    object PORT: GameCategory(12)
-    object FORK: GameCategory(13)
+    object MAIN_GAME: GameCategory(0)
+    object DLC_ADDON: GameCategory(1)
+    object EXPANSION: GameCategory(2)
+    object BUNDLE: GameCategory(3)
+    object STANDALONE_EXPANSION: GameCategory(4)
+    object MOD: GameCategory(5)
+    object EPISODE: GameCategory(6)
+    object SEASON: GameCategory(7)
+    object REMAKE: GameCategory(8)
+    object REMASTER: GameCategory(9)
+    object EXPANDED_GAME: GameCategory(10)
+    object PORT: GameCategory(11)
+    object FORK: GameCategory(12)
 
     companion object {
         fun get(index: Int) = when(index) {
-            1 -> MAIN_GAME
-            2 -> DLC_ADDON
-            3 -> EXPANSION
-            4 -> BUNDLE
-            5 -> STANDALONE_EXPANSION
-            6 -> MOD
-            7 -> EPISODE
-            8 -> SEASON
-            9 -> REMAKE
-            10 -> REMASTER
-            11 -> EXPANDED_GAME
-            12 -> PORT
-            13 -> FORK
+            0 -> MAIN_GAME
+            1 -> DLC_ADDON
+            2 -> EXPANSION
+            3 -> BUNDLE
+            4 -> STANDALONE_EXPANSION
+            5 -> MOD
+            6 -> EPISODE
+            7 -> SEASON
+            8 -> REMAKE
+            9 -> REMASTER
+            10 -> EXPANDED_GAME
+            11 -> PORT
+            12 -> FORK
             else -> null
         }
     }

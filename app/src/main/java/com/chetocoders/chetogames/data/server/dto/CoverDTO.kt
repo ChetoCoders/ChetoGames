@@ -4,10 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class CoverDTOResult(
-    val result: List<CoverDTO>
-)
-
 @Parcelize
 data class CoverDTO (
     @SerializedName("id") val id: Long?,

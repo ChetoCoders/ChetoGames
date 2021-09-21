@@ -5,15 +5,23 @@ import java.time.LocalDateTime
 
 @Entity
 data class Game(
-    @PrimaryKey(autoGenerate = true) val gameId: Long,
+    @PrimaryKey(autoGenerate = true) val gameId: Long?,
     val title: String?,
     val description: String?,
     val released: LocalDateTime?,
-    val isExternal: Boolean?,
-    val isFavourite: Boolean?
+    val category: Long?,
+    val isExternal: Boolean,
+    val isFavourite: Boolean
 )
 
-data class GameParentEntity (
+data class GameSimple (
+    @Embedded val game: Game,
+
+    @Relation(parentColumn = "gameId", entityColumn = "platformId", associateBy = Junction(PlatformGameRef::class)) val platforms: List<Platform>?,
+    @Relation(entity = Image::class, parentColumn = "gameId", entityColumn = "gameId") val cover: Image?
+)
+
+data class GameDetail (
     @Embedded val game: Game,
     @Relation(parentColumn = "gameId", entityColumn = "ageRatingId", associateBy = Junction(AgeRatingGameRef::class)) val ageRatings: List<AgeRating>?,
     @Relation(parentColumn = "gameId", entityColumn = "gameModeId", associateBy = Junction(GameModeGameRef::class)) val gameModes: List<GameMode>?,

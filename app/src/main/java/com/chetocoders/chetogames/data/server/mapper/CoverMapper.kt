@@ -11,7 +11,8 @@ fun CoverDTO.toDomain() = ImageDomain(
     this.animated,
     this.url,
     this.height,
-    this.width
+    this.width,
+    true
 )
 
 fun ImageDomain.toCoverDTO() = CoverDTO(
@@ -22,5 +23,5 @@ fun ImageDomain.toCoverDTO() = CoverDTO(
     this.height,
     null,
     this.url,
-    this.width
+    this.width,
 )

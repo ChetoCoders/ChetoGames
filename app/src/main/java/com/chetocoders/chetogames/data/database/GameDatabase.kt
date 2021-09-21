@@ -28,18 +28,14 @@ abstract class GameDatabase : RoomDatabase() {
         fun build(context: Context) = Room.databaseBuilder(
             context,
             GameDatabase::class.java,
-            "game-db"
+            RoomConstants.DBNAME
         ).build()
     }
 
     abstract fun ageRatingDao(): AgeRatingDao
-    abstract fun ageRatingGameRefDao(): AgeRatingGameRefDao
     abstract fun gameDao(): GameDao
     abstract fun gameModeDao(): GameModeDao
-    abstract fun gameModeGameRefDao(): GameModeGameRefDao
     abstract fun genreDao(): GenreDao
-    abstract fun genreGameRefDao(): GenreGameRefDao
     abstract fun imageDao(): ImageDao
     abstract fun platformDao(): PlatformDao
-    abstract fun platformGameRefDao(): PlatformGameRefDao
 }

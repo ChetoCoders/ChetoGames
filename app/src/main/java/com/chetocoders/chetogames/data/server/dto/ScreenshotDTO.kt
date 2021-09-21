@@ -4,10 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class ScreenshotDTOResult(
-    val result: List<ScreenshotDTO>
-)
-
 @Parcelize
 data class ScreenshotDTO (
     @SerializedName("id") val id: Long?,
