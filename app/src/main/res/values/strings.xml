@@ -10,5 +10,6 @@
     <string name="cover">Cover</string>
     <string name="screenshots">Screenshots</string>
     <string name="ageratings">Age Ratings</string>
-    <string name="save">Save</string>
+    <string name="ageratingcategory">Age Rating Category</string>
+    <string name="new_game">New Game</string>
 </resources>

@@ -48,7 +48,7 @@ class AppModule {
         }
 
     @Provides
-    fun remoteDataSourceProvider(gameServerService: GameServerService): RemoteDataSource = GameServerDataSource(gameServerService)
+    fun gameDataSourceProvider(gameServerService: GameServerService): RemoteDataSource = GameServerDataSource(gameServerService)
 
     @Provides
     fun gameDatabaseProvider(@ApplicationContext context: Context): GameDatabase =

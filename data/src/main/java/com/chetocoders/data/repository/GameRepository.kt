@@ -7,7 +7,8 @@ import com.chetocoders.domain.GameDetail
 
 class GameRepository(
     private val localDataSource: LocalDataSource,
-    private val remoteDataSource: RemoteDataSource) {
+    private val remoteDataSource: RemoteDataSource
+) {
 
     suspend fun getGames(): ResultData<List<GameDetail>> {
         return try {
@@ -22,5 +23,4 @@ class GameRepository(
             ResultData.Failure(e)
         }
     }
-
 }

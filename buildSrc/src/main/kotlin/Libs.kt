@@ -6,7 +6,7 @@ object Libs {
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycle}",
         "com.google.dagger:hilt-android:${Versions.hilt}",
         "androidx.recyclerview:recyclerview:${Versions.recyclerView}",
-        "androidx.room:room-runtime:${Versions.room}",
+        "androidx.room:room-runtime:${Versions.room}"
     )
 
     val androidKaptLibs = listOf(

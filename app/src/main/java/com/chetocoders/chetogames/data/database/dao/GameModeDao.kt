@@ -1,9 +1,6 @@
 package com.chetocoders.chetogames.data.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Transaction
+import androidx.room.*
 import com.chetocoders.chetogames.data.database.entity.GameMode
 import com.chetocoders.chetogames.data.database.entity.GameModeGameRef
 
@@ -12,9 +9,13 @@ import com.chetocoders.chetogames.data.database.entity.GameModeGameRef
 interface GameModeDao {
 
     @Transaction
+    @Query("SELECT * FROM GameMode")
+    fun getAll(): List<GameMode>
+
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(gameMode: GameMode): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addAssignedGameMode( gameModeGameRef: GameModeGameRef)
+    fun addAssignedGameMode(gameModeGameRef: GameModeGameRef)
 }

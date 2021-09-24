@@ -15,6 +15,6 @@ interface AgeRatingDao {
     fun insert(ageRating: AgeRating): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addAssignedAgeRating( ageRatingGameRef: AgeRatingGameRef)
+    fun addAssignedAgeRating(ageRatingGameRef: AgeRatingGameRef)
 }
 
