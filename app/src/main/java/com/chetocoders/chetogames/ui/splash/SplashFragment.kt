@@ -23,7 +23,6 @@ class SplashFragment : Fragment() {
     private val viewModel: SplashViewModel by viewModels()
     private lateinit var navController: NavController
     private lateinit var zoomIn: Animation
-    private lateinit var fadeIn: Animation
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,9 +31,7 @@ class SplashFragment : Fragment() {
     ): View {
         binding = FragmentSplashBinding.inflate(layoutInflater)
         zoomIn = AnimationUtils.loadAnimation(this.requireContext(), R.anim.zoom_in)
-        fadeIn = AnimationUtils.loadAnimation(this.requireContext(), R.anim.fade_in)
         binding.imageView.animation = zoomIn
-        binding.textView.animation = fadeIn
         return binding.root
     }
 

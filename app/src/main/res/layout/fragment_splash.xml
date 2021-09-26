@@ -9,9 +9,11 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/splashWidth"
+        android:layout_height="@dimen/splashHeight"
+        android:scaleType="fitCenter"
         android:src="@drawable/game_controller"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,11 +22,14 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="50sp"
+        android:layout_marginBottom="@dimen/splashMarginBottom"
+        android:fontFamily="@font/roboto"
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:fontFamily="cursive"
+        android:textSize="@dimen/splashTextSize"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
