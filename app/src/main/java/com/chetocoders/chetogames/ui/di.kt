@@ -1,7 +1,9 @@
 package com.chetocoders.chetogames.ui
 
 import com.chetocoders.data.repository.GameRepository
+import com.chetocoders.data.repository.RegionRepository
 import com.chetocoders.usecases.GetGamesUseCase
+import com.chetocoders.usecases.GetRegionUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,4 +17,8 @@ class GameCatalogFragment {
     @Provides
     @ViewModelScoped
     fun getGamesUseCaseProvider(gameRepository: GameRepository) = GetGamesUseCase(gameRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun getRegionUseCaseProvider(regionRepository : RegionRepository) = GetRegionUseCase(regionRepository)
 }

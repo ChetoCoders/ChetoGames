@@ -26,7 +26,8 @@ object Libs {
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}",
         "com.squareup.retrofit2:retrofit:${Versions.retrofit}",
         "com.squareup.retrofit2:converter-gson:${Versions.retrofit}",
-        "com.github.bumptech.glide:glide:${Versions.glide}"
+        "com.github.bumptech.glide:glide:${Versions.glide}",
+        "com.google.android.gms:play-services-location:18.0.0"
     )
 
     val testLibs = listOf(

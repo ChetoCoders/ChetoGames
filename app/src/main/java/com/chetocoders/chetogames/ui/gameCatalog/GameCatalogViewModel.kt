@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.chetocoders.data.common.ResultData
 import com.chetocoders.domain.GameDetail
 import com.chetocoders.usecases.GetGamesUseCase
+import com.chetocoders.usecases.GetRegionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +13,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class GameCatalogViewModel @Inject constructor(private val getGamesUseCase: GetGamesUseCase) :
+class GameCatalogViewModel @Inject constructor(private val getGamesUseCase: GetGamesUseCase, private val getRegionUseCase: GetRegionUseCase) :
     ViewModel() {
 
 
@@ -27,7 +28,14 @@ class GameCatalogViewModel @Inject constructor(private val getGamesUseCase: GetG
                 is ResultData.Failure -> println(result.throwable.localizedMessage)
             }
         }
+
+        withContext(Dispatchers.IO) {
+           val result = getRegionUseCase.invoke()
+                println(result)
+        }
     }
+
+
 
     fun onMovieClicked(gameDetail: GameDetail) {
         _viewState.value = emptyList()
