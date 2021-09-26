@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_addgame_container_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.addgame.AddGameFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/design_default_color_primary"
+            app:navigationIcon="@drawable/ic_round_arrow_back_ios_new_24"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/design_default_color_on_primary" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollViewAddGames"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/addGameMarginStart"
         android:layout_marginTop="@dimen/addGameMarginTopScroll"
         android:layout_marginEnd="@dimen/addGameMarginEnd"
         android:layout_marginBottom="@dimen/addGameMarginBottomScroll"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutAddGames"
@@ -98,7 +112,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
-                android:hint="@string/genres"
                 app:layout_constraintTop_toBottomOf="@+id/category"
                 app:startIconContentDescription="@string/genres"
                 app:startIconDrawable="@drawable/ic_round_sports_golf_24">
@@ -107,7 +120,7 @@
                     android:id="@+id/genresAutoCompleteView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:hint="@string/genres" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +130,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
-                android:hint="@string/platforms"
                 app:layout_constraintTop_toBottomOf="@+id/genres"
                 app:startIconContentDescription="@string/platforms"
                 app:startIconDrawable="@drawable/ic_round_computer_24">
@@ -126,7 +138,7 @@
                     android:id="@+id/platformsAutoCompleteView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:hint="@string/platforms" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,7 +148,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
-                android:hint="@string/gamemodes"
                 app:layout_constraintTop_toBottomOf="@+id/platforms"
                 app:startIconContentDescription="@string/gamemodes"
                 app:startIconDrawable="@drawable/ic_round_games_24">
@@ -145,7 +156,7 @@
                     android:id="@+id/gameModesAutoCompleteView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:hint="@string/gamemodes" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -154,14 +165,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
-                android:hint="@string/cover"
                 app:layout_constraintTop_toBottomOf="@+id/gameModes"
                 app:startIconContentDescription="@string/cover"
                 app:startIconDrawable="@drawable/ic_round_image_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cover" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,14 +182,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
-                android:hint="@string/screenshots"
                 app:layout_constraintTop_toBottomOf="@+id/cover"
                 app:startIconContentDescription="@string/screenshots"
                 app:startIconDrawable="@drawable/ic_round_photo_library_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/screenshots" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,7 +206,6 @@
                     android:layout_marginTop="@dimen/addGameMarginTop"
                     android:layout_marginEnd="@dimen/addGameMarginEnd"
                     android:layout_weight="6"
-                    android:hint="@string/ageratingcategory"
                     app:startIconContentDescription="@string/ageratingcategory"
                     app:startIconDrawable="@drawable/ic_round_new_releases_24">
 
@@ -203,7 +213,7 @@
                         android:id="@+id/ageRatingCategoryAutoCompleteView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:hint="@string/ageratingcategory" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,7 +224,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/addGameMarginTop"
                     android:layout_weight="5"
-                    android:hint="@string/ageratings"
                     app:startIconContentDescription="@string/ageratings"
                     app:startIconDrawable="@drawable/ic_round_looks_3_24">
 
@@ -222,7 +231,7 @@
                         android:id="@+id/ageRatingsAutoCompleteView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:hint="@string/ageratings" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -230,4 +239,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

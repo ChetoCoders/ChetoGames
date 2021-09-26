@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentAddgameBinding
 import com.chetocoders.domain.AgeRatingCategory
@@ -21,11 +23,7 @@ import kotlinx.coroutines.flow.onEach
 class AddGameFragment : Fragment() {
     private lateinit var binding: FragmentAddgameBinding
     private val viewModel: AddGameViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +36,8 @@ class AddGameFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.toolBar.inflateMenu(R.menu.add_game)
+        navController = view.findNavController()
         lifecycleScope.launchWhenStarted {
             viewModel.genres.onEach {
                 binding.genresAutoCompleteView.setAdapter(
@@ -85,19 +85,22 @@ class AddGameFragment : Fragment() {
             )
         )
 
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.add_game, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == R.id.new_game) {
-            Log.d("ADDGAME", "Click button")
+        binding.toolBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.new_game -> {
+                    Log.d("ADDGAME", "Click button")
+                    true
+                }
+                else -> false
+            }
         }
-        return super.onOptionsItemSelected(item)
+
+        binding.toolBar.setNavigationOnClickListener {
+            navController.navigate(
+                R.id.action_addGameFragment_to_gameCatalogFragment
+            )
+        }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 }
