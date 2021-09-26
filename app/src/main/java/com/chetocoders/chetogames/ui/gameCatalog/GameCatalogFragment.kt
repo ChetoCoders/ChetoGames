@@ -44,7 +44,7 @@ class GameCatalogFragment : Fragment() {
         adapter = GameCatalogAdapter(viewModel::onMovieClicked)
         binding?.recyclerview?.adapter = adapter
 
-
+        // Check permission location
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -53,25 +53,21 @@ class GameCatalogFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION), 1
+            )
             return
         }
 
-
-        pepe();
+        viewModel.viewState.onEach {
+            adapter.listGameDetail = it
+        }.launchIn(lifecycleScope)
 
         lifecycleScope.launchWhenCreated {
             viewModel.loadGames()
         }
 
-
-    }
-
-    private fun pepe() {
-        viewModel.viewState.onEach {
-            adapter.listGameDetail = it
-        }.launchIn(lifecycleScope)
     }
 
 
