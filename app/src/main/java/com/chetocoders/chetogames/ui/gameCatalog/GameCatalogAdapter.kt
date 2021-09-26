@@ -31,9 +31,21 @@ class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = CardViewItemGameBinding.bind(view)
-        fun bind(gameDetail : GameDetail) = with(binding) {
-             gameText.text  = gameDetail.title
-             gameImageView.loadUrl("https:"+gameDetail.cover?.url.toString())
+        fun bind(gameDetail: GameDetail) = with(binding) {
+            gameTitle.text = gameDetail.title
+
+            if(gameDetail.platforms.isNullOrEmpty()){
+                gamePlatforms.text = "No platforms info"
+            } else {
+                gamePlatforms.text =   gameDetail.platforms?.joinToString("-"){ it.name.toString() }
+            }
+
+            if (gameDetail.cover != null) {
+                gameImageView.loadUrl("https:" + gameDetail.cover?.url.toString())
+            } else {
+                gameImageView.setImageResource(R.drawable.no_image_avaible)
+            }
+
         }
     }
 }
