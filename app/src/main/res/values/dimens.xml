@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Splash Screen -->
+    <dimen name="splashWidth">75dp</dimen>
+    <dimen name="splashHeight">75dp</dimen>
+    <dimen name="splashMarginBottom">45dp</dimen>
+    <dimen name="splashTextSize">24sp</dimen>
+
     <!-- Add Game Screen -->
-    <dimen name="marginTopScroll">0dp</dimen>
-    <dimen name="marginBottomScroll">15dp</dimen>
-    <dimen name="marginStart">20dp</dimen>
-    <dimen name="marginEnd">20dp</dimen>
-    <dimen name="marginTop">10dp</dimen>
+    <dimen name="addGameMarginTopScroll">0dp</dimen>
+    <dimen name="addGameMarginBottomScroll">15dp</dimen>
+    <dimen name="addGameMarginStart">20dp</dimen>
+    <dimen name="addGameMarginEnd">20dp</dimen>
+    <dimen name="addGameMarginTop">10dp</dimen>
 </resources>
