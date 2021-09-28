@@ -2,7 +2,6 @@ package com.chetocoders.chetogames.ui.addgame
 
 import android.R.layout.*
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
@@ -12,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentAddgameBinding
+import com.chetocoders.chetogames.ui.binding
 import com.chetocoders.domain.AgeRatingCategory
 import com.chetocoders.domain.Rating
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +24,17 @@ class AddGameFragment : Fragment() {
     private lateinit var binding: FragmentAddgameBinding
     private val viewModel: AddGameViewModel by viewModels()
     private lateinit var navController: NavController
+    private var title = ""
+    private var description = ""
+    private var released = ""
+    private var category = ""
+    private var genres = ""
+    private var platformsItem = ""
+    private var gameModesItem = ""
+    private var cover = ""
+    private var screenshots = ""
+    private var ageRatingCategoryItem = ""
+    private var ageRatingsItem = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +79,6 @@ class AddGameFragment : Fragment() {
             }.launchIn(this)
         }
 
-
         binding.ageRatingsAutoCompleteView.setAdapter(
             ArrayAdapter(
                 this@AddGameFragment.requireContext(),
@@ -88,7 +98,7 @@ class AddGameFragment : Fragment() {
         binding.toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.new_game -> {
-                    Log.d("ADDGAME", "Click button")
+                    saveGame()
                     true
                 }
                 else -> false
@@ -102,5 +112,35 @@ class AddGameFragment : Fragment() {
         }
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun saveGame() {
+        title = binding.titleInput.text.toString()
+        description = binding.descriptionInput.text.toString()
+        released = binding.releasedInput.text.toString()
+        category = binding.categoryInput.text.toString()
+        genres = binding.genresAutoCompleteView.text.toString()
+        platformsItem = binding.platformsAutoCompleteView.text.toString()
+        gameModesItem = binding.gameModesAutoCompleteView.text.toString()
+        cover = binding.coverInput.text.toString()
+        screenshots = binding.screenshotsInput.text.toString()
+        ageRatingCategoryItem = binding.ageRatingCategoryAutoCompleteView.text.toString()
+        ageRatingsItem = binding.ageRatingsAutoCompleteView.text.toString()
+        checkFields()
+    }
+
+    private fun checkFields() {
+        val error = getString(R.string.error)
+        binding.titleInput.binding(title, error)
+        binding.descriptionInput.binding(description, error)
+        binding.releasedInput.binding(released, error)
+        binding.categoryInput.binding(category, error)
+        binding.genres.binding(genres, error)
+        binding.platforms.binding(platformsItem, error)
+        binding.gameModes.binding(gameModesItem, error)
+        binding.coverInput.binding(cover, error)
+        binding.screenshotsInput.binding(screenshots, error)
+        binding.ageRatingCategory.binding(ageRatingCategoryItem, error)
+        binding.ageRatings.binding(ageRatingsItem, error)
     }
 }

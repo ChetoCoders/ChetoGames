@@ -39,17 +39,19 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tittle"
+                android:id="@+id/title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
-                android:hint="@string/tittle"
+                android:hint="@string/title"
                 app:layout_constraintTop_toTopOf="parent"
-                app:startIconContentDescription="@string/tittle"
-                app:startIconDrawable="@drawable/ic_round_title_24">
+                app:startIconContentDescription="@string/title"
+                app:startIconDrawable="@drawable/ic_round_title_24"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/title_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -62,11 +64,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
                 android:hint="@string/description"
-                app:layout_constraintTop_toBottomOf="@+id/tittle"
+                app:layout_constraintTop_toBottomOf="@+id/title"
                 app:startIconContentDescription="@string/description"
-                app:startIconDrawable="@drawable/ic_round_description_24">
+                app:startIconDrawable="@drawable/ic_round_description_24"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descriptionInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -81,9 +85,11 @@
                 android:hint="@string/released"
                 app:layout_constraintTop_toBottomOf="@+id/description"
                 app:startIconContentDescription="@string/released"
-                app:startIconDrawable="@drawable/ic_round_info_24">
+                app:startIconDrawable="@drawable/ic_round_info_24"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/releasedInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -98,9 +104,11 @@
                 android:hint="@string/category"
                 app:layout_constraintTop_toBottomOf="@+id/released"
                 app:startIconContentDescription="@string/category"
-                app:startIconDrawable="@drawable/ic_round_category_24">
+                app:startIconDrawable="@drawable/ic_round_category_24"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/categoryInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -138,7 +146,8 @@
                     android:id="@+id/platformsAutoCompleteView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/platforms" />
+                    android:hint="@string/platforms"
+                    android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,7 +165,8 @@
                     android:id="@+id/gameModesAutoCompleteView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/gamemodes" />
+                    android:hint="@string/gamemodes"
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -167,9 +177,11 @@
                 android:layout_marginTop="@dimen/addGameMarginTop"
                 app:layout_constraintTop_toBottomOf="@+id/gameModes"
                 app:startIconContentDescription="@string/cover"
-                app:startIconDrawable="@drawable/ic_round_image_24">
+                app:startIconDrawable="@drawable/ic_round_image_24"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/coverInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/cover" />
@@ -184,9 +196,11 @@
                 android:layout_marginTop="@dimen/addGameMarginTop"
                 app:layout_constraintTop_toBottomOf="@+id/cover"
                 app:startIconContentDescription="@string/screenshots"
-                app:startIconDrawable="@drawable/ic_round_photo_library_24">
+                app:startIconDrawable="@drawable/ic_round_photo_library_24"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/screenshotsInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/screenshots" />
@@ -199,7 +213,7 @@
                 app:layout_constraintTop_toBottomOf="@id/screenshots">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ageratingcategory"
+                    android:id="@+id/ageRatingCategory"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -213,12 +227,13 @@
                         android:id="@+id/ageRatingCategoryAutoCompleteView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/ageratingcategory" />
+                        android:hint="@string/ageratingcategory"
+                        android:inputType="none"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ageratings"
+                    android:id="@+id/ageRatings"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -231,7 +246,8 @@
                         android:id="@+id/ageRatingsAutoCompleteView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/ageratings" />
+                        android:hint="@string/ageratings"
+                        android:inputType="none"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>

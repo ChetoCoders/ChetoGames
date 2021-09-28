@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.chetocoders.chetogames.ChetoGamesApp
 import com.chetocoders.chetogames.R
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T : ViewModel> Fragment.getViewModel(crossinline factory: () -> T): T {
@@ -32,4 +34,12 @@ val Fragment.app: ChetoGamesApp
 fun ViewGroup.inflate(): View {
     return LayoutInflater.from(context)
         .inflate(R.layout.card_view_item_game, this, false)
+}
+
+fun TextInputLayout.binding(value: String, message: String) {
+    this.error = if (value.isNotBlank()) null else message
+}
+
+fun TextInputEditText.binding(value: String, message: String) {
+    this.error = if (value.isNotBlank()) null else message
 }
