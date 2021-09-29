@@ -13,4 +13,5 @@
     <string name="ageratingcategory">Age Rating Category</string>
     <string name="new_game">New Game</string>
     <string name="error">Required Field</string>
+    <string name="addGameAlertDialog">Do you want to save the game?</string>
 </resources>

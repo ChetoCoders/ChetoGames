@@ -1,6 +1,7 @@
 package com.chetocoders.chetogames.ui.addgame
 
 import android.R.layout.*
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
@@ -11,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentAddgameBinding
+import com.chetocoders.chetogames.ui.alertDialog
 import com.chetocoders.chetogames.ui.binding
 import com.chetocoders.domain.AgeRatingCategory
 import com.chetocoders.domain.Rating
@@ -98,7 +100,15 @@ class AddGameFragment : Fragment() {
         binding.toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.new_game -> {
-                    saveGame()
+                    alertDialog(
+                        this.requireContext(),
+                        getString(R.string.addGameAlertDialog),
+                        { _, which ->
+                            if (which == DialogInterface.BUTTON_POSITIVE)
+                                saveGame()
+                        },
+                        null
+                    )
                     true
                 }
                 else -> false

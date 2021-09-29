@@ -1,6 +1,8 @@
 package com.chetocoders.chetogames.ui
 
 import android.content.Context
+import android.content.DialogInterface
+import android.system.Os.accept
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.chetocoders.chetogames.ChetoGamesApp
 import com.chetocoders.chetogames.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -42,4 +45,13 @@ fun TextInputLayout.binding(value: String, message: String) {
 
 fun TextInputEditText.binding(value: String, message: String) {
     this.error = if (value.isNotBlank()) null else message
+}
+
+fun alertDialog(context: Context, message: String, okListener: DialogInterface.OnClickListener?, cancelListener: DialogInterface.OnClickListener?) {
+    MaterialAlertDialogBuilder(context)
+        .setMessage(message)
+        .setCancelable(false)
+        .setNegativeButton(android.R.string.cancel, cancelListener)
+        .setPositiveButton(android.R.string.ok, okListener)
+        .show()
 }
