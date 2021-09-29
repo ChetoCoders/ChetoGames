@@ -13,4 +13,7 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>
 
+    <include layout="@layout/bottom_navbar"
+        android:id="@+id/bottomLayout"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

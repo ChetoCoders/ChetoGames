@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/gameCatalog"
+        android:enabled="true"
+        android:icon="@drawable/ic_round_games_24"
+        android:title="@string/game_catalog"/>
+    <item
+        android:id="@+id/addGame"
+        android:enabled="true"
+        android:icon="@drawable/ic_round_add_circle_24"
+        android:title="@string/add_game"/>
+    <item
+        android:id="@+id/myLibrary"
+        android:enabled="true"
+        android:icon="@drawable/ic_round_local_library_24"
+        android:title="@string/my_library"/>
+</menu>
