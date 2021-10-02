@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.chetocoders.chetogames.databinding.FragmentGameCatalogBinding
+import com.chetocoders.chetogames.ui.gameCatalog.GameCatalogViewModel.UiModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -45,6 +46,24 @@ class GameCatalogFragment : Fragment() {
         binding?.recyclerview?.adapter = adapter
 
         // Check permission location
+        checkPermissionLocation()
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.viewState.onEach { updateUi(it) }.launchIn(this)
+            viewModel.requestListGame()
+        }
+    }
+
+    private fun updateUi(model: UiModel) {
+
+        binding?.progress?.visibility = if (model is UiModel.Loading) View.VISIBLE else View.GONE
+
+        when (model) {
+            is UiModel.Content -> adapter.listGameDetail = model.gameDetails
+        }
+    }
+
+    private fun checkPermissionLocation() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -55,19 +74,12 @@ class GameCatalogFragment : Fragment() {
         ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION), 1
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ), 1
             )
-            return
         }
-
-        viewModel.viewState.onEach {
-            adapter.listGameDetail = it
-        }.launchIn(lifecycleScope)
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.loadGames()
-        }
-
     }
 
 

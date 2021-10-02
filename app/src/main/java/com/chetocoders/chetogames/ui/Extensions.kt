@@ -40,7 +40,7 @@ fun ViewGroup.inflate(cardViewItemGame: Int, b: Boolean): View {
 }
 
 fun ImageView.loadUrl(url: String) {
-    Glide.with(this).load(url).into(this)
+    Glide.with(this).load(url).placeholder(R.drawable.no_image_avaible).into(this)
 }
 
 inline fun <VH : RecyclerView.ViewHolder, T> RecyclerView.Adapter<VH>.basicDiffUtil(

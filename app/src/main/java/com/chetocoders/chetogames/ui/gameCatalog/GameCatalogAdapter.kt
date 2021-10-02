@@ -1,3 +1,4 @@
+
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -33,19 +34,16 @@ class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
         private val binding = CardViewItemGameBinding.bind(view)
         fun bind(gameDetail: GameDetail) = with(binding) {
             gameTitle.text = gameDetail.title
-
             if(gameDetail.platforms.isNullOrEmpty()){
                 gamePlatforms.text = "No platforms info"
             } else {
                 gamePlatforms.text =   gameDetail.platforms?.joinToString("-"){ it.name.toString() }
             }
-
             if (gameDetail.cover != null) {
                 gameImageView.loadUrl("https:" + gameDetail.cover?.url.toString())
             } else {
                 gameImageView.setImageResource(R.drawable.no_image_avaible)
             }
-
         }
     }
 }
