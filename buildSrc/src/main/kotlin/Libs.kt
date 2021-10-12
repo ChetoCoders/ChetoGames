@@ -27,7 +27,7 @@ object Libs {
         "com.squareup.retrofit2:retrofit:${Versions.retrofit}",
         "com.squareup.retrofit2:converter-gson:${Versions.retrofit}",
         "com.github.bumptech.glide:glide:${Versions.glide}",
-        "com.google.android.gms:play-services-location:18.0.0"
+        "com.google.android.gms:play-services-location:${Versions.gms}"
     )
 
     val testLibs = listOf(

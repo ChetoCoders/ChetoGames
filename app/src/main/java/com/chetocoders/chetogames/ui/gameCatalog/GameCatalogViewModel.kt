@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chetocoders.domain.GameDetail
 import com.chetocoders.usecases.GetGamesUseCase
-import com.chetocoders.usecases.GetRegionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GameCatalogViewModel @Inject constructor(
-    private val getGamesUseCase: GetGamesUseCase, private val getRegionUseCase: GetRegionUseCase
+    private val getGamesUseCase: GetGamesUseCase
 ) : ViewModel() {
 
     private val _viewState: MutableStateFlow<UiModel> = MutableStateFlow(UiModel.Loading)
