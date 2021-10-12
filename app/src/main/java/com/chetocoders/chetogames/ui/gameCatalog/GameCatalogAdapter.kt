@@ -31,6 +31,7 @@ class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val https = "https:"
         private val binding = CardViewItemGameBinding.bind(view)
         fun bind(gameDetail: GameDetail) = with(binding) {
             gameTitle.text = gameDetail.title
@@ -40,7 +41,7 @@ class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
                 gamePlatforms.text =   gameDetail.platforms?.joinToString("-"){ it.name.toString() }
             }
             if (gameDetail.cover != null) {
-                gameImageView.loadUrl("https:" + gameDetail.cover?.url.toString())
+                gameImageView.loadUrl(https + gameDetail.cover?.url.toString())
             } else {
                 gameImageView.setImageResource(R.drawable.no_image_avaible)
             }
