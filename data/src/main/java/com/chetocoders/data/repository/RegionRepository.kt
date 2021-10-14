@@ -12,7 +12,7 @@ class RegionRepository(
 
     suspend fun findLastRegion(): String {
 
-        if (permissionChecker.check(PermissionChecker.Permission.COARSE_LOCATION)) {
+        if (permissionChecker.check(PermissionChecker.Permission.ACCESS_FINE_LOCATION)) {
             return  locationDataSource.findLastRegion() ?: DEFAULT_REGION
         } else {
             return  DEFAULT_REGION
@@ -22,7 +22,7 @@ class RegionRepository(
 
 interface PermissionChecker {
 
-    enum class Permission { COARSE_LOCATION }
+    enum class Permission { ACCESS_FINE_LOCATION }
 
     suspend fun check(permission: Permission): Boolean
 }

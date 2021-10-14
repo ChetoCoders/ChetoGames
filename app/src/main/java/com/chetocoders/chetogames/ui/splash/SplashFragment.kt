@@ -1,14 +1,13 @@
 package com.chetocoders.chetogames.ui.splash
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.core.app.ActivityCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +15,11 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentSplashBinding
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
@@ -42,7 +46,7 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Check permission location
-        checkPermissionLocation()
+        getPermission()
         navController = view.findNavController()
 
         lifecycleScope.launchWhenStarted {
@@ -59,22 +63,29 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun checkPermissionLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
+    private fun getPermission() {
+        Dexter.withContext(context)
+            .withPermissions(
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ), 1
-            )
-        }
+            ).withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                    report.let {
+
+                        if (report.areAllPermissionsGranted()) {
+                            Toast.makeText(context, "Permissions Granted", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Please Grant Permissions to use the app", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(permissions: List<PermissionRequest?>?, token: PermissionToken?) {
+                    token?.continuePermissionRequest()
+                }
+            }).withErrorListener{
+                Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            }.check()
+
     }
 }
