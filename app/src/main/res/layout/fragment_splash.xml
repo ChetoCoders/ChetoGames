@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/regionMarginBottom"
         android:fontFamily="@font/roboto"
-        android:text="Region"
+        android:text="@string/default_location"
         android:textAlignment="center"
         android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="parent"

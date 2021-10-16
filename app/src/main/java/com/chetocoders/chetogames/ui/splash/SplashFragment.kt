@@ -72,9 +72,9 @@ class SplashFragment : Fragment() {
                     report.let {
 
                         if (report.areAllPermissionsGranted()) {
-                            Toast.makeText(context, "Permissions Granted", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, getString(R.string.permissions_granted), Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(context, "Please Grant Permissions to use the app", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, getString(R.string.permissions__no_granted), Toast.LENGTH_SHORT).show()
                         }
 
                     }
