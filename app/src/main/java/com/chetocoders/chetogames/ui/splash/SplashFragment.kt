@@ -38,9 +38,10 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = view.findNavController()
         lifecycleScope.launchWhenStarted {
+            viewModel.loadGames()
             delay(2000)
             navController.navigate(
-                R.id.action_splashFragment_to_gameCatalogFragment
+                R.id.action_splashFragment_to_gameDetailFragment
             )
         }
         super.onViewCreated(view, savedInstanceState)

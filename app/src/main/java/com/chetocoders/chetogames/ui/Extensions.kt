@@ -10,6 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.chetocoders.chetogames.ChetoGamesApp
 import com.chetocoders.chetogames.R
+import com.chetocoders.domain.GameCategory
+import com.chetocoders.domain.Rating
+import com.google.android.material.textfield.TextInputEditText
 
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T : ViewModel> Fragment.getViewModel(crossinline factory: () -> T): T {
@@ -32,4 +35,41 @@ val Fragment.app: ChetoGamesApp
 fun ViewGroup.inflate(): View {
     return LayoutInflater.from(context)
         .inflate(R.layout.card_view_item_game, this, false)
+}
+
+fun TextInputEditText.binding(value: String, message: String) {
+        this.error = if (value.isNullOrEmpty()) null else message
+}
+
+fun GameCategory.getString() = when(index.toInt()) {
+    0 -> R.string.category_main_game
+    1 -> R.string.category_dlc_addon
+    2 -> R.string.category_expansion
+    3 -> R.string.category_bundle
+    4 -> R.string.category_standalone_expansion
+    5 -> R.string.category_mod
+    6 -> R.string.category_episode
+    7 -> R.string.category_season
+    8 -> R.string.category_remake
+    9 -> R.string.category_remaster
+    10 -> R.string.category_expanded_game
+    11 -> R.string.category_port
+    12 -> R.string.category_fork
+    else -> -1
+}
+
+fun Rating.getDrawable() = when(index.toInt()) {
+    1 -> R.drawable.pegi_3
+    2 -> R.drawable.pegi_7
+    3 -> R.drawable.pegi_12
+    4 -> R.drawable.pegi_16
+    5 -> R.drawable.pegi_18
+    6 -> R.drawable.esrb_rp
+    7 -> R.drawable.esrb_ec
+    8 -> R.drawable.esrb_e
+    9 -> R.drawable.esrb_e10
+    10 -> R.drawable.esrb_t
+    11 -> R.drawable.esrb_m
+    12 -> R.drawable.esrb_d
+    else -> null
 }

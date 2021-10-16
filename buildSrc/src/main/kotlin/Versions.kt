@@ -15,4 +15,7 @@ object Versions {
     const val espresso = "3.4.0"
     const val junitKtx = "1.1.2"
     const val nav_version = "2.3.5"
+    const val glide = "4.11.0"
+    const val circleIndicator = "2.1.6"
+    const val whyNotImageCarousel = "2.0.0"
 }

@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Cheto Games</string>
+    <string name="category_main_game">main game</string>
+    <string name="category_dlc_addon">DLC / addon</string>
+    <string name="category_expansion">expansion</string>
+    <string name="category_bundle">bundle</string>
+    <string name="category_standalone_expansion">standalone expansion</string>
+    <string name="category_mod">mod</string>
+    <string name="category_episode">episode</string>
+    <string name="category_season">season</string>
+    <string name="category_remake">remake</string>
+    <string name="category_remaster">remaster</string>
+    <string name="category_expanded_game">expanded game</string>
+    <string name="category_port">port</string>
+    <string name="category_fork">fork</string>
 </resources>

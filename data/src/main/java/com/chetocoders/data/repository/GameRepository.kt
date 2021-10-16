@@ -23,4 +23,20 @@ class GameRepository(
         }
     }
 
+    suspend fun getGame(gameId: Long): ResultData<GameDetail> {
+        return try {
+            ResultData.Success(value = localDataSource.getGameDetail(gameId))
+        } catch (e: Exception) {
+            ResultData.Failure(e)
+        }
+    }
+
+    suspend fun updateGame(game: GameDetail): ResultData<GameDetail> {
+        return try {
+            localDataSource.updateGame(game)
+            ResultData.Success(value = game)
+        } catch (e: Exception) {
+            ResultData.Failure(e)
+        }
+    }
 }

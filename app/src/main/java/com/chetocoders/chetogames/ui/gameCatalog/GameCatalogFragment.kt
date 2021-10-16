@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.chetocoders.chetogames.databinding.FragmentGameCatalogBinding
+import com.chetocoders.domain.Rating
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -24,6 +25,8 @@ class GameCatalogFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentGameCatalogBinding.inflate(layoutInflater)
+
+        Rating.getValues().map { it.toString() }
         return binding?.root
     }
 

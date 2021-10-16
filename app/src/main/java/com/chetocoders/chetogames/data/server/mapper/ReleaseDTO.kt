@@ -5,6 +5,6 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.util.*
 
-fun ReleaseDateDTO.toDomain() = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.date),
+fun ReleaseDateDTO.toDomain() = LocalDateTime.ofInstant(Instant.ofEpochSecond(this.date),
     TimeZone.getDefault().toZoneId())
 
