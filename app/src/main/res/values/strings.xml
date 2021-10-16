@@ -1,6 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cheto Games</string>
+
+    <!-- Navbar strings -->
     <string name="my_library">My Library</string>
     <string name="add_game">Add Game</string>
     <string name="game_catalog">Game Catalog</string>
+
+    <!-- Catalog view -->
+    <string name="no_platform_info">No platforms info</string>
+    <string name="permissions_granted">Permissions Granted</string>
+    <string name="permissions__no_granted">Please Grant Permissions to use the app</string>
+    <string name="default_location">ES</string>
+    <string name="card_view_title">Game Title</string>
+    <string name="card_view_platform">Game Platforms</string>
 </resources>

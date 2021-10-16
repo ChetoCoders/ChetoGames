@@ -1,10 +1,15 @@
 package com.chetocoders.chetogames.di
 
+import android.app.Application
 import android.content.Context
+import com.chetocoders.chetogames.data.AndroidPermissionChecker
+import com.chetocoders.chetogames.data.PlayServicesLocationDataSource
 import com.chetocoders.chetogames.data.database.GameDatabase
 import com.chetocoders.chetogames.data.database.RoomDataSource
 import com.chetocoders.chetogames.data.server.*
+import com.chetocoders.data.repository.PermissionChecker
 import com.chetocoders.data.source.LocalDataSource
+import com.chetocoders.data.source.LocationDataSource
 import com.chetocoders.data.source.RemoteDataSource
 import dagger.Module
 import dagger.Provides
@@ -58,4 +63,11 @@ class AppModule {
     fun localDataSourceProvider(gameDatabase: GameDatabase): LocalDataSource =
         RoomDataSource(gameDatabase)
 
+    @Provides
+    fun locationDataSourceProvider(app: Application): LocationDataSource =
+        PlayServicesLocationDataSource(app)
+
+    @Provides
+    fun permissionCheckerProvider(app: Application): PermissionChecker =
+        AndroidPermissionChecker(app)
 }
