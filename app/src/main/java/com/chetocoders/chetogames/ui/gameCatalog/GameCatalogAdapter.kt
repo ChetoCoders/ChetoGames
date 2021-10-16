@@ -1,49 +1,50 @@
-package com.chetocoders.chetogames.ui.gameCatalog
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.CardViewItemGameBinding
+import com.chetocoders.chetogames.ui.basicDiffUtil
 import com.chetocoders.chetogames.ui.inflate
-import kotlin.properties.Delegates
+import com.chetocoders.chetogames.ui.loadUrl
+import com.chetocoders.domain.GameDetail
 
-class GameCatalogAdapter(dataList: List<GameCatalogDomain> = emptyList(), private val listener: (GameCatalogDomain) -> Unit) :
+class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
     RecyclerView.Adapter<GameCatalogAdapter.ViewHolder>() {
 
-    var dataList: List<GameCatalogDomain> by Delegates.observable(dataList) { _, _, _ -> notifyDataSetChanged() }
+    var listGameDetail: List<GameDetail> by basicDiffUtil(
+        emptyList(),
+        areItemsTheSame = { old, new -> old.id == new.id }
+    )
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val binding = CardViewItemGameBinding.bind(view)
-
-        fun bind(gameCatalogDomain : GameCatalogDomain) {
-            with(binding){
-                //TODO() Crear string xml y remplazarlo
-                gameText.text = gameCatalogDomain.title +" "+ gameCatalogDomain.platform
-                //TODO() añiadir imagen del juego
-            }
-
-        }
-    }
-
-
-    // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val view = viewGroup.inflate()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = parent.inflate(R.layout.card_view_item_game, false)
         return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        val item = dataList[position]
-        viewHolder.bind(item)
-        viewHolder.itemView.setOnClickListener { listener(item) }
+    override fun getItemCount(): Int = listGameDetail.size
 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val movie = listGameDetail[position]
+        holder.bind(movie)
+        holder.itemView.setOnClickListener { listener(movie) }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = dataList.size
-
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val https = "https:"
+        private val binding = CardViewItemGameBinding.bind(view)
+        fun bind(gameDetail: GameDetail) = with(binding) {
+            gameTitle.text = gameDetail.title
+            if(gameDetail.platforms.isNullOrEmpty()){
+                gamePlatforms.text = "No platforms info"
+            } else {
+                gamePlatforms.text =   gameDetail.platforms?.joinToString("-"){ it.name.toString() }
+            }
+            if (gameDetail.cover != null) {
+                gameImageView.loadUrl(https + gameDetail.cover?.url.toString())
+            } else {
+                gameImageView.setImageResource(R.drawable.no_image_avaible)
+            }
+        }
+    }
 }
