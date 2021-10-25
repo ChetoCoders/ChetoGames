@@ -19,7 +19,9 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.chetocoders.chetogames.R.color
 import com.chetocoders.chetogames.R.drawable
@@ -27,6 +29,7 @@ import com.chetocoders.chetogames.databinding.FragmentGameDetailBinding
 import com.chetocoders.chetogames.ui.getDrawable
 import com.chetocoders.chetogames.ui.getString
 import com.chetocoders.domain.GameCategory
+import com.chetocoders.domain.GameDetail
 import com.chetocoders.domain.Rating
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +39,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.time.format.DateTimeFormatter
 
@@ -70,17 +74,25 @@ class GameDetailFragment : Fragment() {
             supportActionBar?.setHomeAsUpIndicator(drawable)
         }
 
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launch {
             observeGame()
 
             Log.i(TAG, "Loading - requesting game")
             viewModel.getGame(114285)
         }
 
-        binding.fab.setOnClickListener { lifecycleScope.launch(Dispatchers.IO) {viewModel.updateFavourite()} }
+        binding.fab.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.updateFavourite()
+
+                withContext(Dispatchers.Main) {
+                    viewModel.game.onEach { updateFab(it) }.launchIn(this)
+                }
+            }
+        }
     }
 
-    private suspend fun CoroutineScope.observeGame() {
+    private fun CoroutineScope.observeGame() {
         viewModel.game.onEach {
             Log.d(TAG, "BINDING - binding game")
             binding.toolbarLayout.title = it.title
@@ -119,16 +131,16 @@ class GameDetailFragment : Fragment() {
             }
             it.genres?.forEach { genres -> binding.container.chipGroupGenre.addView(buildChip(genres.name!!)) }
             it.gameModes?.forEach { gameModes -> binding.container.chipGroupGamemode.addView(
-                    buildChip( gameModes.name!! )
+                buildChip( gameModes.name!! )
             )}
 
             val list = mutableListOf<CarouselItem>()
             it.screenshots?.forEach { image ->
-                list.add(CarouselItem( "https:${ image.url?.replace("thumb","720p")}"))
+                list.add(CarouselItem("https:${image.url?.replace("thumb", "720p")}"))
             }
             binding.container.carousel.setData(list)
 
-            if (it.isFavourite) binding.fab.drawable.setTint(Color.RED) else binding.fab.drawable.setTint(Color.WHITE)
+            updateFab(it)
         }.launchIn(this)
     }
 
@@ -151,6 +163,10 @@ class GameDetailFragment : Fragment() {
         return imageView
     }
 
+    private fun updateFab(game: GameDetail) {
+        Log.d(TAG, "BINDING - Updating fab")
+        if (game.isFavourite) binding.fab.drawable.setTint(Color.RED) else binding.fab.drawable.setTint(Color.WHITE)
+    }
 
     private fun buildChip(text: String): Chip {
         val chip = Chip(context)
@@ -158,5 +174,4 @@ class GameDetailFragment : Fragment() {
         chip.setChipBackgroundColorResource(color.teal_200)
         return chip
     }
-
 }

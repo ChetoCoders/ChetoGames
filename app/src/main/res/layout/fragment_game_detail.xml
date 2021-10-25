@@ -52,8 +52,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include android:id="@+id/container"
-        layout="@layout/content_game_detail" />
-
+        layout="@layout/content_game_detail"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -64,5 +63,4 @@
         app:layout_anchorGravity="bottom|end"
         app:tint="@android:color/black"
         app:srcCompat="@drawable/ic_favorite" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

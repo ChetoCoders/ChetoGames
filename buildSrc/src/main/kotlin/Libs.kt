@@ -10,12 +10,14 @@ object Libs {
         "androidx.room:room-runtime:${Versions.room}",
         "com.github.bumptech.glide:glide:${Versions.glide}",
         "me.relex:circleindicator:${Versions.circleIndicator}",
-        "org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:${Versions.whyNotImageCarousel}"
+        "org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:${Versions.whyNotImageCarousel}",
+        "androidx.cardview:cardview:${Versions.cardview}"
     )
 
     val androidKaptLibs = listOf(
         "com.google.dagger:hilt-compiler:${Versions.hilt}",
-        "androidx.room:room-compiler:${Versions.room}"
+        "androidx.room:room-compiler:${Versions.room}",
+        "com.github.bumptech.glide:compiler:${Versions.glide}"
     )
 
     val kotlinLibs = listOf(
@@ -27,7 +29,9 @@ object Libs {
         "com.karumi:dexter:${Versions.dexter}",
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}",
         "com.squareup.retrofit2:retrofit:${Versions.retrofit}",
-        "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+        "com.squareup.retrofit2:converter-gson:${Versions.retrofit}",
+        "com.github.bumptech.glide:glide:${Versions.glide}",
+        "com.google.android.gms:play-services-location:${Versions.gms}"
     )
 
     val testLibs = listOf(

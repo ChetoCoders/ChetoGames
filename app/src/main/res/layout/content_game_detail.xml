@@ -91,8 +91,7 @@
             android:id="@+id/carousel"
             android:layout_width="match_parent"
             android:layout_height="256dp"
-            android:layout_marginTop="16dp" />
-
+            android:layout_marginTop="16dp"/>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
