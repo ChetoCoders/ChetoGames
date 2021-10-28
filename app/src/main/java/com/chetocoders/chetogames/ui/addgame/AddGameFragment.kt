@@ -1,6 +1,7 @@
 package com.chetocoders.chetogames.ui.addgame
 
 import android.R.layout.*
+import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
@@ -14,11 +15,16 @@ import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentAddgameBinding
 import com.chetocoders.chetogames.ui.alertDialog
 import com.chetocoders.chetogames.ui.binding
-import com.chetocoders.domain.AgeRatingCategory
-import com.chetocoders.domain.Rating
+import com.chetocoders.domain.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+
+import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -26,17 +32,8 @@ class AddGameFragment : Fragment() {
     private lateinit var binding: FragmentAddgameBinding
     private val viewModel: AddGameViewModel by viewModels()
     private lateinit var navController: NavController
-    private var title = ""
-    private var description = ""
-    private var released = ""
-    private var category = ""
-    private var genres = ""
-    private var platformsItem = ""
-    private var gameModesItem = ""
-    private var cover = ""
-    private var screenshots = ""
-    private var ageRatingCategoryItem = ""
-    private var ageRatingsItem = ""
+
+    private val calendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,50 +41,110 @@ class AddGameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddgameBinding.inflate(layoutInflater)
-        viewModel.requestGamesData()
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            // Binding inputs values to gameInput
+            viewModel.requestGamesData()
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.toolBar.inflateMenu(R.menu.add_game)
         navController = view.findNavController()
+
         lifecycleScope.launchWhenStarted {
+            viewModel.loading.onEach {
+                // Setting the status of the progress bar
+                binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+            }.launchIn(this)
+
+            val date =
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    calendar
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, monthOfYear)
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    formatDate()
+                }
+
+            binding.releasedInput.setOnClickListener {
+                DatePickerDialog(
+                    this@AddGameFragment.requireContext(), date, calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                ).show()
+            }
+
+            binding.categoryAutoCompleteView.setAdapter(
+                ArrayAdapter(
+                    this@AddGameFragment.requireContext(),
+                    simple_dropdown_item_1line,
+                    GameCategory.getValues().map { it.toString() }
+                )
+            )
+
+            binding.categoryAutoCompleteView.binding(
+                GameDetail::category,
+                viewModel.gameInput,
+                GameCategory.getValues().toList(), false
+            )
+
             viewModel.genres.onEach {
-                binding.genresAutoCompleteView.setAdapter(
-                    ArrayAdapter(
-                        this@AddGameFragment.requireContext(),
-                        simple_dropdown_item_1line,
-                        it.map { genre -> genre.name }
+                if (it.isNotEmpty()) {
+                    binding.genresAutoCompleteView.setAdapter(
+                        ArrayAdapter(
+                            this@AddGameFragment.requireContext(),
+                            simple_dropdown_item_1line,
+                            it.map { genre -> genre.name }
+                        )
                     )
-                )
+                    binding.genresAutoCompleteView.binding(
+                        GameDetail::genres,
+                        viewModel.gameInput,
+                        it
+                    )
+                }
+                binding.genres.isEnabled = it.isNotEmpty()
             }.launchIn(this)
+
             viewModel.platforms.onEach {
-                binding.platformsAutoCompleteView.setAdapter(
-                    ArrayAdapter(
-                        this@AddGameFragment.requireContext(),
-                        simple_dropdown_item_1line,
-                        it.map { platforms -> platforms.name }
+                if (it.isNotEmpty()) {
+                    binding.platformsAutoCompleteView.setAdapter(
+                        ArrayAdapter(
+                            this@AddGameFragment.requireContext(),
+                            simple_dropdown_item_1line,
+                            it.map { platforms -> platforms.name }
+                        )
                     )
-                )
+                    binding.platformsAutoCompleteView.binding(
+                        GameDetail::platforms,
+                        viewModel.gameInput,
+                        it
+                    )
+                }
+                binding.platforms.isEnabled = it.isNotEmpty()
             }.launchIn(this)
+
             viewModel.gameModes.onEach {
-                binding.gameModesAutoCompleteView.setAdapter(
-                    ArrayAdapter(
-                        this@AddGameFragment.requireContext(),
-                        simple_dropdown_item_1line,
-                        it.map { gameModes -> gameModes.name }
+                if (it.isNotEmpty()) {
+                    binding.gameModesAutoCompleteView.setAdapter(
+                        ArrayAdapter(
+                            this@AddGameFragment.requireContext(),
+                            simple_dropdown_item_1line,
+                            it.map { gameModes -> gameModes.name }
+                        )
                     )
-                )
+                    binding.gameModesAutoCompleteView.binding(
+                        GameDetail::gameModes,
+                        viewModel.gameInput,
+                        it
+                    )
+                }
+                binding.gameModes.isEnabled = it.isNotEmpty()
             }.launchIn(this)
         }
-
-        binding.ageRatingsAutoCompleteView.setAdapter(
-            ArrayAdapter(
-                this@AddGameFragment.requireContext(),
-                simple_dropdown_item_1line,
-                Rating.getValues().map { it.toString() }
-            )
-        )
 
         binding.ageRatingCategoryAutoCompleteView.setAdapter(
             ArrayAdapter(
@@ -96,6 +153,27 @@ class AddGameFragment : Fragment() {
                 AgeRatingCategory.getValues().map { it.toString() }
             )
         )
+
+        /*binding.ageRatingCategoryAutoCompleteView.binding(
+            GameDetail::ageRatings,
+            viewModel.gameInput,
+            AgeRatingCategory.getValues().toList()
+        )*/
+
+        binding.ageRatingsAutoCompleteView.setAdapter(
+            ArrayAdapter(
+                this@AddGameFragment.requireContext(),
+                simple_dropdown_item_1line,
+
+                Rating.getValues().map { it.toString() }
+            )
+        )
+
+        /*binding.ageRatingsAutoCompleteView.binding(
+            GameDetail::ageRatings,
+            viewModel.gameInput,
+            Rating.getValues().toList()
+        )*/
 
         binding.toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -124,33 +202,34 @@ class AddGameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun saveGame() {
-        title = binding.titleInput.text.toString()
-        description = binding.descriptionInput.text.toString()
-        released = binding.releasedInput.text.toString()
-        category = binding.categoryInput.text.toString()
-        genres = binding.genresAutoCompleteView.text.toString()
-        platformsItem = binding.platformsAutoCompleteView.text.toString()
-        gameModesItem = binding.gameModesAutoCompleteView.text.toString()
-        cover = binding.coverInput.text.toString()
-        screenshots = binding.screenshotsInput.text.toString()
-        ageRatingCategoryItem = binding.ageRatingCategoryAutoCompleteView.text.toString()
-        ageRatingsItem = binding.ageRatingsAutoCompleteView.text.toString()
-        checkFields()
+    private fun formatDate() {
+        val format = "dd/MM/yyyy"
+        val simpleDate = SimpleDateFormat(format, Locale.getDefault())
+        binding.releasedInput.setText(simpleDate.format(calendar.time))
     }
 
-    private fun checkFields() {
-        val error = getString(R.string.error)
-        binding.titleInput.binding(title, error)
-        binding.descriptionInput.binding(description, error)
-        binding.releasedInput.binding(released, error)
-        binding.categoryInput.binding(category, error)
-        binding.genres.binding(genres, error)
-        binding.platforms.binding(platformsItem, error)
-        binding.gameModes.binding(gameModesItem, error)
-        binding.coverInput.binding(cover, error)
-        binding.screenshotsInput.binding(screenshots, error)
-        binding.ageRatingCategory.binding(ageRatingCategoryItem, error)
-        binding.ageRatings.binding(ageRatingsItem, error)
+    private fun saveGame() {
+        with(binding) {
+            titleInput.binding(GameDetail::title, viewModel.gameInput, titleInput.text.toString())
+            descriptionInput.binding(
+                GameDetail::description,
+                viewModel.gameInput,
+                descriptionInput.text.toString()
+            )
+            releasedInput.binding(
+                GameDetail::released,
+                viewModel.gameInput,
+                calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+            )
+            coverInput.binding(GameDetail::cover, viewModel.gameInput, coverInput.text.toString())
+            screenshotsInput.binding(
+                GameDetail::screenshots,
+                viewModel.gameInput,
+                screenshotsInput.text.toString()
+            )
+            viewModel.addGame()
+        }
+
     }
 }
+

@@ -37,7 +37,7 @@ class RoomDataSource(db: GameDatabase) : LocalDataSource {
         return gameModeDao.getAll().map { it.toDomain() }
     }
 
-    override suspend fun insertGame(game: GameDetail) {
+    override suspend fun insertGame(game: GameDetail) : GameDetail {
         game.id = gameDao.insert(game.toEntity().game)
         game.ageRatings?.forEach { ageRating ->
             ageRating.id = ageRatingDao.insert(ageRating.toEntity())
@@ -57,6 +57,8 @@ class RoomDataSource(db: GameDatabase) : LocalDataSource {
         }
         game.cover?.let { imageDao.insert(it.toEntity()) }
         game.screenshots?.let { imageDao.insertAll(it.map { image -> image.toEntity() }) }
+
+        return game
     }
 
     override suspend fun insertGames(gameList: List<GameDetail>) {

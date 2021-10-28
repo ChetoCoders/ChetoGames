@@ -18,5 +18,5 @@ interface GameDao {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(game: Game): Long
+    suspend fun insert(game: Game): Long
 }

@@ -1,8 +1,10 @@
 package com.chetocoders.chetogames.ui.addgame
 
 import com.chetocoders.data.repository.GameModesRepository
+import com.chetocoders.data.repository.GameRepository
 import com.chetocoders.data.repository.GenreRepository
 import com.chetocoders.data.repository.PlatformsRepository
+import com.chetocoders.usecases.AddGameUseCase
 import com.chetocoders.usecases.GetGameModesUseCase
 import com.chetocoders.usecases.GetGenresUseCase
 import com.chetocoders.usecases.GetPlatformsUseCase
@@ -29,4 +31,9 @@ class AddGameFragmentModule {
     @ViewModelScoped
     fun getGameModesUseCaseProvider(gameModesRepository: GameModesRepository) =
         GetGameModesUseCase(gameModesRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun addGameUseCaseProvider(gameRepository: GameRepository) =
+        AddGameUseCase(gameRepository)
 }

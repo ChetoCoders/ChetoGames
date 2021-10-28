@@ -45,10 +45,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
                 android:hint="@string/title"
+                app:endIconMode="clear_text"
                 app:layout_constraintTop_toTopOf="parent"
                 app:startIconContentDescription="@string/title"
-                app:startIconDrawable="@drawable/ic_round_title_24"
-                app:endIconMode="clear_text">
+                app:startIconDrawable="@drawable/ic_round_title_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/title_input"
@@ -64,10 +64,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
                 android:hint="@string/description"
+                app:endIconMode="clear_text"
                 app:layout_constraintTop_toBottomOf="@+id/title"
                 app:startIconContentDescription="@string/description"
-                app:startIconDrawable="@drawable/ic_round_description_24"
-                app:endIconMode="clear_text">
+                app:startIconDrawable="@drawable/ic_round_description_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/descriptionInput"
@@ -83,34 +83,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
                 android:hint="@string/released"
+                app:endIconMode="clear_text"
                 app:layout_constraintTop_toBottomOf="@+id/description"
                 app:startIconContentDescription="@string/released"
-                app:startIconDrawable="@drawable/ic_round_info_24"
-                app:endIconMode="clear_text">
+                app:startIconDrawable="@drawable/ic_round_info_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/releasedInput"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/category"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
-                android:hint="@string/category"
                 app:layout_constraintTop_toBottomOf="@+id/released"
                 app:startIconContentDescription="@string/category"
-                app:startIconDrawable="@drawable/ic_round_category_24"
-                app:endIconMode="clear_text">
+                app:startIconDrawable="@drawable/ic_round_category_24">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/categoryInput"
+                <AutoCompleteTextView
+                    android:id="@+id/categoryAutoCompleteView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/category" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -175,10 +178,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
+                app:endIconMode="clear_text"
                 app:layout_constraintTop_toBottomOf="@+id/gameModes"
                 app:startIconContentDescription="@string/cover"
-                app:startIconDrawable="@drawable/ic_round_image_24"
-                app:endIconMode="clear_text">
+                app:startIconDrawable="@drawable/ic_round_image_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/coverInput"
@@ -194,10 +197,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addGameMarginTop"
+                app:endIconMode="clear_text"
                 app:layout_constraintTop_toBottomOf="@+id/cover"
                 app:startIconContentDescription="@string/screenshots"
-                app:startIconDrawable="@drawable/ic_round_photo_library_24"
-                app:endIconMode="clear_text">
+                app:startIconDrawable="@drawable/ic_round_photo_library_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/screenshotsInput"
@@ -228,7 +231,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/ageratingcategory"
-                        android:inputType="none"/>
+                        android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,10 +250,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/ageratings"
-                        android:inputType="none"/>
+                        android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

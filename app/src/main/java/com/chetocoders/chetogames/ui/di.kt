@@ -1,9 +1,7 @@
 package com.chetocoders.chetogames.ui
 
 import com.chetocoders.data.repository.GameRepository
-import com.chetocoders.data.repository.GenreRepository
 import com.chetocoders.usecases.GetGamesUseCase
-import com.chetocoders.usecases.GetGenresUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

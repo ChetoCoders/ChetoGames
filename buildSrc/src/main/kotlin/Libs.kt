@@ -6,7 +6,8 @@ object Libs {
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycle}",
         "com.google.dagger:hilt-android:${Versions.hilt}",
         "androidx.recyclerview:recyclerview:${Versions.recyclerView}",
-        "androidx.room:room-runtime:${Versions.room}"
+        "androidx.room:room-runtime:${Versions.room}",
+        "androidx.room:room-ktx:${Versions.room}"
     )
 
     val androidKaptLibs = listOf(
@@ -16,7 +17,8 @@ object Libs {
 
     val kotlinLibs = listOf(
         "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}",
+        "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}",
     )
 
     val libs = listOf(

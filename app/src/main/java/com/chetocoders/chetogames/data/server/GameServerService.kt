@@ -10,4 +10,7 @@ interface GameServerService {
 
     @POST("games")
     suspend fun getGames(@Body query: RequestBody): Response<List<GameDTO>>
+
+    @POST("games")
+    suspend fun postGame(@Body body: GameDTO): Response<GameDTO>
 }

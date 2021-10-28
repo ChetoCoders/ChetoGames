@@ -23,4 +23,8 @@ class GameRepository(
             ResultData.Failure(e)
         }
     }
+
+    suspend fun addGame(game: GameDetail) : GameDetail {
+        return localDataSource.insertGame(game)
+    }
 }

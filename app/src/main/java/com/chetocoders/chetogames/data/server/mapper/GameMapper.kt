@@ -11,11 +11,11 @@ fun GameDTO.toDomain() = GameDetail(
     this.releaseDates?.get(0)?.toDomain(),
     this.category?.let { GameCategory.get(it) },
     this.genres?.filterNotNull()?.map { it -> it.toDomain() },
-    this.platforms?.filterNotNull()?.map { it -> it.toDomain() },
-    this.gameModes?.filterNotNull()?.map { it -> it.toDomain() },
+    this.platforms?.map { it -> it.toDomain() },
+    this.gameModes?.map { it -> it.toDomain() },
     this.cover?.toDomain(),
-    this.screenshots?.filterNotNull()?.map { it -> it.toDomain() },
-    this.ageRatings?.filterNotNull()?.map { it -> it.toDomain() },
+    this.screenshots?.map { it -> it.toDomain() },
+    this.ageRatings?.map { it -> it.toDomain() },
     isExternal = false,
     isFavourite = false
 )
