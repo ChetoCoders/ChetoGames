@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.bold
 import androidx.core.text.italic
+import androidx.core.view.children
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,9 +24,11 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
+import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.R.color
 import com.chetocoders.chetogames.R.drawable
 import com.chetocoders.chetogames.databinding.FragmentGameDetailBinding
+import com.chetocoders.chetogames.ui.UiConstants
 import com.chetocoders.chetogames.ui.getDrawable
 import com.chetocoders.chetogames.ui.getString
 import com.chetocoders.domain.GameCategory
@@ -49,6 +52,8 @@ class GameDetailFragment : Fragment() {
 
     companion object {
         private val TAG = GameDetailFragment::class.qualifiedName
+        private const val RATING_PADDING = 10
+        private const val RATING_WIDTH = 60
     }
 
     private val viewModel: GameDetailViewModel by viewModels()
@@ -77,95 +82,109 @@ class GameDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             observeGame()
 
-            Log.i(TAG, "Loading - requesting game")
             viewModel.getGame(114285)
         }
 
         binding.fab.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 viewModel.updateFavourite()
-
-                withContext(Dispatchers.Main) {
-                    viewModel.game.onEach { updateFab(it) }.launchIn(this)
-                }
             }
         }
     }
 
     private fun CoroutineScope.observeGame() {
         viewModel.game.onEach {
-            Log.d(TAG, "BINDING - binding game")
-            binding.toolbarLayout.title = it.title
-            binding.toolbarLayout.setExpandedTitleColor(Color.WHITE)
-            binding.toolbarLayout.setCollapsedTitleTextColor(Color.WHITE)
-            binding.container.description.text = it.description
+            if (it != null) {
+                binding.toolbarLayout.title = it.title
+                binding.toolbarLayout.setExpandedTitleColor(Color.WHITE)
+                binding.toolbarLayout.setCollapsedTitleTextColor(Color.WHITE)
+                binding.container.description.text = it.description
 
-            val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy ")
+                val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(UiConstants.DATE_PATTERN)
 
-            it.released?.let { released -> binding.container.releaseDate.text = formatter.format(released) }
+                it.released?.let { released ->
+                    binding.container.releaseDate.text = formatter.format(released)
+                }
 
-            it.category?.let { category ->
-                if (category != GameCategory.MAIN_GAME) {
-                    binding.container.category.text = SpannableStringBuilder().italic {
-                        bold { append(it.title) }.append(" is a ${getString(category.getString()) }")
+                it.category?.let { category ->
+                    if (category != GameCategory.MAIN_GAME) {
+                        binding.container.category.text = SpannableStringBuilder().italic {
+                            bold { append(it.title) }.append(" ${getString(R.string.game_detail_category_indicator)} ${getString(category.getString())}")
+                        }
+                        binding.container.category.visibility = View.VISIBLE
                     }
-                    binding.container.category.visibility = View.VISIBLE
                 }
-            }
-            context?.let { context ->
-                if (it.cover != null) {
-                    Glide.with(context)
-                        .load("https:${it.cover!!.url?.replace("thumb", "screenshot_med")}")
-                        .into(binding.cover)
+                context?.let { context ->
+                    if (it.cover != null) {
+                        Glide.with(context)
+                            .load("${UiConstants.HTTPS}:${it.cover!!.url?.replace(UiConstants.IMAGE_THUMB, UiConstants.IMAGE_SCREENSHOT_MED)}")
+                            .into(binding.cover)
+                    }
                 }
-            }
 
-            it.ageRatings?.forEach { ageRating -> binding.ratingList.addView(buildRating(ageRating.rating)) }
-
-            it.platforms?.forEach { platform ->
-                binding.container.chipGroupPlatforms.addView(
-                    buildChip(
-                        platform.name!!
+                binding.ratingList.removeAllViews()
+                it.ageRatings?.forEach { ageRating ->
+                    binding.ratingList.addView(
+                        buildRating(
+                            ageRating.rating
+                        )
                     )
+                }
+
+                binding.container.chipGroupPlatforms.removeAllViews()
+                it.platforms?.forEach { platform ->
+                    binding.container.chipGroupPlatforms.addView(
+                        buildChip(
+                            platform.name!!
+                        )
+                    )
+                }
+
+                binding.container.chipGroupGenre.removeAllViews()
+                it.genres?.forEach { genres ->
+                    binding.container.chipGroupGenre.addView(
+                        buildChip(
+                            genres.name!!
+                        )
+                    )
+                }
+
+                binding.container.chipGroupGamemode.removeAllViews()
+                it.gameModes?.forEach { gameModes ->
+                    binding.container.chipGroupGamemode.addView(
+                        buildChip(gameModes.name!!)
+                    )
+                }
+
+                val list = mutableListOf<CarouselItem>()
+                it.screenshots?.forEach { image ->
+                    list.add(CarouselItem("${UiConstants.HTTPS}:${image.url?.replace(UiConstants.IMAGE_THUMB, UiConstants.IMAGE_720P)}"))
+                }
+                binding.container.carousel.setData(list)
+
+                if (it.isFavourite) binding.fab.drawable.setTint(Color.RED) else binding.fab.drawable.setTint(
+                    Color.WHITE
                 )
             }
-            it.genres?.forEach { genres -> binding.container.chipGroupGenre.addView(buildChip(genres.name!!)) }
-            it.gameModes?.forEach { gameModes -> binding.container.chipGroupGamemode.addView(
-                buildChip( gameModes.name!! )
-            )}
-
-            val list = mutableListOf<CarouselItem>()
-            it.screenshots?.forEach { image ->
-                list.add(CarouselItem("https:${image.url?.replace("thumb", "720p")}"))
-            }
-            binding.container.carousel.setData(list)
-
-            updateFab(it)
         }.launchIn(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i(TAG, "BINDING - OnDestroy")
     }
 
     private fun buildRating(rating: Rating?): View? {
         val imageView = ImageView(context)
         imageView.layoutParams = ViewGroup.LayoutParams(
-            60,
+            RATING_WIDTH,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        imageView.updatePadding(10, 10, 0, 0)
+        imageView.updatePadding(RATING_PADDING, RATING_PADDING, 0, 0)
 
         imageView.setImageDrawable(context?.let {
             ContextCompat.getDrawable(it, rating?.getDrawable()!!)
         })
         return imageView
-    }
-
-    private fun updateFab(game: GameDetail) {
-        Log.d(TAG, "BINDING - Updating fab")
-        if (game.isFavourite) binding.fab.drawable.setTint(Color.RED) else binding.fab.drawable.setTint(Color.WHITE)
     }
 
     private fun buildChip(text: String): Chip {

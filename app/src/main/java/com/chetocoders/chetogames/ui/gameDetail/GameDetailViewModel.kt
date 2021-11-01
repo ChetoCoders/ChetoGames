@@ -28,8 +28,8 @@ class GameDetailViewModel @Inject constructor(
     }
 
     /** StateFlow to indicate the selected game */
-    private val _game = MutableStateFlow(GameDetail())
-    val game: StateFlow<GameDetail> get() = _game
+    private val _game = MutableStateFlow<GameDetail?>(null)
+    val game: StateFlow<GameDetail?> get() = _game
 
     /** StateFlow to indicate when io thread is loading data */
     private val _loading = MutableStateFlow(true)
@@ -49,13 +49,16 @@ class GameDetailViewModel @Inject constructor(
     suspend fun updateFavourite() {
         withContext(requestDispatcher) {
             val gameValue = _game.value
-            gameValue.isFavourite = !gameValue.isFavourite
+            if (gameValue != null) {
+                Log.i("GAME", "Emiting game")
+                gameValue.isFavourite = !gameValue.isFavourite
 
-            Log.i("UPDATING", "Updating game")
+                Log.i("UPDATING", "Updating game")
 
-            when (val result = updateGameUseCase.invoke(gameValue)) {
-                is ResultData.Success -> onSuccessGetGame(result.value)
-                is ResultData.Failure -> onErrorGetGame(result.throwable)
+                when (val result = updateGameUseCase.invoke(gameValue)) {
+                    is ResultData.Success -> onSuccessGetGame(result.value)
+                    is ResultData.Failure -> onErrorGetGame(result.throwable)
+                }
             }
         }
     }
@@ -68,7 +71,7 @@ class GameDetailViewModel @Inject constructor(
     private fun onSuccessGetGame(game: GameDetail) {
         viewModelScope.launch(requestDispatcher) {
             Log.i("GAME", "Emiting game")
-            _game.emit(game)
+            _game.emit(game.copy())
         }
     }
 
