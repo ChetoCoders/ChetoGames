@@ -29,4 +29,8 @@
     <string name="category_port">port</string>
     <string name="category_fork">fork</string>
     <string name="game_detail_category_indicator">is a</string>
+    <string name="game_detail_layout_description">Description</string>
+    <string name="game_detail_layout_release_date">Release date</string>
+    <string name="game_detail_layout_genres">Genres</string>
+    <string name="game_detail_layout_gamemodes">Gamemodes</string>
 </resources>

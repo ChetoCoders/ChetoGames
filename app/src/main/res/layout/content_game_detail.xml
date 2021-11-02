@@ -2,10 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scroll"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="15dp"
-    android:clipToPadding="false"
+    style="@style/detailLayout"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -15,83 +12,47 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_platforms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp" />
+            style="@style/detailChipGroupPlatforms"/>
 
         <TextView
             android:id="@+id/category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:visibility="gone" />
+            style="@style/detailTextViewCategory" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Descripción del juego"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
+            style="@style/detailTitle"
+            android:text="@string/game_detail_layout_description" />
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Descripción del juego"
-            android:textAppearance="?attr/textAppearanceBody2" />
+            style="@style/detailTextViewDescription" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Release date"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
+            style="@style/detailTitle"
+            android:text="@string/game_detail_layout_release_date" />
 
         <TextView
             android:id="@+id/release_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Fecha del juego"
-            android:textStyle="italic"
-            android:textAppearance="?attr/textAppearanceBody1" />
+            style="@style/detailTextViewReleaseDate" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Genre"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
+            style="@style/detailTitle"
+            android:text="@string/game_detail_layout_genres" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_genre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="2dp" />
+            style="@style/detailChipGroup" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Gamemode"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
+            style="@style/detailTitle"
+            android:text="@string/game_detail_layout_gamemodes" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_gamemode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="2dp" >
-        </com.google.android.material.chip.ChipGroup>
+            style="@style/detailChipGroup" />
 
         <org.imaginativeworld.whynotimagecarousel.ImageCarousel
             android:id="@+id/carousel"
-            android:layout_width="match_parent"
-            android:layout_height="256dp"
-            android:layout_marginTop="16dp"/>
+            style="@style/detailImageCarousel" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

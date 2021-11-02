@@ -13,4 +13,62 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+    <!-- Detail view -->
+    <style name="detailLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">@dimen/detailMarginLayout</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+
+    <style name="detailChipGroupPlatforms">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/detailMarginStartChipGroup</item>
+    </style>
+
+    <style name="detailTextViewCategory">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/detailMarginTopCategory</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="detailTextViewDescription">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/detailMarginTopGeneral</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+    </style>
+
+    <style name="detailTextViewReleaseDate">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/detailMarginTopGeneral</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+    <style name="detailTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/detailMarginTopTitle</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline6</item>
+    </style>
+
+    <style name="detailChipGroup">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/detailMarginStartChipGroup</item>
+        <item name="android:layout_marginTop">@dimen/detailMarginTopChipGroup</item>
+    </style>
+
+    <style name="detailImageCarousel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/detailHeightImageCarousel</item>
+        <item name="android:layout_marginTop">@dimen/detailMarginTopGeneral</item>
+    </style>
 </resources>
