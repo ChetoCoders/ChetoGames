@@ -17,7 +17,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="@dimen/fragmentDetailHeightToolbar"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -36,8 +36,8 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ratingList"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_margin="10dp"
+                android:layout_height="@dimen/fragmentDetailHeightRatingList"
+                android:layout_margin="@dimen/fragmentDetailWidthRatingList"
                 android:orientation="horizontal"
                 android:gravity="right" />
 
@@ -58,7 +58,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/fragmentDetailMarginFAB"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
         app:tint="@android:color/black"

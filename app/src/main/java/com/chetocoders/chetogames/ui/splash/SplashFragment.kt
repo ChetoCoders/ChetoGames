@@ -57,7 +57,7 @@ class SplashFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             delay(3000)
             navController.navigate(
-                R.id.action_splashFragment_to_gameDetailFragment
+                R.id.action_splashFragment_to_gameCatalogFragment
             )
         }
         super.onViewCreated(view, savedInstanceState)

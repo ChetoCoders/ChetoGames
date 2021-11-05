@@ -16,4 +16,8 @@
     <dimen name="detailMarginStartChipGroup">8dp</dimen>
     <dimen name="detailMarginTopChipGroup">2dp</dimen>
     <dimen name="detailHeightImageCarousel">256dp</dimen>
+    <dimen name="fragmentDetailMarginFAB">15dp</dimen>
+    <dimen name="fragmentDetailHeightToolbar">320dp</dimen>
+    <dimen name="fragmentDetailHeightRatingList">35dp</dimen>
+    <dimen name="fragmentDetailWidthRatingList">10dp</dimen>
 </resources>

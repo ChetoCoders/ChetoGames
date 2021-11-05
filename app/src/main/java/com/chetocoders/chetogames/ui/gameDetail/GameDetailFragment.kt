@@ -5,7 +5,6 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +14,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.bold
 import androidx.core.text.italic
-import androidx.core.view.children
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.R.color
@@ -32,21 +27,22 @@ import com.chetocoders.chetogames.ui.UiConstants
 import com.chetocoders.chetogames.ui.getDrawable
 import com.chetocoders.chetogames.ui.getString
 import com.chetocoders.domain.GameCategory
-import com.chetocoders.domain.GameDetail
 import com.chetocoders.domain.Rating
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.time.format.DateTimeFormatter
 
-
+/**
+ * Game detail fragment
+ *
+ * @constructor Create empty Game detail fragment
+ */
 @AndroidEntryPoint
 class GameDetailFragment : Fragment() {
 
@@ -56,9 +52,20 @@ class GameDetailFragment : Fragment() {
         private const val RATING_WIDTH = 60
     }
 
+    /** View model */
     private val viewModel: GameDetailViewModel by viewModels()
+
+    /** View binding */
     private lateinit var binding: FragmentGameDetailBinding
 
+    /**
+     * On create view
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -68,6 +75,12 @@ class GameDetailFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * On view created
+     *
+     * @param view
+     * @param savedInstanceState
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -82,6 +95,7 @@ class GameDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             observeGame()
 
+            // TODO: Get id from bundle/navigation data
             viewModel.getGame(114285)
         }
 
@@ -92,6 +106,10 @@ class GameDetailFragment : Fragment() {
         }
     }
 
+    /**
+     *  Function to observe the game stateFlow
+     *
+     */
     private fun CoroutineScope.observeGame() {
         viewModel.game.onEach {
             if (it != null) {
@@ -169,10 +187,12 @@ class GameDetailFragment : Fragment() {
         }.launchIn(this)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
+    /**
+     * Function to build rating image view
+     *
+     * @param rating Rating
+     * @return view
+     */
     private fun buildRating(rating: Rating?): View? {
         val imageView = ImageView(context)
         imageView.layoutParams = ViewGroup.LayoutParams(
@@ -187,6 +207,12 @@ class GameDetailFragment : Fragment() {
         return imageView
     }
 
+    /**
+     * Function to build chip from text
+     *
+     * @param text name's chip
+     * @return chip
+     */
     private fun buildChip(text: String): Chip {
         val chip = Chip(context)
         chip.text = text

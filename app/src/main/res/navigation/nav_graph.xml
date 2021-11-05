@@ -11,16 +11,16 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
-            android:id="@+id/action_splashFragment_to_gameDetailFragment"
-            app:destination="@id/gameDetailFragment"
+            android:id="@+id/action_splashFragment_to_gameCatalogFragment"
+            app:destination="@id/gameCatalogFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/gameDetailFragment"
-        android:name="com.chetocoders.chetogames.ui.gameDetail.GameDetailFragment"
-        android:label="fragment_game_detail"
-        tools:layout="@layout/fragment_game_detail" />
+        android:id="@+id/gameCatalogFragment"
+        android:name="com.chetocoders.chetogames.ui.gameCatalog.GameCatalogFragment"
+        android:label="fragment_game_catalog"
+        tools:layout="@layout/fragment_game_catalog" />
 </navigation>

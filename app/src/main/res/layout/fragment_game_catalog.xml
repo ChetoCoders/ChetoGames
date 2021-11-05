@@ -7,8 +7,6 @@
     android:id="@+id/fragment_game_catalog_container_view"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"

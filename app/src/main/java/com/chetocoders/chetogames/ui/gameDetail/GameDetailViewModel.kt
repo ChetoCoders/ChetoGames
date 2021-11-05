@@ -16,6 +16,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Game detail view model
+ *
+ * @property getGameUseCase
+ * @property updateGameUseCase
+ * @constructor Create empty Game detail view model
+ */
 @HiltViewModel
 class GameDetailViewModel @Inject constructor(
     private val getGameUseCase: GetGameUseCase,
@@ -31,29 +38,33 @@ class GameDetailViewModel @Inject constructor(
     private val _game = MutableStateFlow<GameDetail?>(null)
     val game: StateFlow<GameDetail?> get() = _game
 
-    /** StateFlow to indicate when io thread is loading data */
-    private val _loading = MutableStateFlow(true)
-    val loading: StateFlow<Boolean> get() = _loading
-
+    /**
+     * Request to get game by id from database
+     *
+     * @param gameId
+     */
     suspend fun getGame(gameId: Long) {
-
         withContext(requestDispatcher) {
+            Log.i(TAG, "Getting game")
             when (val result = getGameUseCase.invoke(gameId)) {
                 is ResultData.Success -> onSuccessGetGame(result.value)
                 is ResultData.Failure -> onErrorGetGame(result.throwable)
             }
-
         }
     }
 
+    /**
+     * Request to update the favourite status of the game
+     *
+     * @param gameId
+     */
     suspend fun updateFavourite() {
         withContext(requestDispatcher) {
             val gameValue = _game.value
             if (gameValue != null) {
-                Log.i("GAME", "Emiting game")
                 gameValue.isFavourite = !gameValue.isFavourite
 
-                Log.i("UPDATING", "Updating game")
+                Log.i(TAG, "Updating game")
 
                 when (val result = updateGameUseCase.invoke(gameValue)) {
                     is ResultData.Success -> onSuccessGetGame(result.value)
@@ -64,19 +75,19 @@ class GameDetailViewModel @Inject constructor(
     }
 
     /**
-     * Function to handle when getUserByID request succeeds
+     * Function to handle when request succeeds
      *
      * @param user Selected user
      */
     private fun onSuccessGetGame(game: GameDetail) {
         viewModelScope.launch(requestDispatcher) {
-            Log.i("GAME", "Emiting game")
+            Log.i(TAG, "Emiting game")
             _game.emit(game.copy())
         }
     }
 
     /**
-     * Function to handle when getUserByID request fails
+     * Function to handle when request fails
      *
      * @param throwable Exception
      */
