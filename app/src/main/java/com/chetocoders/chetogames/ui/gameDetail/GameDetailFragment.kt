@@ -23,6 +23,7 @@ import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.R.color
 import com.chetocoders.chetogames.R.drawable
 import com.chetocoders.chetogames.databinding.FragmentGameDetailBinding
+import com.chetocoders.chetogames.di.IoDispatcher
 import com.chetocoders.chetogames.ui.UiConstants
 import com.chetocoders.chetogames.ui.getDrawable
 import com.chetocoders.chetogames.ui.getString
@@ -30,13 +31,14 @@ import com.chetocoders.domain.GameCategory
 import com.chetocoders.domain.Rating
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
 /**
  * Game detail fragment
@@ -50,6 +52,7 @@ class GameDetailFragment : Fragment() {
         private val TAG = GameDetailFragment::class.qualifiedName
         private const val RATING_PADDING = 10
         private const val RATING_WIDTH = 60
+        const val GAME_ID = "GAME_ID"
     }
 
     /** View model */
@@ -57,6 +60,11 @@ class GameDetailFragment : Fragment() {
 
     /** View binding */
     private lateinit var binding: FragmentGameDetailBinding
+
+    /** Inject dispatcher */
+    @Inject
+    @IoDispatcher
+    lateinit var requestDispatcher: CoroutineDispatcher
 
     /**
      * On create view
@@ -84,6 +92,8 @@ class GameDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val gameId = requireArguments().getLong(GAME_ID, -1)
+
         (activity as AppCompatActivity).apply {
             setSupportActionBar(binding.toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -95,12 +105,11 @@ class GameDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             observeGame()
 
-            // TODO: Get id from bundle/navigation data
-            viewModel.getGame(114285)
+            viewModel.getGame(gameId)
         }
 
         binding.fab.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
+            lifecycleScope.launch(requestDispatcher) {
                 viewModel.updateFavourite()
             }
         }
@@ -118,7 +127,8 @@ class GameDetailFragment : Fragment() {
                 binding.toolbarLayout.setCollapsedTitleTextColor(Color.WHITE)
                 binding.container.description.text = it.description
 
-                val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(UiConstants.DATE_PATTERN)
+                val formatter: DateTimeFormatter =
+                    DateTimeFormatter.ofPattern(UiConstants.DATE_PATTERN)
 
                 it.released?.let { released ->
                     binding.container.releaseDate.text = formatter.format(released)
@@ -127,7 +137,13 @@ class GameDetailFragment : Fragment() {
                 it.category?.let { category ->
                     if (category != GameCategory.MAIN_GAME) {
                         binding.container.category.text = SpannableStringBuilder().italic {
-                            bold { append(it.title) }.append(" ${getString(R.string.game_detail_category_indicator)} ${getString(category.getString())}")
+                            bold { append(it.title) }.append(
+                                " ${getString(R.string.game_detail_category_indicator)} ${
+                                    getString(
+                                        category.getString()
+                                    )
+                                }"
+                            )
                         }
                         binding.container.category.visibility = View.VISIBLE
                     }
@@ -135,7 +151,14 @@ class GameDetailFragment : Fragment() {
                 context?.let { context ->
                     if (it.cover != null) {
                         Glide.with(context)
-                            .load("${UiConstants.HTTPS}:${it.cover!!.url?.replace(UiConstants.IMAGE_THUMB, UiConstants.IMAGE_SCREENSHOT_MED)}")
+                            .load(
+                                "${UiConstants.HTTPS}:${
+                                    it.cover!!.url?.replace(
+                                        UiConstants.IMAGE_THUMB,
+                                        UiConstants.IMAGE_SCREENSHOT_MED
+                                    )
+                                }"
+                            )
                             .into(binding.cover)
                     }
                 }
@@ -176,7 +199,16 @@ class GameDetailFragment : Fragment() {
 
                 val list = mutableListOf<CarouselItem>()
                 it.screenshots?.forEach { image ->
-                    list.add(CarouselItem("${UiConstants.HTTPS}:${image.url?.replace(UiConstants.IMAGE_THUMB, UiConstants.IMAGE_720P)}"))
+                    list.add(
+                        CarouselItem(
+                            "${UiConstants.HTTPS}:${
+                                image.url?.replace(
+                                    UiConstants.IMAGE_THUMB,
+                                    UiConstants.IMAGE_720P
+                                )
+                            }"
+                        )
+                    )
                 }
                 binding.container.carousel.setData(list)
 
@@ -193,7 +225,7 @@ class GameDetailFragment : Fragment() {
      * @param rating Rating
      * @return view
      */
-    private fun buildRating(rating: Rating?): View? {
+    private fun buildRating(rating: Rating?): View {
         val imageView = ImageView(context)
         imageView.layoutParams = ViewGroup.LayoutParams(
             RATING_WIDTH,

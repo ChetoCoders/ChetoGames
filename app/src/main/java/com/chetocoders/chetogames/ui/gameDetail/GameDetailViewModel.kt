@@ -3,13 +3,13 @@ package com.chetocoders.chetogames.ui.gameDetail
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chetocoders.chetogames.di.IoDispatcher
 import com.chetocoders.data.common.ResultData
 import com.chetocoders.domain.GameDetail
 import com.chetocoders.usecases.GetGameUseCase
 import com.chetocoders.usecases.UpdateGameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,19 +19,20 @@ import javax.inject.Inject
 /**
  * Game detail view model
  *
+ * @property requestDispatcher
  * @property getGameUseCase
  * @property updateGameUseCase
  * @constructor Create empty Game detail view model
  */
 @HiltViewModel
 class GameDetailViewModel @Inject constructor(
+    @IoDispatcher private val requestDispatcher: CoroutineDispatcher,
     private val getGameUseCase: GetGameUseCase,
     private val updateGameUseCase: UpdateGameUseCase
 ) : ViewModel() {
 
     companion object {
         private val TAG = GameDetailViewModel::class.qualifiedName
-        private val requestDispatcher: CoroutineDispatcher = Dispatchers.IO
     }
 
     /** StateFlow to indicate the selected game */
@@ -56,7 +57,6 @@ class GameDetailViewModel @Inject constructor(
     /**
      * Request to update the favourite status of the game
      *
-     * @param gameId
      */
     suspend fun updateFavourite() {
         withContext(requestDispatcher) {
@@ -77,11 +77,11 @@ class GameDetailViewModel @Inject constructor(
     /**
      * Function to handle when request succeeds
      *
-     * @param user Selected user
+     * @param game Selected game
      */
     private fun onSuccessGetGame(game: GameDetail) {
         viewModelScope.launch(requestDispatcher) {
-            Log.i(TAG, "Emiting game")
+            Log.i(TAG, "Emitting game")
             _game.emit(game.copy())
         }
     }

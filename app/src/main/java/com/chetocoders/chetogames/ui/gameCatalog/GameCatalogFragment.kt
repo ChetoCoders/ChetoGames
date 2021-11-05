@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentGameCatalogBinding
 import com.chetocoders.chetogames.ui.gameCatalog.GameCatalogViewModel.UiModel
+import com.chetocoders.chetogames.ui.gameDetail.GameDetailFragment.Companion.GAME_ID
 import com.google.android.gms.location.FusedLocationProviderClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -23,6 +28,7 @@ class GameCatalogFragment : Fragment() {
 
     private val viewModel: GameCatalogViewModel by viewModels()
     private lateinit var adapter: GameCatalogAdapter
+    private lateinit var navController: NavController
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -38,8 +44,9 @@ class GameCatalogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = GameCatalogAdapter(viewModel::onMovieClicked)
+        adapter = GameCatalogAdapter(viewModel::onGameClicked)
         binding?.recyclerview?.adapter = adapter
+        navController = view.findNavController()
 
         lifecycleScope.launchWhenStarted {
             viewModel.viewState.onEach { updateUi(it) }.launchIn(this)
@@ -51,6 +58,9 @@ class GameCatalogFragment : Fragment() {
         binding?.progress?.visibility = if (model is UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
             is UiModel.Content -> adapter.listGameDetail = model.gameDetails
+            is UiModel.Navigation -> navController.navigate(
+                R.id.action_gameCatalogFragment_to_gameDetailFragment, bundleOf("GAME_ID" to model.gameId)
+            )
         }
     }
 
