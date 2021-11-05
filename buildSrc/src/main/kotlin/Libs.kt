@@ -4,9 +4,13 @@ object Libs {
         "androidx.appcompat:appcompat:${Versions.appCompat}",
         "com.google.android.material:material:${Versions.material}",
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycle}",
+        "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifeCycle}",
         "com.google.dagger:hilt-android:${Versions.hilt}",
         "androidx.recyclerview:recyclerview:${Versions.recyclerView}",
         "androidx.room:room-runtime:${Versions.room}",
+        "com.github.bumptech.glide:glide:${Versions.glide}",
+        "me.relex:circleindicator:${Versions.circleIndicator}",
+        "org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:${Versions.whyNotImageCarousel}",
         "androidx.cardview:cardview:${Versions.cardview}"
     )
 
@@ -18,7 +22,7 @@ object Libs {
 
     val kotlinLibs = listOf(
         "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}",
     )
 
     val libs = listOf(

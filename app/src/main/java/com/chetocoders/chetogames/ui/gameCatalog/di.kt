@@ -1,4 +1,4 @@
-package com.chetocoders.chetogames.ui
+package com.chetocoders.chetogames.ui.gameCatalog
 
 import com.chetocoders.data.repository.GameRepository
 import com.chetocoders.data.repository.RegionRepository
@@ -12,7 +12,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class GameCatalogFragment {
+class GameCatalogFragmentModule {
 
     @Provides
     @ViewModelScoped

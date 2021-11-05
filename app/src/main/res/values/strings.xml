@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Cheto Games</string>
-
-    <!-- Navbar strings -->
+    <!-- Navbar -->
     <string name="my_library">My Library</string>
     <string name="add_game">Add Game</string>
     <string name="game_catalog">Game Catalog</string>
@@ -14,4 +12,25 @@
     <string name="default_location">ES</string>
     <string name="card_view_title">Game Title</string>
     <string name="card_view_platform">Game Platforms</string>
+
+    <!-- Detail view -->
+    <string name="app_name">Cheto Games</string>
+    <string name="category_main_game">main game</string>
+    <string name="category_dlc_addon">DLC / addon</string>
+    <string name="category_expansion">expansion</string>
+    <string name="category_bundle">bundle</string>
+    <string name="category_standalone_expansion">standalone expansion</string>
+    <string name="category_mod">mod</string>
+    <string name="category_episode">episode</string>
+    <string name="category_season">season</string>
+    <string name="category_remake">remake</string>
+    <string name="category_remaster">remaster</string>
+    <string name="category_expanded_game">expanded game</string>
+    <string name="category_port">port</string>
+    <string name="category_fork">fork</string>
+    <string name="game_detail_category_indicator">is a</string>
+    <string name="game_detail_layout_description">Description</string>
+    <string name="game_detail_layout_release_date">Release date</string>
+    <string name="game_detail_layout_genres">Genres</string>
+    <string name="game_detail_layout_gamemodes">Gamemodes</string>
 </resources>

@@ -30,5 +30,10 @@ sealed class Rating(val index: Long) {
             12 -> D
             else -> null
         }
+
+        fun getValues() = arrayOf(THREE, SEVEN, TWELVE, SIXTEEN, EIGHTEEN, RP, EC, E, E10, T, M, D)
     }
+
+    override fun toString(): String = this.javaClass.simpleName
 }
+

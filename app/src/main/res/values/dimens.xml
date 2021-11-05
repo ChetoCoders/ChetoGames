@@ -6,4 +6,18 @@
     <dimen name="splashMarginBottom">45dp</dimen>
     <dimen name="regionMarginBottom">15dp</dimen>
     <dimen name="splashTextSize">24sp</dimen>
+
+    <!-- Detail view -->
+    <dimen name="detailMarginLayout">15dp</dimen>
+    <dimen name="detailMarginStartCategory">8dp</dimen>
+    <dimen name="detailMarginTopCategory">16dp</dimen>
+    <dimen name="detailMarginTopGeneral">8dp</dimen>
+    <dimen name="detailMarginTopTitle">16dp</dimen>
+    <dimen name="detailMarginStartChipGroup">8dp</dimen>
+    <dimen name="detailMarginTopChipGroup">2dp</dimen>
+    <dimen name="detailHeightImageCarousel">256dp</dimen>
+    <dimen name="fragmentDetailMarginFAB">15dp</dimen>
+    <dimen name="fragmentDetailHeightToolbar">320dp</dimen>
+    <dimen name="fragmentDetailHeightRatingList">35dp</dimen>
+    <dimen name="fragmentDetailWidthRatingList">10dp</dimen>
 </resources>

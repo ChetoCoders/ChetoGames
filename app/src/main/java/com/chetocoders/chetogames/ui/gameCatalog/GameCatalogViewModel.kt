@@ -2,10 +2,11 @@ package com.chetocoders.chetogames.ui.gameCatalog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chetocoders.chetogames.di.IoDispatcher
 import com.chetocoders.domain.GameDetail
 import com.chetocoders.usecases.GetGamesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GameCatalogViewModel @Inject constructor(
+    @IoDispatcher private val requestDispatcher: CoroutineDispatcher,
     private val getGamesUseCase: GetGamesUseCase
 ) : ViewModel() {
 
@@ -23,18 +25,19 @@ class GameCatalogViewModel @Inject constructor(
     sealed class UiModel {
         object Loading : UiModel()
         class Content(val gameDetails: List<GameDetail>) : UiModel()
-        class Navigation(val gameDetail: GameDetail) : UiModel()
+        class Navigation(val gameId : Long?) : UiModel()
     }
 
     fun requestListGame() {
         viewModelScope.launch {
-            _viewState.emit(withContext(Dispatchers.IO) { UiModel.Loading })
-            _viewState.emit(withContext(Dispatchers.IO) { UiModel.Content(getGamesUseCase.invoke()) })
+            _viewState.emit(withContext(requestDispatcher) { UiModel.Loading })
+            _viewState.emit(withContext(requestDispatcher) { UiModel.Content(getGamesUseCase.invoke()) })
         }
     }
 
-    fun onMovieClicked(gameDetail: GameDetail) {
+    fun onGameClicked(gameDetail: GameDetail) {
         _viewState.value = UiModel.Loading
+        _viewState.value = UiModel.Navigation(gameDetail.id)
     }
 
 }
