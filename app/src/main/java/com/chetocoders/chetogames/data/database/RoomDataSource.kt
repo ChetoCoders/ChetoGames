@@ -12,7 +12,7 @@ import com.chetocoders.domain.GameMode
 import com.chetocoders.domain.Genre
 import com.chetocoders.domain.Platform
 
-class RoomDataSource(db: GameDatabase) : LocalDataSource {
+class RoomDataSource (db: GameDatabase) : LocalDataSource {
 
     private val ageRatingDao = db.ageRatingDao()
     private val gameDao = db.gameDao()
@@ -25,7 +25,11 @@ class RoomDataSource(db: GameDatabase) : LocalDataSource {
         return gameDao.getAll().map { it.toDomain() }
     }
 
-    override suspend fun getGenres(): List<Genre> {
+    override suspend fun getGameDetail(gameId: Long): GameDetail {
+        return gameDao.getById(gameId).toDomain()
+    }
+
+   override suspend fun getGenres(): List<Genre> {
         return genreDao.getAll().map { it.toDomain() }
     }
 
@@ -37,7 +41,7 @@ class RoomDataSource(db: GameDatabase) : LocalDataSource {
         return gameModeDao.getAll().map { it.toDomain() }
     }
 
-    override suspend fun insertGame(game: GameDetail) : GameDetail {
+    override suspend fun insertGame(game: GameDetail) {
         game.id = gameDao.insert(game.toEntity().game)
         game.ageRatings?.forEach { ageRating ->
             ageRating.id = ageRatingDao.insert(ageRating.toEntity())
@@ -57,8 +61,10 @@ class RoomDataSource(db: GameDatabase) : LocalDataSource {
         }
         game.cover?.let { imageDao.insert(it.toEntity()) }
         game.screenshots?.let { imageDao.insertAll(it.map { image -> image.toEntity() }) }
+    }
 
-        return game
+    override suspend fun updateGame(game: GameDetail) {
+        gameDao.update(game.toEntity().game)
     }
 
     override suspend fun insertGames(gameList: List<GameDetail>) {

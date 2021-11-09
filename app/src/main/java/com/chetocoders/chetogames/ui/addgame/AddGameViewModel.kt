@@ -44,8 +44,8 @@ class AddGameViewModel @Inject constructor(
     private val _gameModes = MutableStateFlow(emptyList<GameMode>())
     val gameModes: StateFlow<List<GameMode>> get() = _gameModes
 
-    private val _game = MutableStateFlow(GameDetail())
-    val game: StateFlow<GameDetail> get() = _game
+    private val _game = MutableStateFlow<ResultData<GameDetail>>(GameDetail())
+    val game: StateFlow<ResultData<GameDetail>> get() = _game
 
     private val _loading = MutableStateFlow(true)
     val loading: StateFlow<Boolean> get() = _loading

@@ -36,3 +36,4 @@ sealed class Rating(val index: Long) {
 
     override fun toString(): String = this.javaClass.simpleName
 }
+

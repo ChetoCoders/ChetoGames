@@ -14,9 +14,13 @@ interface GameDao {
 
     @Transaction
     @Query("SELECT * FROM Game WHERE gameId = :id")
-    fun getById(id: Int): GameDetail
+    fun getById(id: Long): GameDetail
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(game: Game): Long
+    fun insert(game: Game): Long
+
+    @Transaction
+    @Update
+    fun update(game: Game)
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
+    style="@style/detailLayout"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_platforms"
+            style="@style/detailChipGroupPlatforms"/>
+
+        <TextView
+            android:id="@+id/category"
+            style="@style/detailTextViewCategory" />
+
+        <TextView
+            style="@style/detailTitle"
+            android:text="@string/game_detail_layout_description" />
+
+        <TextView
+            android:id="@+id/description"
+            style="@style/detailTextViewDescription" />
+
+        <TextView
+            style="@style/detailTitle"
+            android:text="@string/game_detail_layout_release_date" />
+
+        <TextView
+            android:id="@+id/release_date"
+            style="@style/detailTextViewReleaseDate" />
+
+        <TextView
+            style="@style/detailTitle"
+            android:text="@string/game_detail_layout_genres" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_genre"
+            style="@style/detailChipGroup" />
+
+        <TextView
+            style="@style/detailTitle"
+            android:text="@string/game_detail_layout_gamemodes" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_gamemode"
+            style="@style/detailChipGroup" />
+
+        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+            android:id="@+id/carousel"
+            style="@style/detailImageCarousel" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
