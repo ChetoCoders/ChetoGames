@@ -1,7 +1,7 @@
 package com.chetocoders.chetogames.ui
 
 object UiConstants {
-    const val HTTPS: String = "https:"
+    const val HTTPS: String = "https"
 
     const val DATE_PATTERN = "MMM dd, yyyy"
 

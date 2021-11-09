@@ -4,14 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chetocoders.data.common.ResultData
-import com.chetocoders.domain.GameDetail
-import com.chetocoders.domain.GameMode
-import com.chetocoders.domain.Genre
-import com.chetocoders.domain.Platform
-import com.chetocoders.usecases.AddGameUseCase
-import com.chetocoders.usecases.GetGameModesUseCase
-import com.chetocoders.usecases.GetGenresUseCase
-import com.chetocoders.usecases.GetPlatformsUseCase
+import com.chetocoders.domain.*
+import com.chetocoders.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +20,7 @@ class AddGameViewModel @Inject constructor(
     private val getGenresUseCase: GetGenresUseCase,
     private val getPlatformsUseCase: GetPlatformsUseCase,
     private val getGameModesUseCase: GetGameModesUseCase,
+    private val getAgeRatingsUseCase: GetAgeRatingsUseCase,
     private val addGameUseCase: AddGameUseCase
 ) :
     ViewModel() {
@@ -44,13 +39,16 @@ class AddGameViewModel @Inject constructor(
     private val _gameModes = MutableStateFlow(emptyList<GameMode>())
     val gameModes: StateFlow<List<GameMode>> get() = _gameModes
 
-    private val _game = MutableStateFlow<ResultData<GameDetail>>(GameDetail())
+    private val _ageRatings = MutableStateFlow(emptyList<AgeRating>())
+    val ageRatings: StateFlow<List<AgeRating>> get() = _ageRatings
+
+    private val _game = MutableStateFlow<ResultData<GameDetail>>(ResultData.Success(GameDetail()))
     val game: StateFlow<ResultData<GameDetail>> get() = _game
 
     private val _loading = MutableStateFlow(true)
     val loading: StateFlow<Boolean> get() = _loading
 
-    var gameInput = GameDetail()
+    var gameInput = GameDetail(ageRatings = listOf())
 
     suspend fun requestGamesData() {
         _loading.emit(true)
@@ -70,6 +68,12 @@ class AddGameViewModel @Inject constructor(
             when (val resultData = getGameModesUseCase.invoke()) {
                 is ResultData.Success -> onSuccessGetGameModes(resultData.value)
                 is ResultData.Failure -> onErrorGetGameModes(resultData.throwable)
+            }
+        }
+        withContext(requestDispatcher) {
+            when (val resultData = getAgeRatingsUseCase.invoke()) {
+                is ResultData.Success -> onSuccessGetAgeRatings(resultData.value)
+                is ResultData.Failure -> onErrorGetAgeRatings(resultData.throwable)
             }
         }
         _loading.emit(false)
@@ -108,6 +112,19 @@ class AddGameViewModel @Inject constructor(
     }
 
     private fun onErrorGetGameModes(throwable: Throwable) {
+        Log.e(
+            TAG,
+            if (throwable.localizedMessage.isNullOrEmpty()) "Unexpected error" else throwable.localizedMessage
+        )
+    }
+
+    private fun onSuccessGetAgeRatings(ageRatings: List<AgeRating>) {
+        viewModelScope.launch(requestDispatcher) {
+            _ageRatings.emit(ageRatings)
+        }
+    }
+
+    private fun onErrorGetAgeRatings(throwable: Throwable) {
         Log.e(
             TAG,
             if (throwable.localizedMessage.isNullOrEmpty()) "Unexpected error" else throwable.localizedMessage

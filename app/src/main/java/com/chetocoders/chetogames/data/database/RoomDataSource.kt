@@ -7,10 +7,7 @@ import com.chetocoders.chetogames.data.database.entity.PlatformGameRef
 import com.chetocoders.chetogames.data.database.mapper.toDomain
 import com.chetocoders.chetogames.data.database.mapper.toEntity
 import com.chetocoders.data.source.LocalDataSource
-import com.chetocoders.domain.GameDetail
-import com.chetocoders.domain.GameMode
-import com.chetocoders.domain.Genre
-import com.chetocoders.domain.Platform
+import com.chetocoders.domain.*
 
 class RoomDataSource (db: GameDatabase) : LocalDataSource {
 
@@ -39,6 +36,10 @@ class RoomDataSource (db: GameDatabase) : LocalDataSource {
 
     override suspend fun getGameModes(): List<GameMode> {
         return gameModeDao.getAll().map { it.toDomain() }
+    }
+
+    override suspend fun getAgeRatings(): List<AgeRating> {
+        return ageRatingDao.getAll().map { it.toDomain() }
     }
 
     override suspend fun insertGame(game: GameDetail) {

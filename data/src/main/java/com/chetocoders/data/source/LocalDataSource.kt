@@ -1,9 +1,6 @@
 package com.chetocoders.data.source
 
-import com.chetocoders.domain.GameDetail
-import com.chetocoders.domain.GameMode
-import com.chetocoders.domain.Genre
-import com.chetocoders.domain.Platform
+import com.chetocoders.domain.*
 
 interface LocalDataSource {
 
@@ -12,6 +9,7 @@ interface LocalDataSource {
     suspend fun getGenres(): List<Genre>
     suspend fun getPlatforms(): List<Platform>
     suspend fun getGameModes(): List<GameMode>
+    suspend fun getAgeRatings(): List<AgeRating>
     suspend fun insertGames(gameList: List<GameDetail>)
     suspend fun insertGame(game: GameDetail)
     suspend fun updateGame(game: GameDetail)

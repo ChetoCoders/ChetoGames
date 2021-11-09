@@ -122,6 +122,19 @@ fun <T : Any, V : Any> AutoCompleteTextView.binding(
     }
 }
 
+@JvmName("bindingAutoCompleteAgeRating")
+fun <T : Any, V : Any> AutoCompleteTextView.bindingAgeRating(
+    property: KMutableProperty1<T, V?>,
+    reference: T?,
+    list: List<Any>
+) {
+    this.setOnItemClickListener { _, _, i, _ ->
+        run {
+            property.setter.call(reference, listOf(list.find { Rating.getValues()[i] == it }))
+        }
+    }
+}
+
 @JvmName("bindingTextInput")
 fun <T : Any, V : Any> TextInputEditText.binding(
     property: KMutableProperty1<T, V?>,

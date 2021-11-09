@@ -1,11 +1,6 @@
 package com.chetocoders.chetogames.di
 
-import com.chetocoders.data.repository.GameModesRepository
-import com.chetocoders.data.repository.GameRepository
-import com.chetocoders.data.repository.PermissionChecker
-import com.chetocoders.data.repository.RegionRepository
-import com.chetocoders.data.repository.GenreRepository
-import com.chetocoders.data.repository.PlatformsRepository
+import com.chetocoders.data.repository.*
 import com.chetocoders.data.source.LocalDataSource
 import com.chetocoders.data.source.LocationDataSource
 import com.chetocoders.data.source.RemoteDataSource
@@ -40,4 +35,9 @@ class DataModule {
     @Provides
     fun gameModeRepositoryProvider(localDataSource: LocalDataSource) =
         GameModesRepository(localDataSource)
+
+    @Provides
+    fun ageRatingRepositoryProvider(localDataSource: LocalDataSource) =
+        AgeRatingRepository(localDataSource)
+
 }

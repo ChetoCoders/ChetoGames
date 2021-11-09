@@ -15,6 +15,7 @@ import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentAddgameBinding
 import com.chetocoders.chetogames.ui.alertDialog
 import com.chetocoders.chetogames.ui.binding
+import com.chetocoders.chetogames.ui.bindingAgeRating
 import com.chetocoders.domain.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -144,6 +145,17 @@ class AddGameFragment : Fragment() {
                 }
                 binding.gameModes.isEnabled = it.isNotEmpty()
             }.launchIn(this)
+
+            viewModel.ageRatings.onEach {
+                if (it.isNotEmpty()) {
+                    binding.ageRatingsAutoCompleteView.bindingAgeRating(
+                        GameDetail::ageRatings,
+                        viewModel.gameInput,
+                        it
+                    )
+                }
+                binding.platforms.isEnabled = it.isNotEmpty()
+            }.launchIn(this)
         }
 
         binding.ageRatingCategoryAutoCompleteView.setAdapter(
@@ -168,12 +180,6 @@ class AddGameFragment : Fragment() {
                 Rating.getValues().map { it.toString() }
             )
         )
-
-        /*binding.ageRatingsAutoCompleteView.binding(
-            GameDetail::ageRatings,
-            viewModel.gameInput,
-            Rating.getValues().toList()
-        )*/
 
         binding.toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -227,9 +233,9 @@ class AddGameFragment : Fragment() {
                 viewModel.gameInput,
                 screenshotsInput.text.toString()
             )
+
             viewModel.addGame()
         }
-
     }
 }
 
