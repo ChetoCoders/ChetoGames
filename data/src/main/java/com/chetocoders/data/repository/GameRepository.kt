@@ -9,13 +9,21 @@ class GameRepository(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource) {
 
-    suspend fun getGames(): List<GameDetail> {
-        if(localDataSource.getGameDetails().isEmpty()) {
+    suspend fun loadGames(): ResultData<Boolean> {
+        return if(localDataSource.getGameDetails().isEmpty()) {
             val gameDetails = remoteDataSource.getGames().getValue()
             if(!gameDetails.isNullOrEmpty()){
                 localDataSource.insertGames(gameDetails)
+                ResultData.Success(value = true)
+            } else {
+                ResultData.Success(value = false)
             }
+        } else {
+            ResultData.Success(value = true)
         }
+    }
+
+    suspend fun getGames(): List<GameDetail> {
         return localDataSource.getGameDetails()
     }
 
