@@ -32,6 +32,19 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
+        android:id="@+id/gameLibraryFragment"
+        android:name="com.chetocoders.chetogames.ui.gameLibrary.GameLibraryFragment"
+        android:label="fragment_game_library"
+        tools:layout="@layout/fragment_game_library">
+        <action
+            android:id="@+id/action_gameLibraryFragment_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
         android:id="@+id/gameDetailFragment"
         android:name="com.chetocoders.chetogames.ui.gameDetail.GameDetailFragment"
         android:label="fragment_game_detail"
