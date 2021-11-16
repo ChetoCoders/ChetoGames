@@ -25,6 +25,14 @@ object Libs {
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}",
     )
 
+    val appTestLibs = listOf(
+        "com.google.dagger:hilt-android-testing:${Versions.hilt}"
+    )
+
+    val appTestKaptLibs = listOf(
+        "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+    )
+
     val libs = listOf(
         "com.karumi:dexter:${Versions.dexter}",
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}",
@@ -35,7 +43,11 @@ object Libs {
     )
 
     val testLibs = listOf(
-        "junit:junit:${Versions.junit}"
+        "junit:junit:${Versions.junit}",
+        "androidx.arch.core:core-testing:${Versions.coreTesting}",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}",
+        "org.mockito.kotlin:mockito-kotlin:${Versions.mockitoKotlin}",
+        "org.mockito:mockito-inline:${Versions.mockitoInline}"
     )
 
     val androidTestLibs = listOf(
