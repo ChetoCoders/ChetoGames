@@ -7,6 +7,12 @@
     <dimen name="regionMarginBottom">15dp</dimen>
     <dimen name="splashTextSize">24sp</dimen>
 
+    <!-- Game Catalog -->
+    <dimen name="catalogMarginStart">8dp</dimen>
+    <dimen name="catalogMarginTop">8dp</dimen>
+    <dimen name="catalogMarginEnd">8dp</dimen>
+    <dimen name="catalogMarginBottom">8dp</dimen>
+
     <!-- Detail view -->
     <dimen name="detailMarginLayout">15dp</dimen>
     <dimen name="detailMarginStartCategory">8dp</dimen>
@@ -20,4 +26,11 @@
     <dimen name="fragmentDetailHeightToolbar">320dp</dimen>
     <dimen name="fragmentDetailHeightRatingList">35dp</dimen>
     <dimen name="fragmentDetailWidthRatingList">10dp</dimen>
+
+    <!-- Game Library -->
+    <dimen name="libraryMarginStart">8dp</dimen>
+    <dimen name="libraryMarginTop">8dp</dimen>
+    <dimen name="libraryMarginEnd">8dp</dimen>
+    <dimen name="libraryMarginBottom">8dp</dimen>
+
 </resources>

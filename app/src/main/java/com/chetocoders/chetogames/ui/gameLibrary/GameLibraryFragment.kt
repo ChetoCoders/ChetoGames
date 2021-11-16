@@ -1,4 +1,4 @@
-package com.chetocoders.chetogames.ui.gameCatalog
+package com.chetocoders.chetogames.ui.gameLibrary
 
 import android.os.Bundle
 import android.util.Log
@@ -12,24 +12,24 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.chetocoders.chetogames.R
-import com.chetocoders.chetogames.databinding.FragmentGameCatalogBinding
-import com.chetocoders.chetogames.ui.gameCatalog.GameCatalogViewModel.UiModel
+import com.chetocoders.chetogames.databinding.FragmentGameLibraryBinding
+import com.chetocoders.chetogames.ui.gameLibrary.GameLibraryViewModel.UiModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 
 @AndroidEntryPoint
-class GameCatalogFragment : Fragment() {
+class GameLibraryFragment : Fragment() {
 
     companion object {
-        private val TAG = GameCatalogFragment::class.qualifiedName
+        private val TAG = GameLibraryFragment::class.qualifiedName
     }
 
-    private lateinit var binding: FragmentGameCatalogBinding
+    private lateinit var binding: FragmentGameLibraryBinding
 
-    private val viewModel: GameCatalogViewModel by viewModels()
-    private lateinit var adapter: GameCatalogAdapter
+    private val viewModel: GameLibraryViewModel by viewModels()
+    private lateinit var adapter: GameLibraryAdapter
     private lateinit var navController: NavController
 
 
@@ -38,13 +38,13 @@ class GameCatalogFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentGameCatalogBinding.inflate(layoutInflater)
+        binding = FragmentGameLibraryBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = GameCatalogAdapter(viewModel::onGameClicked)
+        adapter = GameLibraryAdapter(viewModel::onGameClicked)
         binding.recyclerview.adapter = adapter
         navController = view.findNavController()
 
@@ -59,7 +59,7 @@ class GameCatalogFragment : Fragment() {
         when (model) {
             is UiModel.Content -> adapter.listGameDetail = model.gameDetails
             is UiModel.Navigation -> navController.navigate(
-                R.id.action_gameCatalogFragment_to_gameDetailFragment,
+                R.id.action_gameLibraryFragment_to_gameDetailFragment,
                 bundleOf("GAME_ID" to model.gameId)
             )
             else -> Log.d(TAG, "Loading state")
