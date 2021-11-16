@@ -14,6 +14,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.whenever
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -45,20 +46,43 @@ class GameCatalogIntegrationTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun `get games catalog`() {
+    fun `get games catalog local`() {
 
         coroutineTestRule.testDispatcher.runBlockingTest {
-
             val fakesLocalGames = listOf(mockedGameDetail.copy(1))
+            whenever(getGamesUseCase.invoke()).thenReturn(fakesLocalGames)
 
             localDataSource.games = fakesLocalGames
 
             val states = arrayListOf<GameCatalogViewModel.UiModel>()
             val job = launch {
+                vm.requestListGame()
                 vm.viewState.toList(states)
             }
 
-            Assert.assertTrue(states.equals(GameCatalogViewModel.UiModel.Content(fakesLocalGames)))
+            Assert.assertTrue((states[0] as GameCatalogViewModel.UiModel.Content).gameDetails == GameCatalogViewModel.UiModel.Content(fakesLocalGames).gameDetails)
+
+            job.cancel()
+
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `get games catalog remote`() {
+
+        coroutineTestRule.testDispatcher.runBlockingTest {
+            whenever(getGamesUseCase.invoke()).thenReturn(defaultFakeGames)
+
+            remoteDataSource.games = defaultFakeGames
+
+            val states = arrayListOf<GameCatalogViewModel.UiModel>()
+            val job = launch {
+                vm.requestListGame()
+                vm.viewState.toList(states)
+            }
+
+            Assert.assertTrue((states[0] as GameCatalogViewModel.UiModel.Content).gameDetails == GameCatalogViewModel.UiModel.Content(defaultFakeGames).gameDetails)
 
             job.cancel()
 

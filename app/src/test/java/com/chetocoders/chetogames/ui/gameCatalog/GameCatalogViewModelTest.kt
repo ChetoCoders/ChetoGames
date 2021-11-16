@@ -41,7 +41,7 @@ class GameCatalogViewModelTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun `get games catalog`() {
+    fun `get games catalog viewmodel`() {
         coroutineTestRule.testDispatcher.runBlockingTest {
             val gameDetails = listOf(mockedGameDetail.copy(27))
             whenever(getGamesUseCase.invoke()).thenReturn(gameDetails)
