@@ -35,7 +35,11 @@ object Libs {
     )
 
     val testLibs = listOf(
-        "junit:junit:${Versions.junit}"
+        "junit:junit:${Versions.junit}",
+        "androidx.arch.core:core-testing:${Versions.coreTesting}",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}",
+        "org.mockito.kotlin:mockito-kotlin:${Versions.mockitoKotlin}",
+        "org.mockito:mockito-inline:${Versions.mockitoInline}"
     )
 
     val androidTestLibs = listOf(
