@@ -2,9 +2,7 @@ package com.chetocoders.chetogames.ui.gameCatalog
 
 import GameCatalogAdapter
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -51,6 +49,18 @@ class GameCatalogFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             viewModel.viewState.onEach { updateUi(it) }.launchIn(this)
             viewModel.requestListGame()
+        }
+
+
+        binding?.bottomLayout?.bottomNavigation?.setOnItemSelectedListener {
+            when (it.itemId) {
+               R.id.addGame -> navController.navigate(R.id.action_gameCatalogFragment_to_addGameFragment)
+                R.id.gameCatalog -> Unit
+                R.id.myLibrary -> Unit
+                else -> Unit
+            }
+
+            true
         }
     }
 

@@ -28,8 +28,8 @@ class AddGameFragmentModule {
 
     @Provides
     @ViewModelScoped
-    fun getAgeRatingsUseCaseProvider(ageRatingsRepository: AgeRatingRepository) =
-        GetAgeRatingsUseCase(ageRatingsRepository)
+    fun getAgeRatingsByCategoryUseCase(ageRatingsRepository: AgeRatingRepository) =
+        GetAgeRatingsByCategoryUseCase(ageRatingsRepository)
 
     @Provides
     @ViewModelScoped

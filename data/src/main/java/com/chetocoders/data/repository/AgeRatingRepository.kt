@@ -6,9 +6,9 @@ import com.chetocoders.domain.AgeRating
 
 class AgeRatingRepository(private val localDataSource: LocalDataSource) {
 
-    suspend fun getAgeRatings(): ResultData<List<AgeRating>> {
+    suspend fun getAgeRatingsByCategory(index: Int): ResultData<List<AgeRating>> {
         return try {
-            ResultData.success(localDataSource.getAgeRatings())
+            ResultData.success(localDataSource.getAgeRatingsByCategory(index))
         } catch (exception: Exception) {
             ResultData.failure(exception)
         }

@@ -38,8 +38,8 @@ class RoomDataSource (db: GameDatabase) : LocalDataSource {
         return gameModeDao.getAll().map { it.toDomain() }
     }
 
-    override suspend fun getAgeRatings(): List<AgeRating> {
-        return ageRatingDao.getAll().map { it.toDomain() }
+    override suspend fun getAgeRatingsByCategory(index: Int): List<AgeRating> {
+        return ageRatingDao.getAgeRatingsByCategory(index).map { it.toDomain() }
     }
 
     override suspend fun insertGame(game: GameDetail) {

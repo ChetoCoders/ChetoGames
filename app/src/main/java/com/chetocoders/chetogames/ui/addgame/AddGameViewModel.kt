@@ -20,7 +20,7 @@ class AddGameViewModel @Inject constructor(
     private val getGenresUseCase: GetGenresUseCase,
     private val getPlatformsUseCase: GetPlatformsUseCase,
     private val getGameModesUseCase: GetGameModesUseCase,
-    private val getAgeRatingsUseCase: GetAgeRatingsUseCase,
+    private val getAgeRatingsByCategoryUseCase: GetAgeRatingsByCategoryUseCase,
     private val addGameUseCase: AddGameUseCase
 ) :
     ViewModel() {
@@ -70,12 +70,6 @@ class AddGameViewModel @Inject constructor(
                 is ResultData.Failure -> onErrorGetGameModes(resultData.throwable)
             }
         }
-        withContext(requestDispatcher) {
-            when (val resultData = getAgeRatingsUseCase.invoke()) {
-                is ResultData.Success -> onSuccessGetAgeRatings(resultData.value)
-                is ResultData.Failure -> onErrorGetAgeRatings(resultData.throwable)
-            }
-        }
         _loading.emit(false)
     }
 
@@ -118,6 +112,7 @@ class AddGameViewModel @Inject constructor(
         )
     }
 
+
     private fun onSuccessGetAgeRatings(ageRatings: List<AgeRating>) {
         viewModelScope.launch(requestDispatcher) {
             _ageRatings.emit(ageRatings)
@@ -137,6 +132,15 @@ class AddGameViewModel @Inject constructor(
             val result = addGameUseCase.invoke(gameInput)
             _game.emit(result)
             _loading.emit(false)
+        }
+    }
+
+    suspend fun getAgeRatingByCategory(index: Int) {
+        withContext(requestDispatcher) {
+            when (val resultData = getAgeRatingsByCategoryUseCase.invoke(index)) {
+                is ResultData.Success -> onSuccessGetAgeRatings(resultData.value)
+                is ResultData.Failure -> onErrorGetAgeRatings(resultData.throwable)
+            }
         }
     }
 }

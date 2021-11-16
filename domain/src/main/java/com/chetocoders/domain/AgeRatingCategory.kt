@@ -1,6 +1,6 @@
 package com.chetocoders.domain
 
-sealed class AgeRatingCategory(val index: Long) {
+sealed class AgeRatingCategory(val index: Int) {
     object ESRB : AgeRatingCategory(1)
     object PEGI : AgeRatingCategory(2)
 
