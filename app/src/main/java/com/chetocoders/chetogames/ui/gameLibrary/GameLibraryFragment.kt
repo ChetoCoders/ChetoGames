@@ -1,7 +1,7 @@
 package com.chetocoders.chetogames.ui.gameLibrary
 
-import GameLibraryAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,27 +22,30 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class GameLibraryFragment : Fragment() {
 
-    private var binding: FragmentGameLibraryBinding? = null
+    companion object {
+        private val TAG = GameLibraryFragment::class.qualifiedName
+    }
+
+    private lateinit var binding: FragmentGameLibraryBinding
 
     private val viewModel: GameLibraryViewModel by viewModels()
     private lateinit var adapter: GameLibraryAdapter
     private lateinit var navController: NavController
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentGameLibraryBinding.inflate(layoutInflater)
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = GameLibraryAdapter(viewModel::onGameClicked)
-        binding?.recyclerview?.adapter = adapter
+        binding.recyclerview.adapter = adapter
         navController = view.findNavController()
 
         lifecycleScope.launchWhenStarted {
@@ -52,12 +55,14 @@ class GameLibraryFragment : Fragment() {
     }
 
     private fun updateUi(model: UiModel) {
-        binding?.progress?.visibility = if (model is UiModel.Loading) View.VISIBLE else View.GONE
+        binding.progress.visibility = if (model is UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
             is UiModel.Content -> adapter.listGameDetail = model.gameDetails
             is UiModel.Navigation -> navController.navigate(
-                R.id.action_gameLibraryFragment_to_gameDetailFragment, bundleOf("GAME_ID" to model.gameId)
+                R.id.action_gameLibraryFragment_to_gameDetailFragment,
+                bundleOf("GAME_ID" to model.gameId)
             )
+            else -> Log.d(TAG, "Loading state")
         }
     }
 

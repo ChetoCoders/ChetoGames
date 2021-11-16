@@ -1,3 +1,4 @@
+package com.chetocoders.chetogames.ui.gameCatalog
 
 import android.view.View
 import android.view.ViewGroup
@@ -33,11 +34,10 @@ class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = CardViewItemGameBinding.bind(view)
-        private val view = view
         fun bind(gameDetail: GameDetail) = with(binding) {
             gameTitle.text = gameDetail.title
             if (gameDetail.platforms.isNullOrEmpty()) {
-                gamePlatforms.text = view.resources.getString(R.string.no_platform_info)
+                gamePlatforms.text = itemView.resources.getString(R.string.no_platform_info)
             } else {
                 gamePlatforms.text = gameDetail.platforms?.joinToString("-") { it.name.toString() }
             }

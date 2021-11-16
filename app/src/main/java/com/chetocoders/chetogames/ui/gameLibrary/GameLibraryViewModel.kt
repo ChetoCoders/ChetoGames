@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chetocoders.chetogames.di.IoDispatcher
 import com.chetocoders.domain.GameDetail
-import com.chetocoders.usecases.GetGamesUseCase
 import com.chetocoders.usecases.GetLocalGamesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -26,13 +25,17 @@ class GameLibraryViewModel @Inject constructor(
     sealed class UiModel {
         object Loading : UiModel()
         class Content(val gameDetails: List<GameDetail>) : UiModel()
-        class Navigation(val gameId : Long?) : UiModel()
+        class Navigation(val gameId: Long?) : UiModel()
     }
 
     fun requestListGame() {
         viewModelScope.launch {
             _viewState.emit(withContext(requestDispatcher) { UiModel.Loading })
-            _viewState.emit(withContext(requestDispatcher) { UiModel.Content(getLocalGamesUseCaseProvider.invoke()) })
+            _viewState.emit(withContext(requestDispatcher) {
+                UiModel.Content(
+                    getLocalGamesUseCaseProvider.invoke()
+                )
+            })
         }
     }
 
