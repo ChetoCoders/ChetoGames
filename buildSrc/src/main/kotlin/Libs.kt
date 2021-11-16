@@ -25,6 +25,14 @@ object Libs {
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}",
     )
 
+    val appTestLibs = listOf(
+        "com.google.dagger:hilt-android-testing:${Versions.hilt}"
+    )
+
+    val appTestKaptLibs = listOf(
+        "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+    )
+
     val libs = listOf(
         "com.karumi:dexter:${Versions.dexter}",
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}",
