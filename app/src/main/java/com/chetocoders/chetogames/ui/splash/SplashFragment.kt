@@ -1,7 +1,9 @@
 package com.chetocoders.chetogames.ui.splash
 
 import android.Manifest
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentSplashBinding
+import com.chetocoders.chetogames.ui.alertDialog
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -54,13 +57,29 @@ class SplashFragment : Fragment() {
             viewModel.requestRegion()
         }
 
-        lifecycleScope.launchWhenCreated {
-            delay(3000)
-            navController.navigate(
-                R.id.action_splashFragment_to_gameCatalogFragment
-            )
+        lifecycleScope.launchWhenStarted {
+            viewModel.isLoaded.onEach {
+                if (it != null) {
+                    if (it) navigateToMain() else showDialog()
+                }
+            }.launchIn(this)
+
+            viewModel.loadGames()
         }
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun navigateToMain() {
+        navController.navigate(
+            R.id.action_splashFragment_to_gameCatalogFragment
+        )
+    }
+
+    private fun showDialog() {
+        alertDialog(this.requireContext(), getString(R.string.error_load_game), { _, which ->
+            if (which == DialogInterface.BUTTON_POSITIVE)
+                navigateToMain()
+        },null)
     }
 
     private fun getPermission() {

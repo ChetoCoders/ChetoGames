@@ -27,10 +27,16 @@
     <dimen name="fragmentDetailHeightRatingList">35dp</dimen>
     <dimen name="fragmentDetailWidthRatingList">10dp</dimen>
 
+    <!-- Add Game Screen -->
+    <dimen name="addGameMarginTopScroll">0dp</dimen>
+    <dimen name="addGameMarginBottomScroll">15dp</dimen>
+    <dimen name="addGameMarginStart">20dp</dimen>
+    <dimen name="addGameMarginEnd">20dp</dimen>
+    <dimen name="addGameMarginTop">10dp</dimen>
+
     <!-- Game Library -->
     <dimen name="libraryMarginStart">8dp</dimen>
     <dimen name="libraryMarginTop">8dp</dimen>
     <dimen name="libraryMarginEnd">8dp</dimen>
     <dimen name="libraryMarginBottom">8dp</dimen>
-
 </resources>

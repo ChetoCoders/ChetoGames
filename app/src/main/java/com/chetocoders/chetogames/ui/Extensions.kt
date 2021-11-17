@@ -1,10 +1,14 @@
 package com.chetocoders.chetogames.ui
 
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.AutoCompleteTextView
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +22,8 @@ import com.chetocoders.domain.GameCategory
 import com.chetocoders.domain.Rating
 import com.google.android.material.textfield.TextInputEditText
 import kotlin.properties.Delegates
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlin.reflect.KMutableProperty1
 
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T : ViewModel> Fragment.getViewModel(crossinline factory: () -> T): T {
@@ -43,10 +49,10 @@ fun ViewGroup.inflate(cardViewItemGame: Int, b: Boolean): View {
 }
 
 fun TextInputEditText.binding(value: String, message: String) {
-        this.error = if (value.isNullOrEmpty()) null else message
+    this.error = if (value.isNullOrEmpty()) null else message
 }
 
-fun GameCategory.getString() = when(index.toInt()) {
+fun GameCategory.getString() = when (index.toInt()) {
     0 -> R.string.category_main_game
     1 -> R.string.category_dlc_addon
     2 -> R.string.category_expansion
@@ -63,7 +69,7 @@ fun GameCategory.getString() = when(index.toInt()) {
     else -> -1
 }
 
-fun Rating.getDrawable() = when(index.toInt()) {
+fun Rating.getDrawable() = when (index.toInt()) {
     1 -> R.drawable.pegi_3
     2 -> R.drawable.pegi_7
     3 -> R.drawable.pegi_12
@@ -101,3 +107,57 @@ inline fun <VH : RecyclerView.ViewHolder, T> RecyclerView.Adapter<VH>.basicDiffU
             override fun getNewListSize(): Int = new.size
         }).dispatchUpdatesTo(this@basicDiffUtil)
     }
+
+@JvmName("bindingAutoComplete")
+fun <T : Any, V : Any> AutoCompleteTextView.binding(
+    property: KMutableProperty1<T, V?>,
+    reference: T?,
+    list: List<Any>,
+    isTypeList: Boolean = true
+) {
+    this.setOnItemClickListener { _, _, i, _ ->
+        run {
+            property.setter.call(reference, if (isTypeList) listOf(list[i]) else list[i])
+        }
+    }
+}
+
+@JvmName("bindingAutoCompleteAgeRating")
+fun <T : Any, V : Any> AutoCompleteTextView.bindingAgeRating(
+    property: KMutableProperty1<T, V?>,
+    reference: T?,
+    list: List<Any>
+) {
+    this.setOnItemClickListener { _, _, i, _ ->
+        run {
+            property.setter.call(reference, listOf(list.find { Rating.getValues()[i] == it }))
+        }
+    }
+}
+
+@JvmName("bindingTextInput")
+fun <T : Any, V : Any> TextInputEditText.binding(
+    property: KMutableProperty1<T, V?>,
+    reference: T?,
+    value: Any
+) {
+    run {
+        if (value.toString().isNotEmpty()) {
+            property.setter.call(reference, value)
+        }
+    }
+}
+
+fun alertDialog(
+    context: Context,
+    message: String,
+    okListener: DialogInterface.OnClickListener?,
+    cancelListener: DialogInterface.OnClickListener?
+) {
+    MaterialAlertDialogBuilder(context)
+        .setMessage(message)
+        .setCancelable(false)
+        .setNegativeButton(android.R.string.cancel, cancelListener)
+        .setPositiveButton(android.R.string.ok, okListener)
+        .show()
+}

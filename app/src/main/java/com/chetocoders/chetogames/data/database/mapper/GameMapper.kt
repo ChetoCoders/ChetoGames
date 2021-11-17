@@ -1,11 +1,11 @@
 package com.chetocoders.chetogames.data.database.mapper
 
 import com.chetocoders.domain.GameCategory
-import com.chetocoders.domain.GameDetail as GameDetailDomain
-import com.chetocoders.domain.Game as GameDomain
 import com.chetocoders.chetogames.data.database.entity.Game as GameEntity
-import com.chetocoders.chetogames.data.database.entity.GameSimple as GameSimpleEntity
 import com.chetocoders.chetogames.data.database.entity.GameDetail as GameDetailEntity
+import com.chetocoders.chetogames.data.database.entity.GameSimple as GameSimpleEntity
+import com.chetocoders.domain.Game as GameDomain
+import com.chetocoders.domain.GameDetail as GameDetailDomain
 
 fun GameSimpleEntity.toDomain() = GameDomain(
     this.game.gameId,

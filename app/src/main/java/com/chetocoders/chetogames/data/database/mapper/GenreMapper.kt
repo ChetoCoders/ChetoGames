@@ -1,7 +1,7 @@
 package com.chetocoders.chetogames.data.database.mapper
 
-import com.chetocoders.domain.Genre as GenreDomain
 import com.chetocoders.chetogames.data.database.entity.Genre as GenreEntity
+import com.chetocoders.domain.Genre as GenreDomain
 
 fun GenreEntity.toDomain() = GenreDomain(
     this.genreId,

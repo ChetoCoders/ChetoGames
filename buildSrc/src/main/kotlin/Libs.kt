@@ -11,7 +11,8 @@ object Libs {
         "com.github.bumptech.glide:glide:${Versions.glide}",
         "me.relex:circleindicator:${Versions.circleIndicator}",
         "org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:${Versions.whyNotImageCarousel}",
-        "androidx.cardview:cardview:${Versions.cardview}"
+        "androidx.cardview:cardview:${Versions.cardview}",
+        "androidx.room:room-ktx:${Versions.room}"
     )
 
     val androidKaptLibs = listOf(
@@ -23,6 +24,8 @@ object Libs {
     val kotlinLibs = listOf(
         "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}",
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}",
+        "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}",
     )
 
     val appTestLibs = listOf(

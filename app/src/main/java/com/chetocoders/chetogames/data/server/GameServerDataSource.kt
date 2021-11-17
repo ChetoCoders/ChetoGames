@@ -8,7 +8,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
-class GameServerDataSource @Inject constructor(private val gameServerService: GameServerService) : RemoteDataSource {
+class GameServerDataSource @Inject constructor(private val gameServerService: GameServerService) :
+    RemoteDataSource {
 
     override suspend fun getGames(): Response<List<GameDetail>> {
         return try {

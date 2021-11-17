@@ -54,7 +54,7 @@ class GameRepositoryTest {
             val remoteGames = listOf(mockedGameDetail.copy(27))
             whenever(localDataSource.getGameDetails()).thenReturn(emptyList())
             whenever(remoteDataSource.getGames()).thenReturn(Response(value = remoteGames))
-            gameRepository.getGames()
+            gameRepository.loadGames()
             verify(localDataSource).insertGames(remoteGames)
         }
     }

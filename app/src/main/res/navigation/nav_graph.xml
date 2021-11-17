@@ -18,6 +18,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/gameCatalogFragment"
         android:name="com.chetocoders.chetogames.ui.gameCatalog.GameCatalogFragment"
@@ -26,6 +27,13 @@
         <action
             android:id="@+id/action_gameCatalogFragment_to_gameDetailFragment"
             app:destination="@id/gameDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_gameCatalogFragment_to_addGameFragment"
+            app:destination="@id/addGameFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -49,4 +57,17 @@
         android:name="com.chetocoders.chetogames.ui.gameDetail.GameDetailFragment"
         android:label="fragment_game_detail"
         tools:layout="@layout/fragment_game_detail"/>
+    <fragment
+        android:id="@+id/addGameFragment"
+        android:name="com.chetocoders.chetogames.ui.addgame.AddGameFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_addgame">
+        <action
+            android:id="@+id/action_addGameFragment_to_gameCatalogFragment"
+            app:destination="@id/gameCatalogFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 </navigation>

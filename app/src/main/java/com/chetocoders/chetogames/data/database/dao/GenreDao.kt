@@ -1,9 +1,6 @@
 package com.chetocoders.chetogames.data.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Transaction
+import androidx.room.*
 import com.chetocoders.chetogames.data.database.entity.Genre
 import com.chetocoders.chetogames.data.database.entity.GenreGameRef
 
@@ -12,9 +9,13 @@ import com.chetocoders.chetogames.data.database.entity.GenreGameRef
 interface GenreDao {
 
     @Transaction
+    @Query("SELECT * FROM Genre")
+    fun getAll(): List<Genre>
+
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(genre: Genre): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addAssignedGenre( genreGameRef: GenreGameRef )
+    fun addAssignedGenre(genreGameRef: GenreGameRef)
 }

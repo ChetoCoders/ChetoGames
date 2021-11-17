@@ -1,8 +1,8 @@
 package com.chetocoders.chetogames.data.database.mapper
 
 import com.chetocoders.domain.Game
-import com.chetocoders.domain.Image as ImageDomain
 import com.chetocoders.chetogames.data.database.entity.Image as ImageEntity
+import com.chetocoders.domain.Image as ImageDomain
 
 fun ImageEntity.toDomain() = ImageDomain(
     this.imageId,

@@ -33,4 +33,21 @@
     <string name="game_detail_layout_release_date">Release date</string>
     <string name="game_detail_layout_genres">Genres</string>
     <string name="game_detail_layout_gamemodes">Gamemodes</string>
+
+    <!-- Add Game view -->
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="released">Released</string>
+    <string name="category">Category</string>
+    <string name="genres">Genres</string>
+    <string name="platforms">Platforms</string>
+    <string name="gamemodes">Game Modes</string>
+    <string name="cover">Cover</string>
+    <string name="screenshots">Screenshots</string>
+    <string name="ageratings">Age Ratings</string>
+    <string name="ageratingcategory">Age Rating Category</string>
+    <string name="new_game">New Game</string>
+    <string name="error">Required Field</string>
+    <string name="addGameAlertDialog">Do you want to save the game?</string>
+    <string name="error_load_game">Games could not be loaded</string>
 </resources>

@@ -52,6 +52,18 @@ class GameCatalogFragment : Fragment() {
             viewModel.viewState.onEach { updateUi(it) }.launchIn(this)
             viewModel.requestListGame()
         }
+
+
+        binding?.bottomLayout?.bottomNavigation?.setOnItemSelectedListener {
+            when (it.itemId) {
+               R.id.addGame -> navController.navigate(R.id.action_gameCatalogFragment_to_addGameFragment)
+                R.id.gameCatalog -> Unit
+                R.id.myLibrary -> Unit
+                else -> Unit
+            }
+
+            true
+        }
     }
 
     private fun updateUi(model: UiModel) {

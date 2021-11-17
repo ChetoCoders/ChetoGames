@@ -62,6 +62,7 @@ class GameDetailViewModel @Inject constructor(
         withContext(requestDispatcher) {
             val gameValue = _game.value
             if (gameValue != null) {
+                _game.emit(null)
                 gameValue.isFavourite = !gameValue.isFavourite
 
                 Log.i(TAG, "Updating game")

@@ -1,21 +1,21 @@
 package com.chetocoders.domain
 
 sealed class Rating(val index: Long) {
-    object THREE: Rating(1)
-    object SEVEN: Rating(2)
-    object TWELVE: Rating(3)
-    object SIXTEEN: Rating(4)
-    object EIGHTEEN: Rating(5)
-    object RP: Rating(6)
-    object EC: Rating(7)
-    object E: Rating(8)
-    object E10: Rating(9)
-    object T: Rating(10)
-    object M: Rating(11)
-    object D: Rating(12)
+    object THREE : Rating(1)
+    object SEVEN : Rating(2)
+    object TWELVE : Rating(3)
+    object SIXTEEN : Rating(4)
+    object EIGHTEEN : Rating(5)
+    object RP : Rating(6)
+    object EC : Rating(7)
+    object E : Rating(8)
+    object E10 : Rating(9)
+    object T : Rating(10)
+    object M : Rating(11)
+    object D : Rating(12)
 
     companion object {
-        fun get(index: Int?) = when(index) {
+        fun get(index: Int?) = when (index) {
             1 -> THREE
             2 -> SEVEN
             3 -> TWELVE
