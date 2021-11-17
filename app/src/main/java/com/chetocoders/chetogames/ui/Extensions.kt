@@ -49,10 +49,10 @@ fun ViewGroup.inflate(cardViewItemGame: Int, b: Boolean): View {
 }
 
 fun TextInputEditText.binding(value: String, message: String) {
-        this.error = if (value.isNullOrEmpty()) null else message
+    this.error = if (value.isNullOrEmpty()) null else message
 }
 
-fun GameCategory.getString() = when(index.toInt()) {
+fun GameCategory.getString() = when (index.toInt()) {
     0 -> R.string.category_main_game
     1 -> R.string.category_dlc_addon
     2 -> R.string.category_expansion
@@ -69,7 +69,7 @@ fun GameCategory.getString() = when(index.toInt()) {
     else -> -1
 }
 
-fun Rating.getDrawable() = when(index.toInt()) {
+fun Rating.getDrawable() = when (index.toInt()) {
     1 -> R.drawable.pegi_3
     2 -> R.drawable.pegi_7
     3 -> R.drawable.pegi_12
@@ -141,13 +141,9 @@ fun <T : Any, V : Any> TextInputEditText.binding(
     reference: T?,
     value: Any
 ) {
-    this.addTextChangedListener {
-        doOnTextChanged { _, _, _, _ ->
-            run {
-                if (value.toString().isNotEmpty()) {
-                    property.setter.call(reference, value)
-                }
-            }
+    run {
+        if (value.toString().isNotEmpty()) {
+            property.setter.call(reference, value)
         }
     }
 }

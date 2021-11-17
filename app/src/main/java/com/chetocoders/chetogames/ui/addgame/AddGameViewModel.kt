@@ -3,12 +3,12 @@ package com.chetocoders.chetogames.ui.addgame
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chetocoders.chetogames.di.IoDispatcher
 import com.chetocoders.data.common.ResultData
 import com.chetocoders.domain.*
 import com.chetocoders.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddGameViewModel @Inject constructor(
+    @IoDispatcher private val requestDispatcher: CoroutineDispatcher,
     private val getGenresUseCase: GetGenresUseCase,
     private val getPlatformsUseCase: GetPlatformsUseCase,
     private val getGameModesUseCase: GetGameModesUseCase,
@@ -26,8 +27,7 @@ class AddGameViewModel @Inject constructor(
     ViewModel() {
 
     companion object {
-        private const val TAG = "AddGameViewModel"
-        private val requestDispatcher: CoroutineDispatcher = Dispatchers.IO
+        private val TAG = AddGameViewModel::class.qualifiedName
     }
 
     private val _genres = MutableStateFlow(emptyList<Genre>())
@@ -48,7 +48,7 @@ class AddGameViewModel @Inject constructor(
     private val _loading = MutableStateFlow(true)
     val loading: StateFlow<Boolean> get() = _loading
 
-    var gameInput = GameDetail(ageRatings = listOf())
+    var gameInput = GameDetail(ageRatings = emptyList(), isExternal = true)
 
     suspend fun requestGamesData() {
         _loading.emit(true)
@@ -129,6 +129,9 @@ class AddGameViewModel @Inject constructor(
     fun addGame() {
         viewModelScope.launch(requestDispatcher) {
             _loading.emit(true)
+            if( gameInput.ageRatings!!.isNotEmpty()){
+                gameInput.ageRatings = emptyList()
+            }
             val result = addGameUseCase.invoke(gameInput)
             _game.emit(result)
             _loading.emit(false)

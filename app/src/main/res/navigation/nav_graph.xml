@@ -57,8 +57,6 @@
         android:name="com.chetocoders.chetogames.ui.gameDetail.GameDetailFragment"
         android:label="fragment_game_detail"
         tools:layout="@layout/fragment_game_detail"/>
-        tools:layout="@layout/fragment_game_catalog" />
-
     <fragment
         android:id="@+id/addGameFragment"
         android:name="com.chetocoders.chetogames.ui.addgame.AddGameFragment"

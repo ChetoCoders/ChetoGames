@@ -3,7 +3,6 @@ package com.chetocoders.chetogames.ui.addgame
 import android.R.layout.*
 import android.app.DatePickerDialog
 import android.content.DialogInterface
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
@@ -12,12 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentAddgameBinding
 import com.chetocoders.chetogames.ui.alertDialog
@@ -29,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-
 import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.util.*
@@ -182,12 +174,6 @@ class AddGameFragment : Fragment() {
                 }
             }
         }
-
-        /*binding.ageRatingCategoryAutoCompleteView.binding(
-            GameDetail::ageRatings,
-            viewModel.gameInput,
-            AgeRatingCategory.getValues().toList()
-        )*/
 
         binding.ageRatingsAutoCompleteView.setAdapter(
             ArrayAdapter(

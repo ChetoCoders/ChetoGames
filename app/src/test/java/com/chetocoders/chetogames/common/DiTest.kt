@@ -9,7 +9,7 @@ import com.chetocoders.data.repository.RegionRepository
 import com.chetocoders.data.source.LocalDataSource
 import com.chetocoders.data.source.LocationDataSource
 import com.chetocoders.data.source.RemoteDataSource
-import com.chetocoders.domain.GameDetail
+import com.chetocoders.domain.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -77,6 +77,22 @@ class FakeLocalDataSource : LocalDataSource {
 
     override suspend fun getGameDetail(gameId: Long): GameDetail {
         return games[0]
+    }
+
+    override suspend fun getGenres(): List<Genre> {
+        return emptyList()
+    }
+
+    override suspend fun getPlatforms(): List<Platform> {
+        return emptyList()
+    }
+
+    override suspend fun getGameModes(): List<GameMode> {
+        return emptyList()
+    }
+
+    override suspend fun getAgeRatingsByCategory(index: Int): List<AgeRating> {
+        return emptyList()
     }
 
     override suspend fun insertGames(gameList: List<GameDetail>) {
