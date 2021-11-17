@@ -3,7 +3,6 @@ package com.chetocoders.chetogames.ui.splash
 import android.Manifest
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,6 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -71,7 +69,7 @@ class SplashFragment : Fragment() {
 
     private fun navigateToMain() {
         navController.navigate(
-            R.id.action_splashFragment_to_gameCatalogFragment
+            SplashFragmentDirections.actionSplashFragmentToGameCatalogFragment()
         )
     }
 
@@ -79,7 +77,7 @@ class SplashFragment : Fragment() {
         alertDialog(this.requireContext(), getString(R.string.error_load_game), { _, which ->
             if (which == DialogInterface.BUTTON_POSITIVE)
                 navigateToMain()
-        },null)
+        }, null)
     }
 
     private fun getPermission() {
@@ -91,18 +89,29 @@ class SplashFragment : Fragment() {
                     report.let {
 
                         if (report.areAllPermissionsGranted()) {
-                            Toast.makeText(context, getString(R.string.permissions_granted), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                getString(R.string.permissions_granted),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
-                            Toast.makeText(context, getString(R.string.permissions__no_granted), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                getString(R.string.permissions__no_granted),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
                     }
                 }
 
-                override fun onPermissionRationaleShouldBeShown(permissions: List<PermissionRequest?>?, token: PermissionToken?) {
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: List<PermissionRequest?>?,
+                    token: PermissionToken?
+                ) {
                     token?.continuePermissionRequest()
                 }
-            }).withErrorListener{
+            }).withErrorListener {
                 Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
             }.check()
 

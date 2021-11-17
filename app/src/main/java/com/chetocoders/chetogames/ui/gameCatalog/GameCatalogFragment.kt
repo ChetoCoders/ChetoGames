@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -53,15 +52,23 @@ class GameCatalogFragment : Fragment() {
             viewModel.requestListGame()
         }
 
-
-        binding?.bottomLayout?.bottomNavigation?.setOnItemSelectedListener {
-            when (it.itemId) {
-               R.id.addGame -> navController.navigate(R.id.action_gameCatalogFragment_to_addGameFragment)
-                R.id.gameCatalog -> Unit
-                R.id.myLibrary -> Unit
-                else -> Unit
+        binding.bottomLayout.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.gameCatalog -> {
+                    navController.currentDestination
+                }
+                R.id.addGame -> {
+                    navController.navigate(
+                        GameCatalogFragmentDirections.actionGameLibraryFragmentToAddGameFragment()
+                    )
+                }
+                R.id.myLibrary -> {
+                    navController.navigate(
+                        GameCatalogFragmentDirections.actionGameCatalogFragmentToGameLibraryFragment()
+                    )
+                }
+                else -> Log.d(TAG, "Unknown menu item clicked")
             }
-
             true
         }
     }
@@ -71,8 +78,9 @@ class GameCatalogFragment : Fragment() {
         when (model) {
             is UiModel.Content -> adapter.listGameDetail = model.gameDetails
             is UiModel.Navigation -> navController.navigate(
-                R.id.action_gameCatalogFragment_to_gameDetailFragment,
-                bundleOf("GAME_ID" to model.gameId)
+                GameCatalogFragmentDirections.actionGameCatalogFragmentToGameDetailFragment(
+                    model.gameId!!
+                )
             )
             else -> Log.d(TAG, "Loading state")
         }

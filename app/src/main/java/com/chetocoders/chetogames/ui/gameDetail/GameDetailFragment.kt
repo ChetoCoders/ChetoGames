@@ -18,6 +18,7 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.R.color
@@ -52,7 +53,6 @@ class GameDetailFragment : Fragment() {
         private val TAG = GameDetailFragment::class.qualifiedName
         private const val RATING_PADDING = 10
         private const val RATING_WIDTH = 60
-        const val GAME_ID = "GAME_ID"
     }
 
     /** View model */
@@ -60,6 +60,9 @@ class GameDetailFragment : Fragment() {
 
     /** View binding */
     private lateinit var binding: FragmentGameDetailBinding
+
+    /** Get passed arguments */
+    private val args: GameDetailFragmentArgs by navArgs()
 
     /** Inject dispatcher */
     @Inject
@@ -92,8 +95,6 @@ class GameDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val gameId = requireArguments().getLong(GAME_ID, -1)
-
         (activity as AppCompatActivity).apply {
             setSupportActionBar(binding.toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -105,7 +106,7 @@ class GameDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             observeGame()
 
-            viewModel.getGame(gameId)
+            viewModel.getGame(args.gameId)
         }
 
         binding.fab.setOnClickListener {
