@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.gameCatalog.GameCatalogFragment"
-    android:id="@+id/fragment_game_catalog_container_view"
+    android:id="@+id/fragment_game_library_container_view"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -19,10 +19,10 @@
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/catalogMarginStart"
-        android:layout_marginTop="@dimen/catalogMarginTop"
-        android:layout_marginEnd="@dimen/catalogMarginEnd"
-        android:layout_marginBottom="@dimen/catalogMarginBottom"
+        android:layout_marginStart="@dimen/libraryMarginStart"
+        android:layout_marginTop="@dimen/libraryMarginTop"
+        android:layout_marginEnd="@dimen/libraryMarginEnd"
+        android:layout_marginBottom="@dimen/libraryMarginBottom"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

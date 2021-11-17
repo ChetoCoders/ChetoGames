@@ -61,6 +61,12 @@ dependencies {
     Libs.androidKaptLibs.forEach { androidKaptLibs ->
         kapt(androidKaptLibs)
     }
+    Libs.appTestLibs.forEach { appTestLibs ->
+        testImplementation(appTestLibs)
+    }
+    Libs.appTestKaptLibs.forEach { kaptAppTestLibs ->
+        kaptTest(kaptAppTestLibs)
+    }
     Libs.testLibs.forEach { testLibs ->
         testImplementation(testLibs)
     }

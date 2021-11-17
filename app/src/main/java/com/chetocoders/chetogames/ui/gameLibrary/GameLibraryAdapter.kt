@@ -1,4 +1,4 @@
-package com.chetocoders.chetogames.ui.gameCatalog
+package com.chetocoders.chetogames.ui.gameLibrary
 
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +11,8 @@ import com.chetocoders.chetogames.ui.inflate
 import com.chetocoders.chetogames.ui.loadUrl
 import com.chetocoders.domain.GameDetail
 
-class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
-    RecyclerView.Adapter<GameCatalogAdapter.ViewHolder>() {
+class GameLibraryAdapter(private val listener: (GameDetail) -> Unit) :
+    RecyclerView.Adapter<GameLibraryAdapter.ViewHolder>() {
 
     var listGameDetail: List<GameDetail> by basicDiffUtil(
         emptyList(),
@@ -27,9 +27,9 @@ class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
     override fun getItemCount(): Int = listGameDetail.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movie = listGameDetail[position]
-        holder.bind(movie)
-        holder.itemView.setOnClickListener { listener(movie) }
+        val game = listGameDetail[position]
+        holder.bind(game)
+        holder.itemView.setOnClickListener { listener(game) }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -42,7 +42,7 @@ class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
                 gamePlatforms.text = gameDetail.platforms?.joinToString("-") { it.name.toString() }
             }
             if (gameDetail.cover != null) {
-                gameImageView.loadUrl("${UiConstants.HTTPS}:${gameDetail.cover?.url.toString()}")
+                gameImageView.loadUrl(UiConstants.HTTPS + gameDetail.cover?.url.toString())
             } else {
                 gameImageView.setImageResource(R.drawable.no_image_avaible)
             }

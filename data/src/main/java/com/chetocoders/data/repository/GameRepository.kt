@@ -27,6 +27,10 @@ class GameRepository(
         return localDataSource.getGameDetails()
     }
 
+    suspend fun getLocalGames(): List<GameDetail> {
+        return localDataSource.getGameDetails().filter { game -> game.isFavourite }
+    }
+
     suspend fun getGame(gameId: Long): ResultData<GameDetail> {
         return try {
             ResultData.Success(value = localDataSource.getGameDetail(gameId))
