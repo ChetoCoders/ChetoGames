@@ -38,10 +38,6 @@ class RoomDataSource (db: GameDatabase) : LocalDataSource {
         return gameModeDao.getAll().map { it.toDomain() }
     }
 
-    override suspend fun getAgeRatingsByCategory(index: Int): List<AgeRating> {
-        return ageRatingDao.getAgeRatingsByCategory(index).map { it.toDomain() }
-    }
-
     override suspend fun insertGame(game: GameDetail) {
         game.id = gameDao.insert(game.toEntity().game)
         game.ageRatings?.forEach { ageRating ->

@@ -21,7 +21,6 @@ class AddGameViewModel @Inject constructor(
     private val getGenresUseCase: GetGenresUseCase,
     private val getPlatformsUseCase: GetPlatformsUseCase,
     private val getGameModesUseCase: GetGameModesUseCase,
-    private val getAgeRatingsByCategoryUseCase: GetAgeRatingsByCategoryUseCase,
     private val addGameUseCase: AddGameUseCase
 ) :
     ViewModel() {
@@ -112,38 +111,19 @@ class AddGameViewModel @Inject constructor(
         )
     }
 
-
-    private fun onSuccessGetAgeRatings(ageRatings: List<AgeRating>) {
-        viewModelScope.launch(requestDispatcher) {
-            _ageRatings.emit(ageRatings)
-        }
-    }
-
-    private fun onErrorGetAgeRatings(throwable: Throwable) {
-        Log.e(
-            TAG,
-            if (throwable.localizedMessage.isNullOrEmpty()) "Unexpected error" else throwable.localizedMessage
-        )
-    }
-
     fun addGame() {
         viewModelScope.launch(requestDispatcher) {
             _loading.emit(true)
-            if( gameInput.ageRatings!!.isNotEmpty()){
-                gameInput.ageRatings = emptyList()
-            }
             val result = addGameUseCase.invoke(gameInput)
             _game.emit(result)
             _loading.emit(false)
         }
     }
 
-    suspend fun getAgeRatingByCategory(index: Int) {
-        withContext(requestDispatcher) {
-            when (val resultData = getAgeRatingsByCategoryUseCase.invoke(index)) {
-                is ResultData.Success -> onSuccessGetAgeRatings(resultData.value)
-                is ResultData.Failure -> onErrorGetAgeRatings(resultData.throwable)
-            }
+    suspend fun getAgeRatingByCategory(category: AgeRatingCategory) {
+        when (category) {
+            AgeRatingCategory.ESRB -> _ageRatings.emit(Rating.getESRBRatings().toList().map { AgeRating(null, AgeRatingCategory.ESRB, it) })
+            AgeRatingCategory.PEGI -> _ageRatings.emit(Rating.getPEGIRatings().toList().map { AgeRating(null, AgeRatingCategory.PEGI, it) })
         }
     }
 }

@@ -9,7 +9,6 @@ interface LocalDataSource {
     suspend fun getGenres(): List<Genre>
     suspend fun getPlatforms(): List<Platform>
     suspend fun getGameModes(): List<GameMode>
-    suspend fun getAgeRatingsByCategory(index: Int): List<AgeRating>
     suspend fun insertGames(gameList: List<GameDetail>)
     suspend fun insertGame(game: GameDetail)
     suspend fun updateGame(game: GameDetail)

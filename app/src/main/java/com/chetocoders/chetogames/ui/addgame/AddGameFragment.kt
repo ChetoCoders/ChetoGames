@@ -147,6 +147,15 @@ class AddGameFragment : Fragment() {
 
             viewModel.ageRatings.onEach {
                 if (it.isNotEmpty()) {
+
+                    binding.ageRatingsAutoCompleteView.setAdapter(
+                        ArrayAdapter(
+                            this@AddGameFragment.requireContext(),
+                            simple_dropdown_item_1line,
+                            it.map { ageRating ->  ageRating.rating.toString() }
+                        )
+                    )
+
                     binding.ageRatingsAutoCompleteView.bindingAgeRating(
                         GameDetail::ageRatings,
                         viewModel.gameInput,
@@ -170,19 +179,11 @@ class AddGameFragment : Fragment() {
             run {
                 lifecycleScope.launch {
                     binding.ageRatingsAutoCompleteView.isEnabled = true
-                    viewModel.getAgeRatingByCategory(AgeRatingCategory.getValues()[i].index)
+                    viewModel.getAgeRatingByCategory(AgeRatingCategory.getValues()[i])
                 }
             }
         }
 
-        binding.ageRatingsAutoCompleteView.setAdapter(
-            ArrayAdapter(
-                this@AddGameFragment.requireContext(),
-                simple_dropdown_item_1line,
-
-                Rating.getValues().map { it.toString() }
-            )
-        )
 
         binding.toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -220,23 +221,9 @@ class AddGameFragment : Fragment() {
     private fun saveGame() {
 
         with(binding) {
-            titleInput.binding(GameDetail::title, viewModel.gameInput, titleInput.text.toString())
-            descriptionInput.binding(
-                GameDetail::description,
-                viewModel.gameInput,
-                descriptionInput.text.toString()
-            )
-            releasedInput.binding(
-                GameDetail::released,
-                viewModel.gameInput,
-                calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-            )
-            coverInput.binding(GameDetail::cover, viewModel.gameInput, coverInput.text.toString())
-            screenshotsInput.binding(
-                GameDetail::screenshots,
-                viewModel.gameInput,
-                screenshotsInput.text.toString()
-            )
+            viewModel.gameInput.title = titleInput.text.toString()
+            viewModel.gameInput.description = descriptionInput.text.toString()
+            viewModel.gameInput.released = calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
 
             viewModel.addGame()
         }
