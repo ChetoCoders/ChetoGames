@@ -35,9 +35,4 @@ class DataModule {
     @Provides
     fun gameModeRepositoryProvider(localDataSource: LocalDataSource) =
         GameModesRepository(localDataSource)
-
-    @Provides
-    fun ageRatingRepositoryProvider(localDataSource: LocalDataSource) =
-        AgeRatingRepository(localDataSource)
-
 }

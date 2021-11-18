@@ -91,10 +91,6 @@ class FakeLocalDataSource : LocalDataSource {
         return emptyList()
     }
 
-    override suspend fun getAgeRatingsByCategory(index: Int): List<AgeRating> {
-        return emptyList()
-    }
-
     override suspend fun insertGames(gameList: List<GameDetail>) {
         games = gameList
     }
