@@ -16,32 +16,30 @@ import javax.inject.Inject
 @HiltViewModel
 class GameLibraryViewModel @Inject constructor(
     @IoDispatcher private val requestDispatcher: CoroutineDispatcher,
-    private val getLocalGamesUseCaseProvider: GetLocalGamesUseCase
+    private val getLocalGamesUseCase: GetLocalGamesUseCase
 ) : ViewModel() {
 
-    private val _viewState: MutableStateFlow<UiModel> = MutableStateFlow(UiModel.Loading)
-    val viewState: StateFlow<UiModel> get() = _viewState
+    private val _games = MutableStateFlow<List<GameDetail>>(emptyList())
+    val games: StateFlow<List<GameDetail>> get() = _games
 
-    sealed class UiModel {
-        object Loading : UiModel()
-        class Content(val gameDetails: List<GameDetail>) : UiModel()
-        class Navigation(val gameId: Long?) : UiModel()
-    }
+    private val _loading = MutableStateFlow(false)
+    val loading: MutableStateFlow<Boolean> get() = _loading
+
+    private val _navigateToGameDetail = MutableStateFlow(-1L)
+    val navigateToGameDetail: StateFlow<Long> get() = _navigateToGameDetail
+
 
     fun requestListGame() {
         viewModelScope.launch {
-            _viewState.emit(withContext(requestDispatcher) { UiModel.Loading })
-            _viewState.emit(withContext(requestDispatcher) {
-                UiModel.Content(
-                    getLocalGamesUseCaseProvider.invoke()
-                )
-            })
+            _navigateToGameDetail.value = -1L
+            _loading.value = true
+            _games.emit(withContext(requestDispatcher) { getLocalGamesUseCase.invoke() })
+            _loading.value = false
         }
     }
 
     fun onGameClicked(gameDetail: GameDetail) {
-        _viewState.value = UiModel.Loading
-        _viewState.value = UiModel.Navigation(gameDetail.id)
+        _navigateToGameDetail.value = gameDetail.id!!
     }
 
 }

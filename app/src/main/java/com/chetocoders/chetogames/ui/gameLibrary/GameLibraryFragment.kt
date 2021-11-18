@@ -13,7 +13,6 @@ import androidx.navigation.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentGameLibraryBinding
 import com.chetocoders.chetogames.ui.gameCatalog.GameCatalogFragmentDirections
-import com.chetocoders.chetogames.ui.gameLibrary.GameLibraryViewModel.UiModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -49,8 +48,22 @@ class GameLibraryFragment : Fragment() {
         navController = view.findNavController()
 
         lifecycleScope.launchWhenStarted {
-            viewModel.viewState.onEach { updateUi(it) }.launchIn(this)
+            viewModel.loading.onEach {
+                // Setting the status of the progress bar
+                binding.progress.visibility = if (it) View.VISIBLE else View.GONE
+            }.launchIn(this)
             viewModel.requestListGame()
+
+
+            viewModel.games.onEach { adapter.listGameDetail = it }.launchIn(this)
+
+            viewModel.navigateToGameDetail.onEach { gameId ->
+                if (gameId > -1) {
+                    navController.navigate(
+                        GameLibraryFragmentDirections.actionGameLibraryFragmentToGameDetailFragment(gameId)
+                    )
+                }
+            }.launchIn(this)
         }
 
         binding.bottomLayout.bottomNavigation.setOnItemSelectedListener { menuItem ->
@@ -73,19 +86,5 @@ class GameLibraryFragment : Fragment() {
             true
         }
     }
-
-    private fun updateUi(model: UiModel) {
-        binding.progress.visibility = if (model is UiModel.Loading) View.VISIBLE else View.GONE
-        when (model) {
-            is UiModel.Content -> adapter.listGameDetail = model.gameDetails
-            is UiModel.Navigation -> navController.navigate(
-                GameLibraryFragmentDirections.actionGameLibraryFragmentToGameDetailFragment(
-                    model.gameId!!
-                )
-            )
-            else -> Log.d(TAG, "Loading state")
-        }
-    }
-
 }
 

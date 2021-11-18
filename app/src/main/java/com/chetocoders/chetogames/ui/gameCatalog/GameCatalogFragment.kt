@@ -12,7 +12,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentGameCatalogBinding
-import com.chetocoders.chetogames.ui.gameCatalog.GameCatalogViewModel.UiModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -48,8 +47,24 @@ class GameCatalogFragment : Fragment() {
         navController = view.findNavController()
 
         lifecycleScope.launchWhenStarted {
-            viewModel.viewState.onEach { updateUi(it) }.launchIn(this)
+            viewModel.loading.onEach {
+                // Setting the status of the progress bar
+                binding.progress.visibility = if (it) View.VISIBLE else View.GONE
+            }.launchIn(this)
             viewModel.requestListGame()
+
+
+            viewModel.games.onEach { adapter.listGameDetail = it }.launchIn(this)
+
+            viewModel.navigateToGameDetail.onEach { gameId ->
+                if (gameId > -1) {
+                    navController.navigate(
+                        GameCatalogFragmentDirections.actionGameCatalogFragmentToGameDetailFragment(
+                            gameId
+                        )
+                    )
+                }
+            }.launchIn(this)
         }
 
         binding.bottomLayout.bottomNavigation.setOnItemSelectedListener { menuItem ->
@@ -72,19 +87,5 @@ class GameCatalogFragment : Fragment() {
             true
         }
     }
-
-    private fun updateUi(model: UiModel) {
-        binding.progress.visibility = if (model is UiModel.Loading) View.VISIBLE else View.GONE
-        when (model) {
-            is UiModel.Content -> adapter.listGameDetail = model.gameDetails
-            is UiModel.Navigation -> navController.navigate(
-                GameCatalogFragmentDirections.actionGameCatalogFragmentToGameDetailFragment(
-                    model.gameId!!
-                )
-            )
-            else -> Log.d(TAG, "Loading state")
-        }
-    }
-
 }
 

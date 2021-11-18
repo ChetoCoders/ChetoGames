@@ -27,9 +27,9 @@ class GameCatalogAdapter(private val listener: (GameDetail) -> Unit) :
     override fun getItemCount(): Int = listGameDetail.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movie = listGameDetail[position]
-        holder.bind(movie)
-        holder.itemView.setOnClickListener { listener(movie) }
+        val game = listGameDetail[position]
+        holder.bind(game)
+        holder.itemView.setOnClickListener { listener(game) }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
