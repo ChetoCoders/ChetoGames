@@ -204,9 +204,7 @@ class AddGameFragment : Fragment() {
         }
 
         binding.toolBar.setNavigationOnClickListener {
-            navController.navigate(
-                R.id.action_addGameFragment_to_gameCatalogFragment
-            )
+            navController.popBackStack()
         }
 
         super.onViewCreated(view, savedInstanceState)
