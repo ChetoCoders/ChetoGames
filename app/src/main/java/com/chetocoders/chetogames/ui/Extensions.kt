@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chetocoders.chetogames.ChetoGamesApp
 import com.chetocoders.chetogames.R
+import com.chetocoders.domain.AgeRating
 import com.chetocoders.domain.GameCategory
 import com.chetocoders.domain.Rating
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -112,20 +113,7 @@ fun <T : Any, V : Any> AutoCompleteTextView.bindingAgeRating(
 ) {
     this.setOnItemClickListener { _, _, i, _ ->
         run {
-            property.setter.call(reference, listOf(list.find { Rating.getValues()[i] == it }))
-        }
-    }
-}
-
-@JvmName("bindingTextInput")
-fun <T : Any, V : Any> TextInputEditText.binding(
-    property: KMutableProperty1<T, V?>,
-    reference: T?,
-    value: Any
-) {
-    run {
-        if (value.toString().isNotEmpty()) {
-            property.setter.call(reference, value)
+            property.setter.call(reference, listOf(list.find { Rating.getValues()[i] == (it as AgeRating).rating}))
         }
     }
 }

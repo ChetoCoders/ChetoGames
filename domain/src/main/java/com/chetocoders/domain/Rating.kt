@@ -32,6 +32,9 @@ sealed class Rating(val index: Long) {
         }
 
         fun getValues() = arrayOf(THREE, SEVEN, TWELVE, SIXTEEN, EIGHTEEN, RP, EC, E, E10, T, M, D)
+        fun getPEGIRatings() = arrayOf(THREE, SEVEN, TWELVE, SIXTEEN, EIGHTEEN)
+        fun getESRBRatings() = arrayOf(RP, EC, E, E10, T, M, D)
+
     }
 
     override fun toString(): String = this.javaClass.simpleName
