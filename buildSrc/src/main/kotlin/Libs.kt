@@ -56,11 +56,25 @@ object Libs {
     val androidTestLibs = listOf(
         "androidx.test.espresso:espresso-contrib:${Versions.espresso}",
         "androidx.test.ext:junit-ktx:${Versions.junitKtx}",
+        "androidx.test:rules:${Versions.rules}",
+        "androidx.navigation:navigation-testing:${Versions.nav_version}",
+        "com.google.dagger:hilt-android-testing:${Versions.hilt}",
+        // Needed for com.google.truth library issue
+        // https://github.com/android/android-test/issues/861#issuecomment-952431166
+        "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework:${Versions.testingAccessibility}",
+        "com.google.truth:truth:${Versions.truth}"
     )
+
+    val androidTestKaptLibs = listOf(
+        "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+    )
+
+    // Testing code should not be included in the main code.
+    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
+    val debugLibs = listOf("androidx.fragment:fragment-testing:${Versions.fragment}")
 
     val navigationLibs = listOf(
         "androidx.navigation:navigation-fragment-ktx:${Versions.nav_version}",
-        "androidx.navigation:navigation-ui-ktx:${Versions.nav_version}",
-        "androidx.navigation:navigation-testing:${Versions.nav_version}",
+        "androidx.navigation:navigation-ui-ktx:${Versions.nav_version}"
     )
 }

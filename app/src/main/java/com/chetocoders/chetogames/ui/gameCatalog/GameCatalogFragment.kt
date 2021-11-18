@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentGameCatalogBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,23 +29,41 @@ class GameCatalogFragment : Fragment() {
     private val viewModel: GameCatalogViewModel by viewModels()
     private lateinit var adapter: GameCatalogAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameCatalogBinding.inflate(layoutInflater)
-        return binding.root
+        return binding.apply {
+            binding.bottomLayout.bottomNavigation.setOnItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.gameCatalog -> {
+                        findNavController().currentDestination
+                    }
+                    R.id.addGame -> {
+                        val addGameAction =
+                            GameCatalogFragmentDirections.actionGameLibraryFragmentToAddGameFragment()
+                        findNavController().navigate(addGameAction)
+                    }
+                    R.id.myLibrary -> {
+                        val myLibraryAction =
+                            GameCatalogFragmentDirections.actionGameCatalogFragmentToGameLibraryFragment()
+                        findNavController().navigate(
+                            myLibraryAction
+                        )
+                    }
+                    else -> Log.d(TAG, "Unknown menu item clicked")
+                }
+                true
+            }
+        }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = GameCatalogAdapter(viewModel::onGameClicked)
         binding.recyclerview.adapter = adapter
-        val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
 
         lifecycleScope.launchWhenStarted {
             viewModel.loading.onEach {
@@ -53,38 +72,17 @@ class GameCatalogFragment : Fragment() {
             }.launchIn(this)
             viewModel.requestListGame()
 
-
             viewModel.games.onEach { adapter.listGameDetail = it }.launchIn(this)
 
             viewModel.navigateToGameDetail.onEach { gameId ->
                 if (gameId > -1) {
-                    navController.navigate(
+                    val navigateAction =
                         GameCatalogFragmentDirections.actionGameCatalogFragmentToGameDetailFragment(
                             gameId
                         )
-                    )
+                    findNavController().navigate(navigateAction)
                 }
             }.launchIn(this)
-        }
-
-        binding.bottomLayout.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.gameCatalog -> {
-                    navController.currentDestination
-                }
-                R.id.addGame -> {
-                    navController.navigate(
-                        GameCatalogFragmentDirections.actionGameLibraryFragmentToAddGameFragment()
-                    )
-                }
-                R.id.myLibrary -> {
-                    navController.navigate(
-                        GameCatalogFragmentDirections.actionGameCatalogFragmentToGameLibraryFragment()
-                    )
-                }
-                else -> Log.d(TAG, "Unknown menu item clicked")
-            }
-            true
         }
     }
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentAddgameBinding
 import com.chetocoders.chetogames.ui.alertDialog
@@ -50,9 +51,6 @@ class AddGameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.toolBar.inflateMenu(R.menu.add_game)
-        val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
 
         lifecycleScope.launchWhenStarted {
             viewModel.loading.onEach {
@@ -204,7 +202,7 @@ class AddGameFragment : Fragment() {
         }
 
         binding.toolBar.setNavigationOnClickListener {
-            navController.popBackStack()
+            findNavController().popBackStack()
         }
 
         super.onViewCreated(view, savedInstanceState)
