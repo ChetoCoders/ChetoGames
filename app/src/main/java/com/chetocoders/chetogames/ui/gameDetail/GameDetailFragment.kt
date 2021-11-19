@@ -1,5 +1,6 @@
 package com.chetocoders.chetogames.ui.gameDetail
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -18,6 +20,9 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.R.color
@@ -52,7 +57,6 @@ class GameDetailFragment : Fragment() {
         private val TAG = GameDetailFragment::class.qualifiedName
         private const val RATING_PADDING = 10
         private const val RATING_WIDTH = 60
-        const val GAME_ID = "GAME_ID"
     }
 
     /** View model */
@@ -61,10 +65,15 @@ class GameDetailFragment : Fragment() {
     /** View binding */
     private lateinit var binding: FragmentGameDetailBinding
 
+    /** Get passed arguments */
+    private val args: GameDetailFragmentArgs by navArgs()
+
     /** Inject dispatcher */
     @Inject
     @IoDispatcher
     lateinit var requestDispatcher: CoroutineDispatcher
+
+    private lateinit var navController: NavController
 
     /**
      * On create view
@@ -92,8 +101,6 @@ class GameDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val gameId = requireArguments().getLong(GAME_ID, -1)
-
         (activity as AppCompatActivity).apply {
             setSupportActionBar(binding.toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -102,16 +109,23 @@ class GameDetailFragment : Fragment() {
             supportActionBar?.setHomeAsUpIndicator(drawable)
         }
 
+        val navHostFragment =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
         viewLifecycleOwner.lifecycleScope.launch {
             observeGame()
 
-            viewModel.getGame(gameId)
+            viewModel.getGame(args.gameId)
         }
 
         binding.fab.setOnClickListener {
             lifecycleScope.launch(requestDispatcher) {
                 viewModel.updateFavourite()
             }
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            navController.popBackStack()
         }
     }
 
@@ -250,5 +264,19 @@ class GameDetailFragment : Fragment() {
         chip.text = text
         chip.setChipBackgroundColorResource(color.teal_200)
         return chip
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navController.popBackStack()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            callback
+        )
     }
 }

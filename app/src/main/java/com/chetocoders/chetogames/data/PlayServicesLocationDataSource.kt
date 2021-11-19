@@ -9,10 +9,6 @@ import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-
-
-
-
 class PlayServicesLocationDataSource(application: Application) : LocationDataSource {
 
     private val geocoder = Geocoder(application)
@@ -24,9 +20,10 @@ class PlayServicesLocationDataSource(application: Application) : LocationDataSou
         suspendCancellableCoroutine { continuation ->
             fusedLocationClient.lastLocation
                 .addOnCompleteListener {
-                    println(it)
                     if(it.result != null){
                         continuation.resume(it.result.toRegion())
+                    } else {
+                        continuation.resume("UNKNOWN")
                     }
                 }
         }

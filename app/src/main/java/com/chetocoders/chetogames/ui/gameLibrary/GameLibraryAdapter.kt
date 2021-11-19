@@ -42,7 +42,7 @@ class GameLibraryAdapter(private val listener: (GameDetail) -> Unit) :
                 gamePlatforms.text = gameDetail.platforms?.joinToString("-") { it.name.toString() }
             }
             if (gameDetail.cover != null) {
-                gameImageView.loadUrl(UiConstants.HTTPS + gameDetail.cover?.url.toString())
+                gameImageView.loadUrl("${UiConstants.HTTPS}:${gameDetail.cover?.url.toString()}")
             } else {
                 gameImageView.setImageResource(R.drawable.no_image_avaible)
             }

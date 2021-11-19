@@ -12,10 +12,10 @@ class RegionRepository(
 
     suspend fun findLastRegion(): String {
 
-        if (permissionChecker.check(PermissionChecker.Permission.ACCESS_FINE_LOCATION)) {
-            return  locationDataSource.findLastRegion() ?: DEFAULT_REGION
+        return if (permissionChecker.check(PermissionChecker.Permission.ACCESS_FINE_LOCATION)) {
+            locationDataSource.findLastRegion() ?: DEFAULT_REGION
         } else {
-            return  DEFAULT_REGION
+            DEFAULT_REGION
         }
     }
 }

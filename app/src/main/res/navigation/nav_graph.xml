@@ -32,8 +32,35 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_gameCatalogFragment_to_addGameFragment"
+            android:id="@+id/action_gameLibraryFragment_to_addGameFragment"
             app:destination="@id/addGameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_gameCatalogFragment_to_gameLibraryFragment"
+            app:destination="@id/gameLibraryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/addGameFragment"
+        android:name="com.chetocoders.chetogames.ui.addgame.AddGameFragment"
+        android:label="fragment_game_catalog"
+        tools:layout="@layout/fragment_addgame">
+        <action
+            android:id="@+id/action_addGameFragment_to_gameCatalogFragment"
+            app:destination="@id/gameCatalogFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_addGameFragment_to_GameLibraryFragment"
+            app:destination="@id/gameLibraryFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -51,23 +78,29 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/gameDetailFragment"
-        android:name="com.chetocoders.chetogames.ui.gameDetail.GameDetailFragment"
-        android:label="fragment_game_detail"
-        tools:layout="@layout/fragment_game_detail"/>
-    <fragment
-        android:id="@+id/addGameFragment"
-        android:name="com.chetocoders.chetogames.ui.addgame.AddGameFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_addgame">
         <action
-            android:id="@+id/action_addGameFragment_to_gameCatalogFragment"
+            android:id="@+id/action_gameLibraryFragment_to_gameCatalogFragment"
             app:destination="@id/gameCatalogFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_gameLibraryFragment_to_addGameFragment"
+            app:destination="@id/addGameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameDetailFragment"
+        android:name="com.chetocoders.chetogames.ui.gameDetail.GameDetailFragment"
+        android:label="fragment_game_detail"
+        tools:layout="@layout/fragment_game_detail">
+        <argument
+            android:name="gameId"
+            android:defaultValue="-1L"
+            app:argType="long" />
     </fragment>
 </navigation>
