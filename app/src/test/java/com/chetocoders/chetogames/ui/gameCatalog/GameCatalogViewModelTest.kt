@@ -3,10 +3,9 @@ package com.chetocoders.chetogames.ui.gameCatalog
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.chetocoders.chetogames.common.CoroutinesTestRule
 import com.chetocoders.chetogames.common.mockedGameDetail
-import com.chetocoders.chetogames.ui.gameCatalog.GameCatalogViewModel.UiModel
+import com.chetocoders.domain.GameDetail
 import com.chetocoders.usecases.GetGamesUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
@@ -41,20 +40,39 @@ class GameCatalogViewModelTest {
 
     @ExperimentalCoroutinesApi
     @Test
+    fun `check loading catalog viewmodel`() {
+        coroutineTestRule.testDispatcher.runBlockingTest {
+            val gameDetails = listOf(mockedGameDetail.copy(27))
+            whenever(getGamesUseCase.invoke()).thenReturn(gameDetails)
+
+            var loading = true
+            val job = launch {
+                loading =  vm.loading.value
+            }
+
+            vm.requestListGame()
+            Assert.assertTrue(!loading)
+            job.cancel()
+
+        }
+    }
+    @ExperimentalCoroutinesApi
+    @Test
     fun `get games catalog viewmodel`() {
         coroutineTestRule.testDispatcher.runBlockingTest {
             val gameDetails = listOf(mockedGameDetail.copy(27))
             whenever(getGamesUseCase.invoke()).thenReturn(gameDetails)
 
-            val states = arrayListOf<UiModel>()
+            var games = listOf<GameDetail>()
             val job = launch {
-                vm.viewState.toList(states)
+                games =  vm.games.value
             }
 
             vm.requestListGame()
-            Assert.assertTrue(states.size > 0)
+            Assert.assertTrue(games.isEmpty())
             job.cancel()
 
         }
     }
+
 }
