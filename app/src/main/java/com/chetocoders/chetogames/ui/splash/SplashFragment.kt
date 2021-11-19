@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentSplashBinding
 import com.chetocoders.chetogames.ui.alertDialog
@@ -48,7 +49,9 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Check permission location
         getPermission()
-        navController = view.findNavController()
+        val navHostFragment =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
         lifecycleScope.launchWhenStarted {
             viewModel.viewRegion.onEach { binding.textViewRegion.text = it }.launchIn(this)

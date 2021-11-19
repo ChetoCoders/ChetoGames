@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentGameLibraryBinding
-import com.chetocoders.chetogames.ui.gameCatalog.GameCatalogFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -29,7 +27,6 @@ class GameLibraryFragment : Fragment() {
 
     private val viewModel: GameLibraryViewModel by viewModels()
     private lateinit var adapter: GameLibraryAdapter
-    private lateinit var navController: NavController
 
 
     override fun onCreateView(
@@ -45,7 +42,11 @@ class GameLibraryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = GameLibraryAdapter(viewModel::onGameClicked)
         binding.recyclerview.adapter = adapter
-        navController = view.findNavController()
+        val navHostFragment =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        binding.bottomLayout.bottomNavigation.menu.findItem(R.id.myLibrary).isChecked = true
 
         lifecycleScope.launchWhenStarted {
             viewModel.loading.onEach {
@@ -60,7 +61,9 @@ class GameLibraryFragment : Fragment() {
             viewModel.navigateToGameDetail.onEach { gameId ->
                 if (gameId > -1) {
                     navController.navigate(
-                        GameLibraryFragmentDirections.actionGameLibraryFragmentToGameDetailFragment(gameId)
+                        GameLibraryFragmentDirections.actionGameLibraryFragmentToGameDetailFragment(
+                            gameId
+                        )
                     )
                 }
             }.launchIn(this)

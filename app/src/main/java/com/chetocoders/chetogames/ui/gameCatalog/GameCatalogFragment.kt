@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentGameCatalogBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +27,6 @@ class GameCatalogFragment : Fragment() {
 
     private val viewModel: GameCatalogViewModel by viewModels()
     private lateinit var adapter: GameCatalogAdapter
-    private lateinit var navController: NavController
 
 
     override fun onCreateView(
@@ -44,7 +42,9 @@ class GameCatalogFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = GameCatalogAdapter(viewModel::onGameClicked)
         binding.recyclerview.adapter = adapter
-        navController = view.findNavController()
+        val navHostFragment =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         lifecycleScope.launchWhenStarted {
             viewModel.loading.onEach {

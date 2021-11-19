@@ -9,8 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentAddgameBinding
 import com.chetocoders.chetogames.ui.alertDialog
@@ -31,7 +30,6 @@ import java.util.*
 class AddGameFragment : Fragment() {
     private lateinit var binding: FragmentAddgameBinding
     private val viewModel: AddGameViewModel by viewModels()
-    private lateinit var navController: NavController
 
     private val calendar = Calendar.getInstance()
 
@@ -52,7 +50,9 @@ class AddGameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.toolBar.inflateMenu(R.menu.add_game)
-        navController = view.findNavController()
+        val navHostFragment =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         lifecycleScope.launchWhenStarted {
             viewModel.loading.onEach {
@@ -152,7 +152,7 @@ class AddGameFragment : Fragment() {
                         ArrayAdapter(
                             this@AddGameFragment.requireContext(),
                             simple_dropdown_item_1line,
-                            it.map { ageRating ->  ageRating.rating.toString() }
+                            it.map { ageRating -> ageRating.rating.toString() }
                         )
                     )
 
@@ -221,7 +221,8 @@ class AddGameFragment : Fragment() {
         with(binding) {
             viewModel.gameInput.title = titleInput.text.toString()
             viewModel.gameInput.description = descriptionInput.text.toString()
-            viewModel.gameInput.released = calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+            viewModel.gameInput.released =
+                calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
 
             viewModel.addGame()
         }

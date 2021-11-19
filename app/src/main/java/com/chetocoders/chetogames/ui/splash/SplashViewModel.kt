@@ -29,7 +29,7 @@ class SplashViewModel @Inject constructor(
     private val _isLoaded: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     val isLoaded: StateFlow<Boolean?> get() = _isLoaded
 
-    private val _viewRegion: MutableStateFlow<String> = MutableStateFlow(toString())
+    private val _viewRegion: MutableStateFlow<String> = MutableStateFlow("")
     val viewRegion: StateFlow<String> get() = _viewRegion
 
     fun loadGames() {

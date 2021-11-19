@@ -20,7 +20,8 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.chetocoders.chetogames.R
@@ -72,6 +73,8 @@ class GameDetailFragment : Fragment() {
     @IoDispatcher
     lateinit var requestDispatcher: CoroutineDispatcher
 
+    private lateinit var navController: NavController
+
     /**
      * On create view
      *
@@ -106,6 +109,10 @@ class GameDetailFragment : Fragment() {
             supportActionBar?.setHomeAsUpIndicator(drawable)
         }
 
+        val navHostFragment =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
         viewLifecycleOwner.lifecycleScope.launch {
             observeGame()
 
@@ -118,7 +125,7 @@ class GameDetailFragment : Fragment() {
             }
         }
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            navController.popBackStack()
         }
     }
 
@@ -262,10 +269,9 @@ class GameDetailFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true)
-            {
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    findNavController().popBackStack()
+                    navController.popBackStack()
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(
