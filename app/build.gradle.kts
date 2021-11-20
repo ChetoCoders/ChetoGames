@@ -17,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.chetocoders.chetogames.HiltTestRunner"
     }
 
     buildTypes {
@@ -73,5 +73,13 @@ dependencies {
     }
     Libs.androidTestLibs.forEach { androidTestLibs ->
         androidTestImplementation(androidTestLibs)
+    }
+    Libs.androidTestKaptLibs.forEach { kaptAndroidTestLibs ->
+        kaptAndroidTest(kaptAndroidTestLibs)
+    }
+    // Testing code should not be included in the main code.
+    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
+    Libs.debugLibs.forEach { debugLibs ->
+        implementation (debugLibs)
     }
 }

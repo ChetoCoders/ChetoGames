@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.chetocoders.chetogames.R
 import com.chetocoders.chetogames.databinding.FragmentGameLibraryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,16 +36,33 @@ class GameLibraryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameLibraryBinding.inflate(layoutInflater)
-        return binding.root
+        return binding.apply {
+            binding.bottomLayout.bottomNavigation.setOnItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.gameCatalog -> {
+                        findNavController().navigate(
+                            GameLibraryFragmentDirections.actionGameLibraryFragmentToGameCatalogFragment()
+                        )
+                    }
+                    R.id.addGame -> {
+                        findNavController().navigate(
+                            GameLibraryFragmentDirections.actionGameLibraryFragmentToAddGameFragment()
+                        )
+                    }
+                    R.id.myLibrary -> {
+                        findNavController().currentDestination
+                    }
+                    else -> Log.d(TAG, "Unknown menu item clicked")
+                }
+                true
+            }
+        }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = GameLibraryAdapter(viewModel::onGameClicked)
         binding.recyclerview.adapter = adapter
-        val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
 
         binding.bottomLayout.bottomNavigation.menu.findItem(R.id.myLibrary).isChecked = true
 
@@ -60,33 +78,13 @@ class GameLibraryFragment : Fragment() {
 
             viewModel.navigateToGameDetail.onEach { gameId ->
                 if (gameId > -1) {
-                    navController.navigate(
+                    findNavController().navigate(
                         GameLibraryFragmentDirections.actionGameLibraryFragmentToGameDetailFragment(
                             gameId
                         )
                     )
                 }
             }.launchIn(this)
-        }
-
-        binding.bottomLayout.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.gameCatalog -> {
-                    navController.navigate(
-                        GameLibraryFragmentDirections.actionGameLibraryFragmentToGameCatalogFragment()
-                    )
-                }
-                R.id.addGame -> {
-                    navController.navigate(
-                        GameLibraryFragmentDirections.actionGameLibraryFragmentToAddGameFragment()
-                    )
-                }
-                R.id.myLibrary -> {
-                    navController.currentDestination
-                }
-                else -> Log.d(TAG, "Unknown menu item clicked")
-            }
-            true
         }
     }
 }
